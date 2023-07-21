@@ -14,11 +14,11 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>home</servlet-name>
-        <jsp-file>/index.jsp</jsp-file>
+        <jsp-file>/View/home.jsp</jsp-file>
     </servlet>
     <servlet>
         <servlet-name>AdminLoginController</servlet-name>
-        <jsp-file>/admin/loginpage.jsp</jsp-file>
+        <jsp-file>/View/admin/loginpage.jsp</jsp-file>
     </servlet>
     <servlet-mapping>
         <servlet-name>AdminLoginController</servlet-name>
@@ -26,7 +26,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>AdminHomePage</servlet-name>
-        <jsp-file>/admin/homepage.jsp</jsp-file>
+        <jsp-file>/View/admin/homepage.jsp</jsp-file>
     </servlet>
     <servlet-mapping>
         <servlet-name>AdminHomePage</servlet-name>
@@ -34,7 +34,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>AdminArtManage</servlet-name>
-        <jsp-file>/admin/artmanager.jsp</jsp-file>
+        <jsp-file>/View/admin/artmanager.jsp</jsp-file>
     </servlet>
     <servlet-mapping>
         <servlet-name>AdminArtManage</servlet-name>
@@ -42,7 +42,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>AdminAuctionManager</servlet-name>
-        <jsp-file>/admin/auctionmanager.jsp</jsp-file>
+        <jsp-file>/View/admin/auctionmanager.jsp</jsp-file>
     </servlet>
     <servlet-mapping>
         <servlet-name>AdminAuctionManager</servlet-name>
@@ -50,7 +50,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>AdminParticipantAuctionManager</servlet-name>
-        <jsp-file>/admin/auctionparticipant.jsp</jsp-file>
+        <jsp-file>/View/admin/auctionparticipant.jsp</jsp-file>
     </servlet>
     <servlet-mapping>
         <servlet-name>AdminParticipantAuctionManager</servlet-name>
@@ -58,10 +58,18 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>AdminUserManager</servlet-name>
-        <jsp-file>/admin/usermanager.jsp</jsp-file>
+        <jsp-file>/View/admin/usermanager.jsp</jsp-file>
     </servlet>
     <servlet-mapping>
         <servlet-name>AdminUserManager</servlet-name>
         <url-pattern>/admin/usermanager</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>Login</servlet-name>
+        <jsp-file>/View/login.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Login</servlet-name>
+        <url-pattern>/login</url-pattern>
     </servlet-mapping>
 </web-app>

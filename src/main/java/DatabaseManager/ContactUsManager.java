@@ -3,7 +3,7 @@ package DatabaseManager;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import models.ContactusTable;
+import Model.ContactusTable;
 
 public class ContactUsManager {
 

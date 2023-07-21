@@ -7,9 +7,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
-import models.AuctionParticipantTable;
-import models.AuctionTable;
-import models.UserTable;
+import Model.AuctionParticipantTable;
+import Model.AuctionTable;
+import Model.UserTable;
 
 public class AuctionParticipantManager {
 

@@ -9,7 +9,7 @@ package Controller.Admin;
  import javax.servlet.http.HttpServletRequest;
  import javax.servlet.http.HttpServletResponse;
  import javax.servlet.http.HttpSession;
- import models.AdminTable;
+ import Model.AdminTable;
  
  
  @WebServlet(urlPatterns = {"/admin/logincheck"}, name = "AdminLoginPage")

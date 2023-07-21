@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import Enum.AdminErrorLogin;
 import DatabaseManager.AdminManager;
-import models.AdminTable;
+import Model.AdminTable;
 @WebServlet(name = "AdminChangePassword", urlPatterns = {"/admin/changepassword"})
 public class AdminChangePassword
         extends HttpServlet {

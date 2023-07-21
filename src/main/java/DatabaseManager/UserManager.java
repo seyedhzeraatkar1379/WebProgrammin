@@ -7,7 +7,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
-import models.UserTable;
+import Model.UserTable;
+import javax.persistence.EntityTransaction;
+import javax.transaction.Transaction;
 
 public class UserManager {
 
@@ -36,30 +38,29 @@ public class UserManager {
         }
     }
 
-    public static boolean registerUserlv1(UserTable user) {
-        if (!checkUserExist(user.getEmail(), user.getPhoneNumber())) {
+    public static boolean registerUserlv1(String email, String password) {
+
+        if (!checkUserExist(email, password)) {
             EntityManagerFactory entityManagerFactory = null;
             EntityManager entityManager = null;
+            EntityTransaction transaction = null;
             try {
+                UserTable user = new UserTable();
                 entityManagerFactory = Persistence.createEntityManagerFactory("Auction_website");
                 entityManager = entityManagerFactory.createEntityManager();
-                entityManager.getTransaction().begin();
+                transaction = entityManager.getTransaction();
+                transaction.begin();
+                user.setEmail(email);
+                user.setPassword(password);
+                user.setCommitmentLeterPath(ActiveOrDeactive.ACTIVE);
                 user.setUserStatus(ActiveOrDeactive.DEACTIVE);
                 entityManager.persist(user);
-                entityManager.getTransaction().commit();
+                transaction.commit();
+                return true;
             } catch (Exception e) {
-                entityManager.getTransaction().rollback();
+                //transaction.rollback();
                 e.printStackTrace();
-                return false;
-            } finally {
-                if (entityManager != null) {
-                    entityManager.close();
-                }
-                if (entityManagerFactory != null) {
-                    entityManagerFactory.close();
-                }
-            }
-            return true;
+            } 
         }
         return false;
     }

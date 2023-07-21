@@ -5,7 +5,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
-import models.ArtinfoTable;
+import Model.ArtinfoTable;
 
 public class ArtInfoManager {
 

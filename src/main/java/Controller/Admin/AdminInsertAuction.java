@@ -11,8 +11,8 @@ package Controller.Admin;
 /*    */ import javax.servlet.http.HttpServlet;
 /*    */ import javax.servlet.http.HttpServletRequest;
 /*    */ import javax.servlet.http.HttpServletResponse;
-/*    */ import models.AdminTable;
-/*    */ import models.AuctionTable;
+/*    */ import Model.AdminTable;
+/*    */ import Model.AuctionTable;
 /*    */ 
 /*    */ 
 /*    */ 

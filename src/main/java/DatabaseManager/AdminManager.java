@@ -6,7 +6,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
-import models.AdminTable;
+import Model.AdminTable;
 
 public class AdminManager {
 
