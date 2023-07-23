@@ -15,7 +15,36 @@ public class AuctionManager {
 
     private static final String PUN = "Auction_website";
 
+    private static boolean artInAuction(int artId) {
+        EntityManagerFactory entityManagerFactory = null;
+        EntityManager entityManager = null;
+        try {
+            entityManagerFactory = Persistence.createEntityManagerFactory(PUN);
+            entityManager = entityManagerFactory.createEntityManager();
+
+            Query query = entityManager.createQuery("select auc from AuctionTable auc where auc.artId.id = ?1");
+            query.setParameter(1, artId);
+            List<AuctionTable> auction = query.getResultList();
+            if (auction.size() == 0) {
+                return false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (entityManager != null) {
+                entityManager.close();
+            }
+            if (entityManagerFactory != null) {
+                entityManagerFactory.close();
+            }
+        }
+        return true;
+    }
+
     public static boolean insertAuction(AuctionTable auction, int adminid, int artid) {
+        if (artInAuction(artid) == true) {
+            return false;
+        }
         EntityManagerFactory entityManagerFactory = null;
         EntityManager entityManager = null;
         EntityTransaction transaction = null;
@@ -23,6 +52,7 @@ public class AuctionManager {
         try {
             entityManagerFactory = Persistence.createEntityManagerFactory(PUN);
             entityManager = entityManagerFactory.createEntityManager();
+            transaction = entityManager.getTransaction();
             AdminTable admin = (AdminTable) entityManager.find(AdminTable.class, Integer.valueOf(adminid));
             ArtinfoTable art = (ArtinfoTable) entityManager.find(ArtinfoTable.class, Integer.valueOf(artid));
             if (admin != null && art != null) {

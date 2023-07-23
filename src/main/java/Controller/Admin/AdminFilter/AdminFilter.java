@@ -35,6 +35,4 @@ public class AdminFilter
         }
     }
 
-    public void destroy() {
-    }
 }

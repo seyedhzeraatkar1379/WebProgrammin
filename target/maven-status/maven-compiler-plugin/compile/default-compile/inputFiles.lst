@@ -21,6 +21,7 @@ H:\term8\web_prog\back_end\Auction-V1.1.0\WebProgrammin.git\src\main\java\Enum\S
 H:\term8\web_prog\back_end\Auction-V1.1.0\WebProgrammin.git\src\main\java\Model\AuctionParticipantTable.java
 H:\term8\web_prog\back_end\Auction-V1.1.0\WebProgrammin.git\src\main\java\Enum\AdminErrorLogin.java
 H:\term8\web_prog\back_end\Auction-V1.1.0\WebProgrammin.git\src\main\java\Controller\Admin\AdminRemoveUser.java
+H:\term8\web_prog\back_end\Auction-V1.1.0\WebProgrammin.git\src\main\java\Controller\Admin\AdminRemoveParticipant.java
 H:\term8\web_prog\back_end\Auction-V1.1.0\WebProgrammin.git\src\main\java\DatabaseManager\AdminManager.java
 H:\term8\web_prog\back_end\Auction-V1.1.0\WebProgrammin.git\src\main\java\Controller\Admin\AdminLogin.java
 H:\term8\web_prog\back_end\Auction-V1.1.0\WebProgrammin.git\src\main\java\DatabaseManager\UserManager.java

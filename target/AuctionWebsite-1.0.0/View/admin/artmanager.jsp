@@ -49,15 +49,15 @@
                 <td><%=i.getId()%></td>
                 <td><%=i.getName()%></td>
                 <td><%=i.getDescription()%></td>
-                <td><img src="/images/arts/<%=i.getPhotoPath() %>"  height="50" width="50"/><%=i.getPhotoPath()%></td>
+                <td><img src="/images/arts/<%=i.getPhotoPath() %>"  height="50" width="50"/></td>
                 <td><a href="/admin/removeart?artid=<%=i.getId()%>">rm</a></td>
             </tr>
             <%}%>
 
         </table>
-        <%if(request.getParameter("status") != null)
+        <%if(request.getParameter("status") != null){
             if(request.getParameter("status").compareTo("2")==0){%>
         <h1>مزایده مربوط به این اثر را پاک کنید</h1>
-        <%}%>
+        <%}}%>
     </body>
 </html>

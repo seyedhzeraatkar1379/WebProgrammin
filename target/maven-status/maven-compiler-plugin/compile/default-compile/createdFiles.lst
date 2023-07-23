@@ -11,6 +11,7 @@ Controller\Admin\AdminChangePassword.class
 Model\AuctionTable.class
 Controller\UserController\Register.class
 Enum\AdminErrorLogin.class
+Controller\Admin\AdminRemoveParticipant.class
 Controller\UserController\Filter\Login.class
 Model\ContactusTable.class
 DatabaseManager\AuctionManager.class

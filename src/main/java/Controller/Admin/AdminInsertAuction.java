@@ -1,5 +1,6 @@
 package Controller.Admin;
 
+import DatabaseManager.ArtInfoManager;
 import DatabaseManager.AuctionManager;
 import Enum.ActiveOrDeactive;
 import Enum.StatusQuery;
@@ -18,7 +19,7 @@ public class AdminInsertAuction
         extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if (request.getSession().getAttribute("admin") != null && request.getParameter("startDate") != null && request.getParameter("endDate") != null) {
+        if (request.getSession().getAttribute("admin") != null&&request.getParameter("artId") != null && request.getParameter("startDate") != null && request.getParameter("endDate") != null) {
             int artId = Integer.parseInt(request.getParameter("artId"));
             int adminId = ((AdminTable) request.getSession().getAttribute("admin")).getId().intValue();
             String startDate = request.getParameter("startDate").replace('T', ' ');
@@ -28,6 +29,7 @@ public class AdminInsertAuction
             try {
                 auction.setStartDate((new SimpleDateFormat("yyyy-MM-dd HH:mm")).parse(startDate));
                 auction.setEndDate((new SimpleDateFormat("yyyy-MM-dd HH:mm")).parse(endDate));
+                
             } catch (Exception ex) {
                 ex.printStackTrace();
                 response.sendRedirect("/admin/auctionmanager?status=" + StatusQuery.PARAMETER_NOT_VALID.ordinal());
@@ -47,5 +49,7 @@ public class AdminInsertAuction
             response.sendRedirect("/admin/auctionmanager?status=" + StatusQuery.PARAMETER_NOT_VALID.ordinal());
             return;
         }
+        response.sendRedirect("/admin/auctionmanager?status=" + StatusQuery.FAILD.ordinal());
+            return;
     }
 }

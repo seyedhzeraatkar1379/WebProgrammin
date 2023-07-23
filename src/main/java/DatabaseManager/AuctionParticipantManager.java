@@ -60,7 +60,7 @@ public class AuctionParticipantManager {
         try {
             entityManagerFactory = Persistence.createEntityManagerFactory("Auction_website");
             entityManager = entityManagerFactory.createEntityManager();
-
+            transaction = entityManager.getTransaction();
             AuctionParticipantTable auction = (AuctionParticipantTable) entityManager.find(AuctionParticipantTable.class, Integer.valueOf(auctionParticipentId));
             if (auction != null) {
                 transaction.begin();

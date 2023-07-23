@@ -76,7 +76,7 @@
                 <td><%=part.getStatusCollateral() %></td>
                 <td><%=part.getUserId().getId() %></td>
                 <td><%=part.getUserId().getFullname() %></td>
-                <td><a href="/admin/removeparticipant?id="<%=part.getId()%>">rem</a></td>
+                <td><a href="/admin/removeparticipant?id=<%=part.getId()%>">rem</a></td>
             </tr>
             <%}%>
         </table>
@@ -132,7 +132,7 @@
                 <td><%=part.getStatusCollateral() %></td>
                 <td><%=part.getUserId().getId() %></td>
                 <td><%=part.getUserId().getFullname() %></td>
-                <td><a href="/admin/removeparticipant?id="<%=part.getId()%>">rem</a></td>
+                <td><a href="/admin/removeparticipant?id=<%=part.getId()%>">rem</a></td>
 
             </tr>
             <%}%>
