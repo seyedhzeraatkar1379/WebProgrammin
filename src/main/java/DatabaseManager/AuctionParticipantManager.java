@@ -10,6 +10,7 @@ import javax.persistence.Query;
 import Model.AuctionParticipantTable;
 import Model.AuctionTable;
 import Model.UserTable;
+import javax.persistence.EntityTransaction;
 
 public class AuctionParticipantManager {
 
@@ -18,23 +19,28 @@ public class AuctionParticipantManager {
     public static boolean insertAuctionParticipant(AuctionParticipantTable auctionParticipant, int auctionid, int userid) {
         EntityManagerFactory entityManagerFactory = null;
         EntityManager entityManager = null;
+        EntityTransaction transaction = null;
         try {
-            entityManagerFactory = Persistence.createEntityManagerFactory("Auction_website");
+            entityManagerFactory = Persistence.createEntityManagerFactory(PUN);
             entityManager = entityManagerFactory.createEntityManager();
 
-            entityManager.getTransaction().begin();
+            transaction.begin();
             UserTable user = (UserTable) entityManager.find(UserTable.class, Integer.valueOf(userid));
             AuctionTable auction = AuctionManager.getAuctionByIdActive(auctionid);
             if (user != null && auction != null) {
                 auctionParticipant.setAuctionId(auction);
                 auctionParticipant.setUserId(user);
                 entityManager.persist(auctionParticipant);
-                entityManager.getTransaction().commit();
+                transaction.commit();
                 return true;
             }
             return false;
         } catch (Exception e) {
-            entityManager.getTransaction().rollback();
+            if (transaction != null) {
+                if (transaction.isActive()) {
+                    entityManager.getTransaction().rollback();
+                }
+            }
             e.printStackTrace();
             return false;
         } finally {
@@ -50,19 +56,24 @@ public class AuctionParticipantManager {
     public static boolean removeAuctionParticipant(int auctionParticipentId) {
         EntityManagerFactory entityManagerFactory = null;
         EntityManager entityManager = null;
+        EntityTransaction transaction = null;
         try {
             entityManagerFactory = Persistence.createEntityManagerFactory("Auction_website");
             entityManager = entityManagerFactory.createEntityManager();
 
             AuctionParticipantTable auction = (AuctionParticipantTable) entityManager.find(AuctionParticipantTable.class, Integer.valueOf(auctionParticipentId));
             if (auction != null) {
-                entityManager.getTransaction().begin();
+                transaction.begin();
                 entityManager.remove(auction);
-                entityManager.getTransaction().commit();
+                transaction.commit();
             }
             return true;
         } catch (Exception e) {
-            entityManager.getTransaction().rollback();
+            if (transaction != null) {
+                if (transaction.isActive()) {
+                    transaction.rollback();
+                }
+            }
             e.printStackTrace();
             return false;
         } finally {
@@ -79,11 +90,11 @@ public class AuctionParticipantManager {
         EntityManagerFactory entityManagerFactory = null;
         EntityManager entityManager = null;
         try {
-            entityManagerFactory = Persistence.createEntityManagerFactory("Auction_website");
+            entityManagerFactory = Persistence.createEntityManagerFactory(PUN);
             entityManager = entityManagerFactory.createEntityManager();
 
-            Query query = entityManager.createQuery("select aucpart from AuctionParticipantTable aucpart where AUCPART.auctionId = ?1");
-            query.setParameter(1, Integer.valueOf(auctionid));
+            Query query = entityManager.createQuery("select partic from AuctionParticipantTable partic where partic.auctionId.id = ?2 ORDER BY partic.perposedPrice DESC");
+            query.setParameter("2", auctionid);
 
             List<AuctionParticipantTable> list = query.getResultList();
             return list;
@@ -105,7 +116,7 @@ public class AuctionParticipantManager {
         EntityManager entityManager = null;
         try {
             Date currDate = new Date();
-            entityManagerFactory = Persistence.createEntityManagerFactory("Auction_website");
+            entityManagerFactory = Persistence.createEntityManagerFactory(PUN);
             entityManager = entityManagerFactory.createEntityManager();
 
             Query query = entityManager.createQuery("select user from AuctionParticipantTable aucpart inner join AUCPART.auctionId auc inner join AUCPART.userId user where aucpart.auctionId = ?1 and auc.endDate < ?2 ORDER BY AUCPART.perposedPrice DESC");
@@ -115,7 +126,6 @@ public class AuctionParticipantManager {
 
             return (UserTable) list.get(0);
         } catch (Exception e) {
-            entityManager.getTransaction().rollback();
             e.printStackTrace();
             return null;
         } finally {

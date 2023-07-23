@@ -6,6 +6,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 import Model.ArtinfoTable;
+import javax.persistence.EntityTransaction;
 
 public class ArtInfoManager {
 
@@ -14,17 +15,23 @@ public class ArtInfoManager {
     public static boolean insertArt(ArtinfoTable art) {
         EntityManagerFactory entityManagerFactory = null;
         EntityManager entityManager = null;
+        EntityTransaction transaction = null;
         try {
             entityManagerFactory = Persistence.createEntityManagerFactory("Auction_website");
             entityManager = entityManagerFactory.createEntityManager();
-            entityManager.getTransaction().begin();
+            transaction = entityManager.getTransaction();
+            transaction.begin();
 
             entityManager.persist(art);
 
-            entityManager.getTransaction().commit();
+            transaction.commit();
             return true;
         } catch (Exception e) {
-            entityManager.getTransaction().rollback();
+            if (transaction != null) {
+                if (transaction.isActive()) {
+                    transaction.rollback();
+                }
+            }
             e.printStackTrace();
             return false;
         } finally {
@@ -40,10 +47,13 @@ public class ArtInfoManager {
     public static boolean updateArt(ArtinfoTable art) {
         EntityManagerFactory entityManagerFactory = null;
         EntityManager entityManager = null;
+        EntityTransaction transaction = null;
+
         try {
             entityManagerFactory = Persistence.createEntityManagerFactory("Auction_website");
             entityManager = entityManagerFactory.createEntityManager();
-            entityManager.getTransaction().begin();
+            transaction = entityManager.getTransaction();
+            transaction.begin();
 
             ArtinfoTable artfind = (ArtinfoTable) entityManager.find(ArtinfoTable.class, art.getId());
             if (artfind != null) {
@@ -51,12 +61,16 @@ public class ArtInfoManager {
                 artfind.setDescription(art.getDescription());
                 artfind.setPhotoPath(art.getPhotoPath());
                 artfind.setAuctionTableList(art.getAuctionTableList());
-                entityManager.getTransaction().commit();
+                transaction.commit();
                 return true;
             }
             return false;
         } catch (Exception e) {
-            entityManager.getTransaction().rollback();
+            if (transaction != null) {
+                if (transaction.isActive()) {
+                    transaction.rollback();
+                }
+            }
             e.printStackTrace();
             return false;
         } finally {
@@ -72,18 +86,24 @@ public class ArtInfoManager {
     public static boolean removeArtById(int id) {
         EntityManagerFactory entityManagerFactory = null;
         EntityManager entityManager = null;
+        EntityTransaction transaction = null;
         try {
             entityManagerFactory = Persistence.createEntityManagerFactory("Auction_website");
             entityManager = entityManagerFactory.createEntityManager();
-            entityManager.getTransaction().begin();
+            transaction = entityManager.getTransaction();
+            transaction.begin();
 
-            ArtinfoTable artfind = (ArtinfoTable) entityManager.find(ArtinfoTable.class, Integer.valueOf(id));
+            ArtinfoTable artfind = (ArtinfoTable) entityManager.find(ArtinfoTable.class, id);
             entityManager.remove(artfind);
 
-            entityManager.getTransaction().commit();
+            transaction.commit();
             return true;
         } catch (Exception e) {
-            entityManager.getTransaction().rollback();
+            if (transaction != null) {
+                if (transaction.isActive()) {
+                    entityManager.getTransaction().rollback();
+                }
+            }
             e.printStackTrace();
             return false;
         } finally {

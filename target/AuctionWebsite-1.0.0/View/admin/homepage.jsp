@@ -27,6 +27,12 @@
                     <input type="email" placeholder="Email" name="emailAddress" value=""/>
                     <input type="submit"/>
                 </form>-->
+        <h3>Id: <%=admin.getId() %></h3>
+        <h3>Name: <%=admin.getFullName() %></h3>
+        <h3>Username: <%=admin.getUsername() %></h3>
+        <h3>Email: <%=admin.getEmail() %></h3>
+        <hr/>
+        <h1>Chnage Password</h1>
         <form action="/admin/changepassword" method="post">
             <input type="text" placeholder="Current Password..." name="currentPassword"/>
             <input type="password" placeholder="New Password..." name="newPassword"/>

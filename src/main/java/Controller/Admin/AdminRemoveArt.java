@@ -15,11 +15,17 @@ public class AdminRemoveArt
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (request.getParameter("artid") == null) {
-            response.sendRedirect("/admin/artmanager?error=" + StatusQuery.FAILD.ordinal());
+            response.sendRedirect("/admin/artmanager?status=" + StatusQuery.PARAMETER_NOT_VALID.ordinal());
+            return;
         } else {
             int artId = Integer.parseInt(request.getParameter("artid"));
-            ArtInfoManager.removeArtById(artId);
-            response.sendRedirect("/admin/artmanager?error=" + StatusQuery.SUCCESS.ordinal());
+            if (ArtInfoManager.removeArtById(artId)) {
+                response.sendRedirect("/admin/artmanager?status=" + StatusQuery.SUCCESS.ordinal());
+                return;
+            }
         }
+        response.sendRedirect("/admin/artmanager?status=" + StatusQuery.FAILD_DEPENDENCY.ordinal());
+        return;
+
     }
 }

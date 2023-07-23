@@ -9,6 +9,7 @@ import javax.persistence.Query;
 import Model.AdminTable;
 import Model.ArtinfoTable;
 import Model.AuctionTable;
+import javax.persistence.EntityTransaction;
 
 public class AuctionManager {
 
@@ -17,23 +18,30 @@ public class AuctionManager {
     public static boolean insertAuction(AuctionTable auction, int adminid, int artid) {
         EntityManagerFactory entityManagerFactory = null;
         EntityManager entityManager = null;
+        EntityTransaction transaction = null;
+
         try {
-            entityManagerFactory = Persistence.createEntityManagerFactory("Auction_website");
+            entityManagerFactory = Persistence.createEntityManagerFactory(PUN);
             entityManager = entityManagerFactory.createEntityManager();
             AdminTable admin = (AdminTable) entityManager.find(AdminTable.class, Integer.valueOf(adminid));
             ArtinfoTable art = (ArtinfoTable) entityManager.find(ArtinfoTable.class, Integer.valueOf(artid));
             if (admin != null && art != null) {
-                entityManager.getTransaction().begin();
+
+                transaction.begin();
                 auction.setAdminId(admin);
                 auction.setArtId(art);
                 entityManager.persist(auction);
-                entityManager.getTransaction().commit();
+                transaction.commit();
                 return true;
             }
 
             return false;
         } catch (Exception e) {
-            entityManager.getTransaction().rollback();
+            if (transaction != null) {
+                if (transaction.isActive()) {
+                    entityManager.getTransaction().rollback();
+                }
+            }
             e.printStackTrace();
             return false;
         } finally {
@@ -49,10 +57,13 @@ public class AuctionManager {
     public static boolean updateAuction(AuctionTable auction) {
         EntityManagerFactory entityManagerFactory = null;
         EntityManager entityManager = null;
+        EntityTransaction transaction = null;
+
         try {
-            entityManagerFactory = Persistence.createEntityManagerFactory("Auction_website");
+            entityManagerFactory = Persistence.createEntityManagerFactory(PUN);
             entityManager = entityManagerFactory.createEntityManager();
-            entityManager.getTransaction().begin();
+            transaction = entityManager.getTransaction();
+            transaction.begin();
 
             AuctionTable auctionup = (AuctionTable) entityManager.find(AuctionTable.class, auction.getId());
             if (auctionup != null) {
@@ -61,14 +72,20 @@ public class AuctionManager {
                 auctionup.setStartDate(auction.getStartDate());
                 auctionup.setEndDate(auction.getEndDate());
                 auctionup.setStatus(auction.getStatus());
-                entityManager.getTransaction().commit();
+                transaction.commit();
             } else {
-                entityManager.getTransaction().rollback();
+                if (transaction.isActive()) {
+                    transaction.rollback();
+                }
                 return false;
             }
             return true;
         } catch (Exception e) {
-            entityManager.getTransaction().rollback();
+            if (transaction != null) {
+                if (transaction.isActive()) {
+                    transaction.rollback();
+                }
+            }
             e.printStackTrace();
             return false;
         } finally {
@@ -84,17 +101,23 @@ public class AuctionManager {
     public static boolean removeAuction(int id) {
         EntityManagerFactory entityManagerFactory = null;
         EntityManager entityManager = null;
+        EntityTransaction transaction = null;
         try {
-            entityManagerFactory = Persistence.createEntityManagerFactory("Auction_website");
+            entityManagerFactory = Persistence.createEntityManagerFactory(PUN);
             entityManager = entityManagerFactory.createEntityManager();
-            entityManager.getTransaction().begin();
+            transaction = entityManager.getTransaction();
+            transaction.begin();
 
             AuctionTable auctionrm = (AuctionTable) entityManager.find(AuctionTable.class, Integer.valueOf(id));
             entityManager.remove(auctionrm);
-            entityManager.getTransaction().commit();
+            transaction.commit();
             return true;
         } catch (Exception e) {
-            entityManager.getTransaction().rollback();
+            if (transaction != null) {
+                if (transaction.isActive()) {
+                    entityManager.getTransaction().rollback();
+                }
+            }
             e.printStackTrace();
             return false;
         } finally {
@@ -110,18 +133,17 @@ public class AuctionManager {
     public static AuctionTable getAuctionById(int id) {
         EntityManagerFactory entityManagerFactory = null;
         EntityManager entityManager = null;
+
         try {
-            entityManagerFactory = Persistence.createEntityManagerFactory("Auction_website");
+            entityManagerFactory = Persistence.createEntityManagerFactory(PUN);
             entityManager = entityManagerFactory.createEntityManager();
-            entityManager.getTransaction().begin();
 
             AuctionTable auction = (AuctionTable) entityManager.find(AuctionTable.class, Integer.valueOf(id));
-
             return auction;
         } catch (Exception e) {
-            entityManager.getTransaction().rollback();
             e.printStackTrace();
             return null;
+
         } finally {
             if (entityManager != null) {
                 entityManager.close();
@@ -136,7 +158,7 @@ public class AuctionManager {
         EntityManagerFactory entityManagerFactory = null;
         EntityManager entityManager = null;
         try {
-            entityManagerFactory = Persistence.createEntityManagerFactory("Auction_website");
+            entityManagerFactory = Persistence.createEntityManagerFactory(PUN);
             entityManager = entityManagerFactory.createEntityManager();
             Query query = entityManager.createQuery("select auction from AuctionTable auction");
             List<AuctionTable> list = query.getResultList();
@@ -159,9 +181,8 @@ public class AuctionManager {
         EntityManager entityManager = null;
         try {
             Date currDate = new Date();
-            entityManagerFactory = Persistence.createEntityManagerFactory("Auction_website");
+            entityManagerFactory = Persistence.createEntityManagerFactory(PUN);
             entityManager = entityManagerFactory.createEntityManager();
-            entityManager.getTransaction().begin();
             Query query = entityManager.createQuery("select auc from AuctionTable auc where auc.id = ?1 and auc.startDate <= ?2 and auc.endDate >= ?3");
             query.setParameter(1, Integer.valueOf(id));
             query.setParameter(2, currDate);
@@ -169,7 +190,6 @@ public class AuctionManager {
             List<AuctionTable> list = query.getResultList();
             return (AuctionTable) list.get(0);
         } catch (Exception e) {
-            entityManager.getTransaction().rollback();
             e.printStackTrace();
             return null;
         } finally {
@@ -188,7 +208,7 @@ public class AuctionManager {
         try {
             Date currDate = new Date();
 
-            entityManagerFactory = Persistence.createEntityManagerFactory("Auction_website");
+            entityManagerFactory = Persistence.createEntityManagerFactory(PUN);
             entityManager = entityManagerFactory.createEntityManager();
             Query query = entityManager.createQuery("select auc from AuctionTable auc where auc.startDate <= ?1 and auc.endDate >= ?2");
             query.setParameter(1, currDate);
@@ -214,7 +234,7 @@ public class AuctionManager {
         try {
             Date currDate = new Date();
 
-            entityManagerFactory = Persistence.createEntityManagerFactory("Auction_website");
+            entityManagerFactory = Persistence.createEntityManagerFactory(PUN);
             entityManager = entityManagerFactory.createEntityManager();
             Query query = entityManager.createQuery("select auc from AuctionTable auc where auc.startDate > ?1");
             query.setParameter(1, currDate);
@@ -239,7 +259,7 @@ public class AuctionManager {
         try {
             Date currDate = new Date();
 
-            entityManagerFactory = Persistence.createEntityManagerFactory("Auction_website");
+            entityManagerFactory = Persistence.createEntityManagerFactory(PUN);
             entityManager = entityManagerFactory.createEntityManager();
             Query query = entityManager.createQuery("select auc from AuctionTable auc where auc.endDate < ?1");
             query.setParameter(1, currDate);

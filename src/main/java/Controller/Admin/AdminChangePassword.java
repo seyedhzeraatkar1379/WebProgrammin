@@ -27,11 +27,14 @@ public class AdminChangePassword
                 AdminManager.updatePasswordAdminByUsername(admin.getUsername(), newPassword);
                 request.getSession().invalidate();
                 response.sendRedirect("/admin/login");
+                return;
             } else {
                 response.sendRedirect("/admin/home?error=" + AdminErrorLogin.PasswordIncorrect.ordinal());
+                return;
             }
         } else {
             response.sendRedirect("/admin/home?error=" + AdminErrorLogin.PasswordNotMatch.ordinal());
+            return;
         }
     }
 }

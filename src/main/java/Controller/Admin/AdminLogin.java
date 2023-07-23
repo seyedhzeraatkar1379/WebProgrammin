@@ -27,9 +27,11 @@ package Controller.Admin;
        session.setAttribute("admin", admin);
        session.setMaxInactiveInterval(1200);
        response.sendRedirect("/admin/home");
+       return;
      } else {
        
        response.sendRedirect("/admin/login?error=" + AdminErrorLogin.UserAndPassNotFound.ordinal());
+       return;
      } 
    }
  }

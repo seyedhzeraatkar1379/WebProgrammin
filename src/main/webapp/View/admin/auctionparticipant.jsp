@@ -43,7 +43,6 @@
                 <th>start date</th>
                 <th>end date</th>
                 <th>status</th>
-                <th>remove</th>
             </tr>
             <tr>
                 <td><%=auction.getId()%></td>
@@ -51,7 +50,6 @@
                 <td><%=dateFormat.format(auction.getStartDate())%></td>
                 <td><%=dateFormat.format(auction.getEndDate())%></td>
                 <td><%=auction.getStatus()%></td>          
-                <td><a href="/admin/removeauction">remove icon</a></td>
 
             </tr>
         </table>
@@ -66,6 +64,7 @@
                 <th>status</th>
                 <th>user id</th>
                 <th>user name</th>
+                <th>remove</th>
             </tr>
             <%
                     for (AuctionParticipantTable part : participants) {
@@ -77,6 +76,7 @@
                 <td><%=part.getStatusCollateral() %></td>
                 <td><%=part.getUserId().getId() %></td>
                 <td><%=part.getUserId().getFullname() %></td>
+                <td><a href="/admin/removeparticipant?id="<%=part.getId()%>">rem</a></td>
             </tr>
             <%}%>
         </table>
@@ -100,7 +100,6 @@
                 <th>start date</th>
                 <th>end date</th>
                 <th>status</th>
-                <th>remove</th>
             </tr>
             <tr>
                 <td><%=auction.getId()%></td>
@@ -108,8 +107,6 @@
                 <td><%=dateFormat.format(auction.getStartDate())%></td>
                 <td><%=dateFormat.format(auction.getEndDate())%></td>
                 <td><%=auction.getStatus()%></td>          
-                <td><a href="/admin/removeauction">remove icon</a></td>
-
             </tr>
         </table>
         <%
@@ -123,6 +120,7 @@
                 <th>status</th>
                 <th>user id</th>
                 <th>user name</th>
+                <th>remove</th>
             </tr>
             <%
                     for (AuctionParticipantTable part : participants) {
@@ -134,6 +132,8 @@
                 <td><%=part.getStatusCollateral() %></td>
                 <td><%=part.getUserId().getId() %></td>
                 <td><%=part.getUserId().getFullname() %></td>
+                <td><a href="/admin/removeparticipant?id="<%=part.getId()%>">rem</a></td>
+
             </tr>
             <%}%>
         </table>
@@ -145,60 +145,7 @@
 
         <h1>تمام شده</h1>
 
-        <%
-            List<AuctionTable> auctions2 = AuctionManager.getAuctionActiveDone() ;
-            if (auctions2 != null) {
-                for (AuctionTable auction : auctions2) {
-        %>
-        <table>
-            <tr>
-                <th>auction id</th>
-                <th>Art name</th>
-                <th>start date</th>
-                <th>end date</th>
-                <th>status</th>
-                <th>remove</th>
-            </tr>
-            <tr>
-                <td><%=auction.getId()%></td>
-                <td><%=auction.getArtId().getName()%></td>
-                <td><%=dateFormat.format(auction.getStartDate())%></td>
-                <td><%=dateFormat.format(auction.getEndDate())%></td>
-                <td><%=auction.getStatus()%></td>          
-                <td><a href="/admin/removeauction">remove icon</a></td>
-
-            </tr>
-        </table>
-        <%
-                    List<AuctionParticipantTable> participants = AuctionParticipantManager.getAuctionAllParticipantById(auction.getId());
-                    if (participants != null) {%>
-        <table>
-            <tr>
-                <th>participant id</th>
-                <th>purposed price</th>
-                <th>purposed date time</th>
-                <th>status</th>
-                <th>user id</th>
-                <th>user name</th>
-            </tr>
-            <%
-                    for (AuctionParticipantTable part : participants) {
-            %>
-            <tr>
-                <td><%=part.getId()%></td>
-                <td><%=part.getPerposedPrice() %></td>
-                <td><%=part.getPerposedDatetime() %></td>
-                <td><%=part.getStatusCollateral() %></td>
-                <td><%=part.getUserId().getId() %></td>
-                <td><%=part.getUserId().getFullname() %></td>
-            </tr>
-            <%}%>
-        </table>
-        <%
-                    }%>
-        <%
-                }
-            }%>
+        <%@include file="auctionwinner.jspf" %>
 
     </body>
 </html>

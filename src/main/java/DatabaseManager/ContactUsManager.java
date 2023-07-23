@@ -4,6 +4,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import Model.ContactusTable;
+import javax.persistence.EntityTransaction;
 
 public class ContactUsManager {
 
@@ -12,24 +13,29 @@ public class ContactUsManager {
     public static boolean insertOrUpdate(ContactusTable contactusTable) {
         EntityManagerFactory entityManagerFactory = null;
         EntityManager entityManager = null;
+        EntityTransaction transaction = null;
         try {
             entityManagerFactory = Persistence.createEntityManagerFactory("Auction_website");
             entityManager = entityManagerFactory.createEntityManager();
             ContactusTable conus = (ContactusTable) entityManager.find(ContactusTable.class, Integer.valueOf(1));
-            entityManager.getTransaction().begin();
+            transaction.begin();
             if (conus != null) {
 
                 conus.setEmail(contactusTable.getEmail());
                 conus.setAddress(contactusTable.getAddress());
                 conus.setTellPhone(contactusTable.getTellPhone());
-                entityManager.getTransaction().commit();
+                transaction.commit();
             } else {
                 entityManager.persist(contactusTable);
-                entityManager.getTransaction().commit();
+                transaction.commit();
             }
             return true;
         } catch (Exception e) {
-            e.printStackTrace();
+            if (transaction != null) {
+                if (transaction.isActive()) {
+                    e.printStackTrace();
+                }
+            }
             return false;
         } finally {
             if (entityManager != null) {

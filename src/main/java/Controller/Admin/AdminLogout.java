@@ -35,6 +35,7 @@ public class AdminLogout extends HttpServlet {
             throws ServletException, IOException {
         request.getSession().invalidate();
         response.sendRedirect("/admin/login");
+        return;
     }
 
 

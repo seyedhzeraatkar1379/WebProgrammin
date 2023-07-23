@@ -58,9 +58,13 @@ public class UserManager {
                 transaction.commit();
                 return true;
             } catch (Exception e) {
-                //transaction.rollback();
+                if (transaction != null) {
+                    if (transaction.isActive()) {
+                        transaction.rollback();
+                    }
+                }
                 e.printStackTrace();
-            } 
+            }
         }
         return false;
     }
@@ -69,19 +73,25 @@ public class UserManager {
         if (checkUserExist(user.getEmail(), user.getPhoneNumber())) {
             EntityManagerFactory entityManagerFactory = null;
             EntityManager entityManager = null;
+            EntityTransaction transaction = null;
             try {
                 entityManagerFactory = Persistence.createEntityManagerFactory("Auction_website");
                 entityManager = entityManagerFactory.createEntityManager();
-                entityManager.getTransaction().begin();
+                transaction = entityManager.getTransaction();
+                transaction.begin();
                 UserTable updUsr = (UserTable) entityManager.find(UserTable.class, user.getId());
                 updUsr.setAddress(user.getAddress());
                 updUsr.setCommitmentLeterPath(user.getCommitmentLeterPath());
                 updUsr.setFullname(user.getFullname());
                 updUsr.setIdCardCode(user.getIdCardCode());
-                entityManager.getTransaction().commit();
+                transaction.commit();
                 return true;
             } catch (Exception e) {
-                entityManager.getTransaction().rollback();
+                if (transaction != null) {
+                    if (transaction.isActive()) {
+                        transaction.rollback();
+                    }
+                }
                 e.printStackTrace();
                 return false;
             } finally {
@@ -103,10 +113,12 @@ public class UserManager {
     public static boolean changeUserStatus(int userId) {
         EntityManagerFactory entityManagerFactory = null;
         EntityManager entityManager = null;
+        EntityTransaction transaction = null;
         try {
             entityManagerFactory = Persistence.createEntityManagerFactory("Auction_website");
             entityManager = entityManagerFactory.createEntityManager();
-            entityManager.getTransaction().begin();
+            transaction = entityManager.getTransaction();
+            transaction.begin();
             UserTable user = (UserTable) entityManager.find(UserTable.class, Integer.valueOf(userId));
             System.out.println(ActiveOrDeactive.ACTIVE.ordinal());
             System.out.println(ActiveOrDeactive.DEACTIVE.ordinal());
@@ -115,11 +127,15 @@ public class UserManager {
             } else {
                 user.setUserStatus(ActiveOrDeactive.ACTIVE);
             }
-            entityManager.getTransaction().commit();
+            transaction.commit();
             return true;
         } catch (Exception e) {
+            if (transaction != null) {
+                if (transaction.isActive()) {
+                    transaction.rollback();
+                }
+            }
             e.printStackTrace();
-            entityManager.getTransaction().rollback();
         } finally {
             if (entityManager != null) {
                 entityManager.close();
@@ -269,16 +285,22 @@ public class UserManager {
     public static boolean removeUser(int id) {
         EntityManagerFactory entityManagerFactory = null;
         EntityManager entityManager = null;
+        EntityTransaction transaction = null;
         try {
             entityManagerFactory = Persistence.createEntityManagerFactory("Auction_website");
             entityManager = entityManagerFactory.createEntityManager();
-            entityManager.getTransaction().begin();
-            UserTable user = (UserTable) entityManager.find(UserTable.class, Integer.valueOf(id));
+            transaction = entityManager.getTransaction();
+            transaction.begin();
+            UserTable user = (UserTable) entityManager.find(UserTable.class, id);
             entityManager.remove(user);
-            entityManager.getTransaction().commit();
+            transaction.commit();
             return true;
         } catch (Exception e) {
-            entityManager.getTransaction().rollback();
+            if (transaction != null) {
+                if (transaction.isActive()) {
+                    transaction.rollback();
+                }
+            }
             return false;
         } finally {
             if (entityManager != null) {

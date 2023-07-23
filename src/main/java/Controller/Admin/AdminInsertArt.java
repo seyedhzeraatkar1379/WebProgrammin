@@ -48,10 +48,10 @@ public class AdminInsertArt
                                         if (!path.exists()) {
                                             path.mkdir();
                                         }
-                                        File uploadedFile = new File(path + "/" + newArt.getName() + "-" + Integer.toString(newArt.getId())+"." + FilenameUtils.getExtension(items.get(2).getName()));
+                                        pathartsImg =  newArt.getName() + "-" + Integer.toString(newArt.getId())+"." + FilenameUtils.getExtension(items.get(2).getName());
+                                        File uploadedFile = new File(path +"/"+ pathartsImg );
                                         if (!uploadedFile.exists()) {
                                             items.get(2).write(uploadedFile);
-                                            pathartsImg = uploadedFile.getPath();
                                             newArt.setPhotoPath(pathartsImg);
                                             ArtInfoManager.updateArt(newArt);
                                             response.sendRedirect("/admin/artmanager?statusinsert=" + StatusQuery.SUCCESS.ordinal());
