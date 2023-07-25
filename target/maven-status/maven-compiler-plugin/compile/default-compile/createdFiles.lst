@@ -26,6 +26,7 @@ Model\AuctionParticipantTable.class
 Controller\Admin\AdminChangeUserStatus.class
 Enum\ActiveOrDeactive.class
 Model\UserTable.class
+Controller\Admin\AdminChangeAuctionStatus.class
 Controller\Admin\AdminRemoveUser.class
 DatabaseManager\AdminManager.class
 Model\ArtinfoTable.class

@@ -1,5 +1,6 @@
 package DatabaseManager;
 
+import Enum.ActiveOrDeactive;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -306,5 +307,41 @@ public class AuctionManager {
                 entityManagerFactory.close();
             }
         }
+    }
+    
+    public static boolean changeAuctionStatus(int auctionId)
+    {
+        EntityManagerFactory entityManagerFactory = null;
+        EntityManager entityManager = null;
+        EntityTransaction transaction = null;
+        try {
+            entityManagerFactory = Persistence.createEntityManagerFactory(PUN);
+            entityManager = entityManagerFactory.createEntityManager();
+            transaction = entityManager.getTransaction();
+            transaction.begin();
+            AuctionTable auction = (AuctionTable) entityManager.find(AuctionTable.class,auctionId);
+            if (auction.getStatus() == ActiveOrDeactive.ACTIVE) {
+                auction.setStatus(ActiveOrDeactive.DEACTIVE);
+            } else {
+                auction.setStatus(ActiveOrDeactive.ACTIVE);
+            }
+            transaction.commit();
+            return true;
+        } catch (Exception e) {
+            if (transaction != null) {
+                if (transaction.isActive()) {
+                    transaction.rollback();
+                }
+            }
+            e.printStackTrace();
+        } finally {
+            if (entityManager != null) {
+                entityManager.close();
+            }
+            if (entityManagerFactory != null) {
+                entityManagerFactory.close();
+            }
+        }
+        return false;
     }
 }

@@ -34,26 +34,28 @@
             <input type="submit"/>
         </form>
         <%--  Update Auction when click in select record set Auction Id this Form input --%>
-        <h1>آپدیت مزایده</h1>
-        <form action="/admin/updateauction" method="post">
-            <input type="number" placeholder="Auction Id" name="auctionId" disabled/>
-            <input type="number" name="adminId" value="<%=((AdminTable) request.getSession().getAttribute("admin")).getId()%>" disabled/>
-            <input type="text" placeholder="Art Id" name="artId" />
-            <input type="datetime-local" placeholder="Start Date" name="startDate" />
-            <input type="datetime-local" placeholder="End Date" name="endDate" />
-            <input type="checkbox" placeholder="Status" name="status" />
-            <input type="submit" />
-        </form>
+        <!--        <h1>آپدیت مزایده</h1>-->
+        <!--        <form action="/admin/updateauction" method="post">
+                    <input type="number" placeholder="Auction Id" name="auctionId" disabled/>
+                    <input type="number" name="adminId" value="<%=((AdminTable) request.getSession().getAttribute("admin")).getId()%>" disabled/>
+                    <input type="text" placeholder="Art Id" name="artId" />
+                    <input type="datetime-local" placeholder="Start Date" name="startDate" />
+                    <input type="datetime-local" placeholder="End Date" name="endDate" />
+                    <input type="checkbox" placeholder="Status" name="status" />
+                    <input type="submit" />
+                </form>-->
 
         <%--show all auction--%>
         <table>
             <tr>
                 <th>id</th>
+                <th>Art Id</th>
                 <th>Art name</th>
                 <th>start date</th>
                 <th>end date</th>
                 <th>status</th>
                 <th>remove</th>
+                <th>Act/DAct</th>
             </tr>
             <%
                 List<AuctionTable> allAuction = AuctionManager.getAllAuction();
@@ -61,11 +63,13 @@
             %>
             <tr>
                 <td><%=i1.getId()%></td>
+                <td><%=i1.getArtId().getId()%></td>
                 <td><%=i1.getArtId().getName()%></td>
                 <td><%=dateformat.format(i1.getStartDate())%></td>
                 <td><%=dateformat.format(i1.getEndDate())%></td>
                 <td><%=i1.getStatus()%></td>
                 <td><a href="/admin/removeauction?auctionid=<%=i1.getId()%>">rm</a></td>
+                <td><a href="/admin/changestatusauction?auctionid=<%=i1.getId()%>">change</a></td>
             </tr>
             <%}%>
         </table>
@@ -73,11 +77,14 @@
         <table>
             <tr>
                 <th>id</th>
+                <th>Art Id</th>
                 <th>Art name</th>
                 <th>start date</th>
                 <th>end date</th>
                 <th>status</th>
                 <th>remove</th>
+                <th>Act/DAct</th>
+
             </tr>
             <%
                 List<AuctionTable> toDoAuction = AuctionManager.getAuctionActiveToDo();
@@ -85,11 +92,13 @@
             %>
             <tr>
                 <td><%=i2.getId()%></td>
+                <td><%=i2.getArtId().getId()%></td>
                 <td><%=i2.getArtId().getName()%></td>
                 <td><%=dateformat.format(i2.getStartDate())%></td>
                 <td><%=dateformat.format(i2.getEndDate())%></td>
                 <td><%=i2.getStatus()%></td>
                 <td><a href="/admin/removeauction?auctionid=<%=i2.getId()%>">rm</a></td>
+                <td><a href="/admin/changestatusauction?auctionid=<%=i2.getId()%>">change</a></td>
             </tr>
             <%}%>
         </table>
@@ -98,11 +107,13 @@
         <table>
             <tr>
                 <th>id</th>
+                <th>Art id</th>
                 <th>Art name</th>
                 <th>start date</th>
                 <th>end date</th>
                 <th>status</th>
                 <th>remove</th>
+                <th>Act/DAct</th>
             </tr>
             <%
                 List<AuctionTable> doingAuction = AuctionManager.getAuctionActiveDoing();
@@ -110,11 +121,13 @@
             %>
             <tr>
                 <td><%=i3.getId()%></td>
+                <td><%=i3.getArtId().getId()%></td>
                 <td><%=i3.getArtId().getName()%></td>
                 <td><%=dateformat.format(i3.getStartDate())%></td>
                 <td><%=dateformat.format(i3.getEndDate())%></td>
                 <td><%=i3.getStatus()%></td>
                 <td><a href="/admin/removeauction?auctionid=<%=i3.getId()%>">rm</a></td>
+                <td><a href="/admin/changestatusauction?auctionid=<%=i3.getId()%>">change</a></td>
             </tr>
             <%}%>
         </table>
@@ -122,11 +135,14 @@
         <table>
             <tr>
                 <th>id</th>
+                <th>Art id</th>
                 <th>Art name</th>
                 <th>start date</th>
                 <th>end date</th>
                 <th>status</th>
                 <th>remove</th>
+                <th>Act/DAct</th>
+
             </tr>
             <%
                 List<AuctionTable> doneAuction = AuctionManager.getAuctionActiveDone();
@@ -134,11 +150,13 @@
             %>
             <tr>
                 <td><%=i4.getId()%></td>
+                <td><%=i4.getArtId().getId()%></td>
                 <td><%=i4.getArtId().getName()%></td>
                 <td><%=dateformat.format(i4.getStartDate())%></td>
                 <td><%=dateformat.format(i4.getEndDate())%></td>
                 <td><%=i4.getStatus()%></td>
                 <td><a href="/admin/removeauction?auctionid=<%=i4.getId()%>">rm</a></td>
+                <td><a href="/admin/changestatusauction?auctionid=<%=i4.getId()%>">change</a></td>
             </tr>
             <%}%>
         </table>

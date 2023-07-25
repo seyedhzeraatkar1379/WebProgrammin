@@ -19,7 +19,7 @@ public class UserManager {
         EntityManagerFactory entityManagerFactory = null;
         EntityManager entityManager = null;
         try {
-            entityManagerFactory = Persistence.createEntityManagerFactory("Auction_website");
+            entityManagerFactory = Persistence.createEntityManagerFactory(PUN);
             entityManager = entityManagerFactory.createEntityManager();
             Query query = entityManager.createQuery("select usr from UserTable usr where usr.email = ?1 or usr.phoneNumber = ?2");
             query.setParameter(1, email);
@@ -46,7 +46,7 @@ public class UserManager {
             EntityTransaction transaction = null;
             try {
                 UserTable user = new UserTable();
-                entityManagerFactory = Persistence.createEntityManagerFactory("Auction_website");
+                entityManagerFactory = Persistence.createEntityManagerFactory(PUN);
                 entityManager = entityManagerFactory.createEntityManager();
                 transaction = entityManager.getTransaction();
                 transaction.begin();
@@ -75,7 +75,7 @@ public class UserManager {
             EntityManager entityManager = null;
             EntityTransaction transaction = null;
             try {
-                entityManagerFactory = Persistence.createEntityManagerFactory("Auction_website");
+                entityManagerFactory = Persistence.createEntityManagerFactory(PUN);
                 entityManager = entityManagerFactory.createEntityManager();
                 transaction = entityManager.getTransaction();
                 transaction.begin();
@@ -115,7 +115,7 @@ public class UserManager {
         EntityManager entityManager = null;
         EntityTransaction transaction = null;
         try {
-            entityManagerFactory = Persistence.createEntityManagerFactory("Auction_website");
+            entityManagerFactory = Persistence.createEntityManagerFactory(PUN);
             entityManager = entityManagerFactory.createEntityManager();
             transaction = entityManager.getTransaction();
             transaction.begin();
@@ -151,7 +151,7 @@ public class UserManager {
         EntityManagerFactory entityManagerFactory = null;
         EntityManager entityManager = null;
         try {
-            entityManagerFactory = Persistence.createEntityManagerFactory("Auction_website");
+            entityManagerFactory = Persistence.createEntityManagerFactory(PUN);
             entityManager = entityManagerFactory.createEntityManager();
             Query query = entityManager.createQuery("select usr from UserTable usr");
             List<UserTable> userList = query.getResultList();
@@ -176,7 +176,7 @@ public class UserManager {
         EntityManagerFactory entityManagerFactory = null;
         EntityManager entityManager = null;
         try {
-            entityManagerFactory = Persistence.createEntityManagerFactory("Auction_website");
+            entityManagerFactory = Persistence.createEntityManagerFactory(PUN);
             entityManager = entityManagerFactory.createEntityManager();
             Query query = entityManager.createQuery("select usr from UserTable usr WHERE usr.username=?1");
             query.setParameter(1, username);
@@ -198,7 +198,7 @@ public class UserManager {
         EntityManagerFactory entityManagerFactory = null;
         EntityManager entityManager = null;
         try {
-            entityManagerFactory = Persistence.createEntityManagerFactory("Auction_website");
+            entityManagerFactory = Persistence.createEntityManagerFactory(PUN);
             entityManager = entityManagerFactory.createEntityManager();
             Query query = entityManager.createQuery("select usr from UserTable usr WHERE usr.id=?1");
             query.setParameter(1, Integer.valueOf(id));
@@ -220,7 +220,7 @@ public class UserManager {
         EntityManagerFactory entityManagerFactory = null;
         EntityManager entityManager = null;
         try {
-            entityManagerFactory = Persistence.createEntityManagerFactory("Auction_website");
+            entityManagerFactory = Persistence.createEntityManagerFactory(PUN);
             entityManager = entityManagerFactory.createEntityManager();
             Query query = entityManager.createQuery("select usr from UserTable usr WHERE usr.idCardCode=?1");
             query.setParameter(1, idCardCode);
@@ -242,7 +242,7 @@ public class UserManager {
         EntityManagerFactory entityManagerFactory = null;
         EntityManager entityManager = null;
         try {
-            entityManagerFactory = Persistence.createEntityManagerFactory("Auction_website");
+            entityManagerFactory = Persistence.createEntityManagerFactory(PUN);
             entityManager = entityManagerFactory.createEntityManager();
             Query query = entityManager.createQuery("select usr from UserTable usr WHERE usr.phoneNumber=?1");
             query.setParameter(1, phone);
@@ -264,7 +264,7 @@ public class UserManager {
         EntityManagerFactory entityManagerFactory = null;
         EntityManager entityManager = null;
         try {
-            entityManagerFactory = Persistence.createEntityManagerFactory("Auction_website");
+            entityManagerFactory = Persistence.createEntityManagerFactory(PUN);
             entityManager = entityManagerFactory.createEntityManager();
             Query query = entityManager.createQuery("select usr from UserTable usr where usr.email = ?1 and usr.password=?2");
             query.setParameter(1, email);
@@ -287,7 +287,7 @@ public class UserManager {
         EntityManager entityManager = null;
         EntityTransaction transaction = null;
         try {
-            entityManagerFactory = Persistence.createEntityManagerFactory("Auction_website");
+            entityManagerFactory = Persistence.createEntityManagerFactory(PUN);
             entityManager = entityManagerFactory.createEntityManager();
             transaction = entityManager.getTransaction();
             transaction.begin();
