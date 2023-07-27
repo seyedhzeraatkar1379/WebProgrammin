@@ -172,6 +172,34 @@ public class UserManager {
         return null;
     }
 
+        public static List<UserTable> getAllUser(String contain) {
+        EntityManagerFactory entityManagerFactory = null;
+        EntityManager entityManager = null;
+        try {
+            entityManagerFactory = Persistence.createEntityManagerFactory(PUN);
+            entityManager = entityManagerFactory.createEntityManager();
+            Query query = entityManager.createQuery("select usr from UserTable usr where usr.email LIKE ?1 or usr.fullname like ?2");
+            query.setParameter(1, "%"+contain+"%");
+            query.setParameter(2, "%"+contain+"%");
+            List<UserTable> userList = query.getResultList();
+            if (!userList.isEmpty()) {
+                return userList;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            if (entityManager != null) {
+                entityManager.close();
+            }
+            if (entityManagerFactory != null) {
+                entityManagerFactory.close();
+            }
+        }
+        return null;
+    }
+
+    
     public static UserTable getUserInfoByUsername(String username) {
         EntityManagerFactory entityManagerFactory = null;
         EntityManager entityManager = null;

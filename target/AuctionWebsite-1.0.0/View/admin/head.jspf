@@ -1,7 +1,0 @@
-<%-- any content can be specified here e.g.: --%>
-<%@ page pageEncoding="UTF-8" %>
-<link href="/View/admin/assets/plugins/bootstrap/bootstrap.css" rel="stylesheet" type="text/css" />
-        <link href="/View/admin/assets/font-awesome/css/font-awesome.css" rel="stylesheet"type="text/css" />
-        <link href="/View/admin/assets/plugins/pace/pace-theme-big-counter.css" rel="stylesheet" type="text/css"/>
-        <link href="/View/admin/assets/css/style.css" rel="stylesheet" type="text/css"/>
-        <link href="/View/admin/assets/css/main-style.css" rel="stylesheet" type="text/css"/>

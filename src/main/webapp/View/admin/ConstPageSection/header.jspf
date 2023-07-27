@@ -1,4 +1,5 @@
 <%-- any content can be specified here e.g.: --%>
+<%@page import="Model.AdminTable"%>
 <%@ page pageEncoding="UTF-8" %>
 
         
@@ -61,7 +62,7 @@
         <!-- end navbar top -->
 
         <!-- navbar side -->
-        <nav class="navbar-default navbar-static-side" role="navigation" style="text-align: right;">
+        <nav class="navbar-default navbar-static-side" role="navigation"  style="text-align: right;">
             <!-- sidebar-collapse -->
             <div class="sidebar-collapse">
                 <!-- side-menu -->
@@ -73,7 +74,7 @@
                                 <img src="/View/admin/assets/img/user.jpg" alt="">
                             </div>
                             <div class="user-info">
-                                <div>نام <strong>(نام کاربری)</strong></div>
+                                <div><%=((AdminTable)request.getSession().getAttribute("admin")).getUsername()%> <strong>(<%=((AdminTable)request.getSession().getAttribute("admin")).getFullName()%>)</strong></div>
                                 <div class="user-text-online">
                                     <span class="user-circle-online btn btn-success btn-circle "></span>&nbsp;Online
                                 </div>
@@ -94,20 +95,20 @@
                         <!--end search section-->
                     </li>
                     <li class="">
-                        <a href="#">پنل کاربری<i class="fa fa-dashboard fa-fw"></i></a>
+                        <a href="/admin/home">پنل کاربری<i class="fa fa-dashboard fa-fw"></i></a>
                     </li>
                     <li>
-                        <a href="#">مدیریت آثار<i class="fa fa-circle fa-fw"></i></a>
+                        <a href="/admin/artmanager">مدیریت آثار<i class="fa fa-circle fa-fw"></i></a>
                         <!-- second-level-items -->
                     </li>
                     <li>
                         <a href="#"><span class="fa arrow"></span>مزایده&nbsp;</a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a href="#">مزایده ها</a>
+                                <a href="/admin/auctionmanager">مزایده ها</a>
                             </li>
                             <li>
-                                <a href="#">شرکت کننده ها</a>
+                                <a href="/admin/auctionparticipantmanager">شرکت کننده ها</a>
                             </li>
                             <li>
                                 <a href="#">برندگان</a>
@@ -115,10 +116,10 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="#">مدیریت کاربران<i class="fa fa-circle fa-fw"></i></a>
+                        <a href="/admin/usermanager">مدیریت کاربران<i class="fa fa-circle fa-fw"></i></a>
                     </li>
                     <li>
-                        <a href="#">خروج<i class="fa fa-circle fa-fw"></i></a>
+                        <a href="/admin/logout">خروج<i class="fa fa-sign-out fa-fw"></i></a>
                     </li>
                 </ul>
                 <!-- end side-menu -->

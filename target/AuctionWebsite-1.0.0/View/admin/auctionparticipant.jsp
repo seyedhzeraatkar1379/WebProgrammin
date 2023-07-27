@@ -145,7 +145,7 @@
 
         <h1>تمام شده</h1>
 
-        <%@include file="auctionwinner.jspf" %>
+        
 
     </body>
 </html>
