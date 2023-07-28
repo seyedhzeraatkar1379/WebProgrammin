@@ -9,8 +9,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import Enum.AdminErrorLogin;
 import DatabaseManager.AdminManager;
+import Enum.StatusQuery;
 import Model.AdminTable;
 @WebServlet(name = "AdminChangePassword", urlPatterns = {"/admin/changepassword"})
 public class AdminChangePassword
@@ -26,14 +26,14 @@ public class AdminChangePassword
             if (admin.getPassword().compareTo(currentPassword) == 0) {
                 AdminManager.updatePasswordAdminByUsername(admin.getUsername(), newPassword);
                 request.getSession().invalidate();
-                response.sendRedirect("/admin/login");
+                response.sendRedirect("/admin/login?status="+StatusQuery.SUCCESS.ordinal());
                 return;
             } else {
-                response.sendRedirect("/admin/home?error=" + AdminErrorLogin.PasswordIncorrect.ordinal());
+                response.sendRedirect("/admin/home?status=" + StatusQuery.PASSWORD_INCORRECT.ordinal());
                 return;
             }
         } else {
-            response.sendRedirect("/admin/home?error=" + AdminErrorLogin.PasswordNotMatch.ordinal());
+            response.sendRedirect("/admin/home?status=" + StatusQuery.NEW_PASSWORD_RETRY_INCORRECT.ordinal());
             return;
         }
     }

@@ -172,15 +172,37 @@ public class UserManager {
         return null;
     }
 
-        public static List<UserTable> getAllUser(String contain) {
+    public static long getNumberOfAllUser() {
+        EntityManagerFactory entityManagerFactory = null;
+        EntityManager entityManager = null;
+        try {
+            entityManagerFactory = Persistence.createEntityManagerFactory(PUN);
+            entityManager = entityManagerFactory.createEntityManager();
+            Query query = entityManager.createQuery("select count(usr) from UserTable usr");
+            long numberOfRecord = (long)query.getSingleResult(); 
+            return numberOfRecord;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        } finally {
+            if (entityManager != null) {
+                entityManager.close();
+            }
+            if (entityManagerFactory != null) {
+                entityManagerFactory.close();
+            }
+        }
+    }
+
+    public static List<UserTable> getAllUser(String contain) {
         EntityManagerFactory entityManagerFactory = null;
         EntityManager entityManager = null;
         try {
             entityManagerFactory = Persistence.createEntityManagerFactory(PUN);
             entityManager = entityManagerFactory.createEntityManager();
             Query query = entityManager.createQuery("select usr from UserTable usr where usr.email LIKE ?1 or usr.fullname like ?2");
-            query.setParameter(1, "%"+contain+"%");
-            query.setParameter(2, "%"+contain+"%");
+            query.setParameter(1, "%" + contain + "%");
+            query.setParameter(2, "%" + contain + "%");
             List<UserTable> userList = query.getResultList();
             if (!userList.isEmpty()) {
                 return userList;
@@ -199,7 +221,6 @@ public class UserManager {
         return null;
     }
 
-    
     public static UserTable getUserInfoByUsername(String username) {
         EntityManagerFactory entityManagerFactory = null;
         EntityManager entityManager = null;

@@ -110,6 +110,30 @@ public class AuctionParticipantManager {
             }
         }
     }
+    
+    public static long getNumberOfParticipant() {
+        EntityManagerFactory entityManagerFactory = null;
+        EntityManager entityManager = null;
+        try {
+            entityManagerFactory = Persistence.createEntityManagerFactory(PUN);
+            entityManager = entityManagerFactory.createEntityManager();
+
+            Query query = entityManager.createQuery("select count(partic) from AuctionParticipantTable partic GROUP BY partic.userId");
+
+            long numberOfParticipants = (long)query.getSingleResult();
+            return numberOfParticipants;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        } finally {
+            if (entityManager != null) {
+                entityManager.close();
+            }
+            if (entityManagerFactory != null) {
+                entityManagerFactory.close();
+            }
+        }
+    }
 
     public static UserTable getWinnerAuction(int auctionId) {
         EntityManagerFactory entityManagerFactory = null;

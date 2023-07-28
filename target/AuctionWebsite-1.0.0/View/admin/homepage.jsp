@@ -4,7 +4,12 @@
     Author     : seyedhossein
 --%>
 
-<%@page import="Enum.AdminErrorLogin"%>
+<%@page import="DatabaseManager.AuctionParticipantManager"%>
+<%@page import="DatabaseManager.UserManager"%>
+<%@page import="DatabaseManager.AuctionManager"%>
+<%@page import="Enum.StatusQuery"%>
+<%@page import="Enum.ActiveOrDeactive"%>
+<%@page import="DatabaseManager.AdminManager"%>
 <%@page import="Model.AdminTable"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -27,6 +32,9 @@
         <link href="/View/admin/assets/plugins/morris/morris-0.4.3.min.css" rel="stylesheet" />
     </head>
     <body>
+        <%
+            AdminTable adminInfo = ((AdminTable) request.getSession().getAttribute("admin"));
+        %>
         <!--  wrapper -->
         <div id="wrapper">
             <%@include file="ConstPageSection/header.jspf" %>
@@ -46,23 +54,23 @@
                     <!--quick info section -->
                     <div class="col-lg-3">
                         <div class="alert alert-danger text-center">
-                            <i class="fa fa-calendar fa-3x"></i>&nbsp;<b id="current_date"></b>امروز
+                            <i class="fa fa-calendar fa-3x"></i>&nbsp;<b id="current_date"></b>تاریخ امروز
 
                         </div>
                     </div>
                     <div class="col-lg-3">
                         <div class="alert alert-success text-center">
-                            <i class="fa fa-spinner fa-3x"></i>&nbsp;<b>50</b>&nbsp;مزایده های در حال انجام 
+                            <i class="fa fa-spinner fa-3x"></i>&nbsp;<b><%=(int) AuctionManager.getNumberOFAuctionActiveDoing()%></b>&nbsp; در حال انجام
                         </div>
                     </div>
                     <div class="col-lg-3">
                         <div class="alert alert-info text-center">
-                            <i class="fa fa-check-circle fa-3x"></i>&nbsp;<b>50</b>&nbsp; مزایده های به پایان رسیده
+                            <i class="fa fa-check-circle fa-3x"></i>&nbsp;<b><%=(int) AuctionManager.getNumberOFAuctionActiveDone()%></b>&nbsp; انجام شده
                         </div>
                     </div>
                     <div class="col-lg-3">
                         <div class="alert alert-warning text-center">
-                            <i class="fa fa-exclamation-circle	  fa-3x"></i>&nbsp;<b>50</b>&nbsp;مزایده های شروع نشده
+                            <i class="fa fa-exclamation-circle	  fa-3x"></i>&nbsp;<b><%=(int) AuctionManager.getNumberOFAuctionActiveToDo()%></b>&nbsp; شروع نشده
                         </div>
                     </div>
                     <!--end quick info section -->
@@ -70,27 +78,71 @@
 
                 <div class="row">
                     <div class="col-lg-8">
-                        <!-- end page-wrapper -->
-                        <form action="/admin/changepassword" method="post">
-                            <input type="text" placeholder="Current Password..." name="currentPassword"/>
-                            <input type="password" placeholder="New Password..." name="newPassword"/>
-                            <input type="password" placeholder="Repeat new Password..." name="newPasswordRepeat"/>
-                            <input type="submit"/>
-                        </form>
-                        <%if (request.getParameter("error") != null) {%>
-                        <%if (request.getParameter("error").compareTo(Integer.toString(AdminErrorLogin.PasswordIncorrect.ordinal())) == 0) {%>
-                        <h3>Current Password invalid</h3>
-                        <%} else if (request.getParameter("error").compareTo(Integer.toString(AdminErrorLogin.PasswordNotMatch.ordinal())) == 0) {%>
-                        <h3>Password does not Match</h3>
-                        <%}
-                            }%>
-                    </div>
+                        <div class="row">
 
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6" dir="rtl" style="text-align: center;">
+                                <div class="col-lg-12">
+                                    <fieldset disabled="disabled" >
+                                        <div class="form-group">
+                                            <label for="disabledSelect">id</label>
+                                            <input class="form-control" id="disabledInput" type="number" placeholder="<%=adminInfo.getId()%>" disabled>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="disabledSelect">نام</label>
+                                            <input class="form-control" id="disabledInput" type="text" placeholder="<%=adminInfo.getFullName()%>" disabled>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="disabledSelect">نام کاربری</label>
+                                            <input class="form-control" id="disabledInput" type="text" placeholder="<%=adminInfo.getUsername()%>" disabled>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="disabledSelect">ایمیل</label>
+                                            <input class="form-control" id="disabledInput" type="text" placeholder="<%=adminInfo.getEmail()%>" disabled>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                            </div>
+                            <div class="col-lg-6" dir="rtl" style="text-align: center;">
+                                <form action="/admin/changepassword" method="post" >
+                                    <div class="form-group col-lg-12">
+                                        <label>رمز عبور فعلی</label>
+                                        <input class="form-control" type="text" placeholder="رمز عبور فعلی" name="currentPassword">
+                                        <!--                                        <p class="help-block">رمز عبور فعلی</p>-->
+                                    </div>
+                                    <div class="form-group col-lg-12">
+                                        <label>رمز عبور جدید</label>
+                                        <input class="form-control" type="pasword" placeholder="رمز عبور جدید"  name="newPassword">
+                                        <!--                                        <p class="help-block">رمز عبور جدید</p>-->
+                                    </div>
+                                    <div class="form-group col-lg-12">
+                                        <label>تکرار رمز عبور</label>
+                                        <input class="form-control" type="pasword" placeholder="تکرار رمز عبور"  name="newPasswordRepeat">
+                                        <!--                                        <p class="help-block">تکرار رمز عبور</p>-->
+                                    </div>
+                                    <div class="form-group col-lg-12">
+                                        <label></label>
+                                        <button type="submit" class="btn btn-info form-control">تایید</button>
+                                    </div>
+                                </form>
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <%if (request.getParameter("status") != null) {%>
+                            <div class="alert alert-danger alert-dismissable">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                <%=(StatusQuery.values()[Integer.parseInt(request.getParameter("status"))])%>
+                            </div>
+                            <%}%>
+                        </div>
+                    </div>
                     <div class="col-lg-4">
                         <div class="panel panel-primary text-center no-boder">
                             <div class="panel-body yellow">
                                 <i class="fa fa-user fa-3x"></i>
-                                <h3>20,741 </h3>
+                                <h3><%=(int) UserManager.getNumberOfAllUser()%></h3>
                             </div>
                             <div class="panel-footer">
                                 <span class="panel-eyecandy-title">کاربران
@@ -100,14 +152,13 @@
                         <div class="panel panel-primary text-center no-boder">
                             <div class="panel-body red">
                                 <i class="fa fa-users fa-3x"></i>
-                                <h3>20,741 </h3>
+                                <h3><%=(int)AuctionParticipantManager.getNumberOfParticipant()%> </h3>
                             </div>
                             <div class="panel-footer">
                                 <span class="panel-eyecandy-title">شرکت کنندگان
                                 </span>
                             </div>
                         </div>
-                        
                     </div>
 
                 </div>
@@ -121,7 +172,7 @@
         <!-- end wrapper -->
         <script>
             var currDate = new Date();
-            document.getElementById("current_date").innerHTML = currDate.getFullYear() + "/"+currDate.getMonth() +"/"+ currDate.getDate();
+            document.getElementById("current_date").innerHTML = currDate.getFullYear() + "/" + currDate.getMonth() + "/" + currDate.getDate();
         </script>
         <!-- Core Scripts - Include with every page -->
         <script src="/View/admin/assets/plugins/jquery-1.10.2.js"></script>

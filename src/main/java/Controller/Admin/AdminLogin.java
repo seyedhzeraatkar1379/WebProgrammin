@@ -1,7 +1,7 @@
 package Controller.Admin;
 
  import DatabaseManager.AdminManager;
- import Enum.AdminErrorLogin;
+import Enum.StatusQuery;
  import java.io.IOException;
  import javax.servlet.ServletException;
  import javax.servlet.annotation.WebServlet;
@@ -30,7 +30,7 @@ package Controller.Admin;
        return;
      } else {
        
-       response.sendRedirect("/admin/login?error=" + AdminErrorLogin.UserAndPassNotFound.ordinal());
+       response.sendRedirect("/admin/login?status=" + StatusQuery.USERNAME_PASSORD_INCORRECT.ordinal());
        return;
      } 
    }

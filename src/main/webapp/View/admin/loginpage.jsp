@@ -4,7 +4,7 @@
     Author     : seyedhossein
 --%>
 
-<%@page import="Enum.AdminErrorLogin"%>
+<%@page import="Enum.StatusQuery"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -54,8 +54,8 @@
                                     <input type="submit" class="btn btn-lg btn-success btn-block" value="Login">
                                 </fieldset>
                             </form>
-                            <%if (request.getParameter("error") != null)
-                                if (request.getParameter("error").compareTo(Integer.toString(AdminErrorLogin.UserAndPassNotFound.ordinal())) == 0) {%>
+                            <%if (request.getParameter("status") != null)
+                                if (request.getParameter("status").compareTo(Integer.toString(StatusQuery.USERNAME_PASSORD_INCORRECT.ordinal())) == 0) {%>
                             <h3>username/Password Incorrect</h3>
                             <%}%>
                         </div>

@@ -258,7 +258,7 @@ public class AuctionManager {
             }
         }
     }
-
+    
     public static List<AuctionTable> getAuctionActiveToDo() {
         EntityManagerFactory entityManagerFactory = null;
         EntityManager entityManager = null;
@@ -309,6 +309,83 @@ public class AuctionManager {
         }
     }
     
+    public static long getNumberOFAuctionActiveToDo() {
+        EntityManagerFactory entityManagerFactory = null;
+        EntityManager entityManager = null;
+        try {
+            Date currDate = new Date();
+
+            entityManagerFactory = Persistence.createEntityManagerFactory(PUN);
+            entityManager = entityManagerFactory.createEntityManager();
+            Query query = entityManager.createQuery("select COUNT(auc) from AuctionTable auc where auc.startDate > ?1");
+            query.setParameter(1, currDate);
+            long numberOfRecord = (long)query.getSingleResult();
+            return numberOfRecord;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        } finally {
+            if (entityManager != null) {
+                entityManager.close();
+            }
+            if (entityManagerFactory != null) {
+                entityManagerFactory.close();
+            }
+        }
+    }
+
+    public static long getNumberOFAuctionActiveDone() {
+        EntityManagerFactory entityManagerFactory = null;
+        EntityManager entityManager = null;
+        try {
+            Date currDate = new Date();
+
+            entityManagerFactory = Persistence.createEntityManagerFactory(PUN);
+            entityManager = entityManagerFactory.createEntityManager();
+            Query query = entityManager.createQuery("select count(auc) from AuctionTable auc where auc.endDate < ?1");
+            query.setParameter(1, currDate);
+            long numberOfRecord = (long)query.getSingleResult();
+            return numberOfRecord;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        } finally {
+            if (entityManager != null) {
+                entityManager.close();
+            }
+            if (entityManagerFactory != null) {
+                entityManagerFactory.close();
+            }
+        }
+    }
+     
+    public static long getNumberOFAuctionActiveDoing() {
+        EntityManagerFactory entityManagerFactory = null;
+        EntityManager entityManager = null;
+        try {
+            Date currDate = new Date();
+
+            entityManagerFactory = Persistence.createEntityManagerFactory(PUN);
+            entityManager = entityManagerFactory.createEntityManager();
+            Query query = entityManager.createQuery("select COUNT(auc) from AuctionTable auc where auc.startDate <= ?1 and auc.endDate >= ?2");
+            query.setParameter(1, currDate);
+            query.setParameter(2, currDate);
+            long numberOfRecord = (long)query.getSingleResult();
+            return numberOfRecord;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        } finally {
+            if (entityManager != null) {
+                entityManager.close();
+            }
+            if (entityManagerFactory != null) {
+                entityManagerFactory.close();
+            }
+        }
+    }
+
+     
     public static boolean changeAuctionStatus(int auctionId)
     {
         EntityManagerFactory entityManagerFactory = null;
