@@ -73,8 +73,8 @@
                                 <div class="col-sm-6">
                                     <div id="dataTables-example_filter" class="dataTables_filter">
                                         <label>
-                                            Search:<input onkeydown="if (event.keyCode == 13)
-                                                        searchEvent()" type="search" class="form-control input-sm" aria-controls="dataTables-example" id="searchinput">
+                                            Search:
+                                            <input onkeydown="if (event.keyCode == 13)searchEvent()" type="search" class="form-control input-sm" aria-controls="dataTables-example" id="searchinput">
                                         </label>
                                         <%if (filterUser != "") {%>
                                         <a href="/admin/usermanager?PG=1&NR=<%=numberOfRecord%>">نمایش تمام کاربران</a>
@@ -116,8 +116,7 @@
                                 </thead>
                                 <tbody>
                                     <%
-                                        System.out.println(numberOfRecord);
-                                        System.out.println(tablePage);
+                                        
                                         List<UserTable> users;
                                         if (request.getParameter("search") != null) {
                                             users = UserManager.getAllUser(filterUser);
@@ -127,6 +126,7 @@
                                         if (users != null)
                                             if (users.size() > numberOfRecord * (tablePage - 1)) {
                                                 for (int i = (numberOfRecord * (tablePage - 1)), j = 1; j <= numberOfRecord && i < users.size(); i++, j++) {
+                                                
                                     %>
                                     <tr class="gradeA odd">
                                         <td class="sorting_1"><%=users.get(i).getId()%></td>
@@ -141,9 +141,9 @@
                                         <td ><i class="fa fa-close"></i></td>
                                             <%}
                                                 if (users.get(i).getUserStatus() == ActiveOrDeactive.ACTIVE) {%>
-                                        <td><a href="/admin/changeuserstatus?PG=<%=tablePage%>&NR=<%=numberOfRecord%>&userid=<%=users.get(i).getId()%>&status=<%=ActiveOrDeactive.DEACTIVE.ordinal()%>"><i class="fa fa-thumbs-o-down"></i></a></td>
+                                        <td><a href="/admin/changeuserstatus?PG=<%=tablePage%>&NR=<%=numberOfRecord%>&userid=<%=users.get(i).getId()%>&status=<%=ActiveOrDeactive.DEACTIVE.ordinal()%><%=filterString!=""?filterString:""%>"><i class="fa fa-thumbs-o-down"></i></a></td>
                                                 <%} else {%>
-                                        <td><a href="/admin/changeuserstatus?PG=<%=tablePage%>&NR=<%=numberOfRecord%>&userid=<%=users.get(i).getId()%>&status=<%=ActiveOrDeactive.ACTIVE.ordinal()%>"><i class="fa fa-thumbs-o-up"></i></a></td>
+                                        <td><a href="/admin/changeuserstatus?PG=<%=tablePage%>&NR=<%=numberOfRecord%>&userid=<%=users.get(i).getId()%>&status=<%=ActiveOrDeactive.ACTIVE.ordinal()%><%=filterString!=""?filterString:""%>"><i class="fa fa-thumbs-o-up"></i></a></td>
                                                 <%}%>  
                                         <td><a href="/admin/removeuser?userid=<%=users.get(i).getId()%>"><i class="fa fa-trash-o"></i></a></td>
                                     </tr>
@@ -162,7 +162,7 @@
                                             <li class="paginate_button previous" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_previous"><a href="/admin/usermanager?PG=<%=tablePage - 1%>&NR=<%=numberOfRecord%><%=filterString%>">Previous</a></li>
                                                 <%}
                                                     if (users != null) {
-                                                        for (int i = 0; i < users.size() / numberOfRecord + 1; i++) {
+                                                        for (int i = 0; i < Math.ceil((double)users.size() / numberOfRecord); i++) {
                                                             if (tablePage == i + 1) {
                                                 %>
                                             <li class="paginate_button active" aria-controls="dataTables-example" tabindex="0"><a href="#"><%=i + 1%></a></li>
@@ -171,7 +171,7 @@
                                                 <%}
                                                     }
 
-                                                    if (tablePage < users.size() / numberOfRecord + 1) {
+                                                    if (tablePage < Math.ceil((double)users.size() / numberOfRecord)) {
                                                 %>
                                             <li class="paginate_button next" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_next">
                                                 <a href="/admin/usermanager?PG=<%=tablePage + 1%>&NR=<%=numberOfRecord%><%=filterString%>">Next</a>

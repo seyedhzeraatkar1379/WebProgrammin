@@ -39,8 +39,8 @@ public class AdminInsertArt
                     if (items.get(1).getFieldName().compareTo("descriptionart") == 0) {
                         if (items.get(2).getFieldName().compareTo("photoart") == 0) {
                             if (items.get(0).getSize() != 0) {
-                                newArt.setName(items.get(0).getString());
-                                newArt.setDescription(items.get(1).getString());
+                                newArt.setName(items.get(0).getString("UTF-8"));
+                                newArt.setDescription(items.get(1).getString("UTF-8"));
                                 if (ArtInfoManager.insertArt(newArt)) {
                                     if (!items.get(2).isFormField() && items.get(2).getSize() != 0) {
                                         //must be changed <-> (hosseinz)
