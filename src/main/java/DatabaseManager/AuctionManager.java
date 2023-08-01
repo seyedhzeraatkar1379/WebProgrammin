@@ -207,6 +207,54 @@ public class AuctionManager {
         }
     }
 
+    public static List<AuctionTable> getAllAuctionByArtName(String search) {
+        EntityManagerFactory entityManagerFactory = null;
+        EntityManager entityManager = null;
+        try {
+            entityManagerFactory = Persistence.createEntityManagerFactory(PUN);
+            entityManager = entityManagerFactory.createEntityManager();
+            Query query = entityManager.createQuery("select auction from AuctionTable auction where auction.artId.name like ?1 or auction.artId.description like ?2");
+            query.setParameter(1, "%" + search + "%");
+            query.setParameter(2, "%" + search + "%");
+            List<AuctionTable> list = query.getResultList();
+            return list;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            if (entityManager != null) {
+                entityManager.close();
+            }
+            if (entityManagerFactory != null) {
+                entityManagerFactory.close();
+            }
+        }
+    }
+
+    public static List<AuctionTable> getAllAuctionByArtOrAuctionId(int search) {
+        EntityManagerFactory entityManagerFactory = null;
+        EntityManager entityManager = null;
+        try {
+            entityManagerFactory = Persistence.createEntityManagerFactory(PUN);
+            entityManager = entityManagerFactory.createEntityManager();
+            Query query = entityManager.createQuery("select auction from AuctionTable auction where auction.artId.id = ?1 or auction.id = ?2");
+            query.setParameter(1, "%" + search + "%");
+            query.setParameter(2, "%" + search + "%");
+            List<AuctionTable> list = query.getResultList();
+            return list;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            if (entityManager != null) {
+                entityManager.close();
+            }
+            if (entityManagerFactory != null) {
+                entityManagerFactory.close();
+            }
+        }
+    }
+
     public static AuctionTable getAuctionByIdActive(int id) {
         EntityManagerFactory entityManagerFactory = null;
         EntityManager entityManager = null;
@@ -258,7 +306,7 @@ public class AuctionManager {
             }
         }
     }
-    
+
     public static List<AuctionTable> getAuctionActiveToDo() {
         EntityManagerFactory entityManagerFactory = null;
         EntityManager entityManager = null;
@@ -308,7 +356,7 @@ public class AuctionManager {
             }
         }
     }
-    
+
     public static long getNumberOFAuctionActiveToDo() {
         EntityManagerFactory entityManagerFactory = null;
         EntityManager entityManager = null;
@@ -319,7 +367,7 @@ public class AuctionManager {
             entityManager = entityManagerFactory.createEntityManager();
             Query query = entityManager.createQuery("select COUNT(auc) from AuctionTable auc where auc.startDate > ?1");
             query.setParameter(1, currDate);
-            long numberOfRecord = (long)query.getSingleResult();
+            long numberOfRecord = (long) query.getSingleResult();
             return numberOfRecord;
         } catch (Exception e) {
             e.printStackTrace();
@@ -344,7 +392,7 @@ public class AuctionManager {
             entityManager = entityManagerFactory.createEntityManager();
             Query query = entityManager.createQuery("select count(auc) from AuctionTable auc where auc.endDate < ?1");
             query.setParameter(1, currDate);
-            long numberOfRecord = (long)query.getSingleResult();
+            long numberOfRecord = (long) query.getSingleResult();
             return numberOfRecord;
         } catch (Exception e) {
             e.printStackTrace();
@@ -358,7 +406,7 @@ public class AuctionManager {
             }
         }
     }
-     
+
     public static long getNumberOFAuctionActiveDoing() {
         EntityManagerFactory entityManagerFactory = null;
         EntityManager entityManager = null;
@@ -370,7 +418,7 @@ public class AuctionManager {
             Query query = entityManager.createQuery("select COUNT(auc) from AuctionTable auc where auc.startDate <= ?1 and auc.endDate >= ?2");
             query.setParameter(1, currDate);
             query.setParameter(2, currDate);
-            long numberOfRecord = (long)query.getSingleResult();
+            long numberOfRecord = (long) query.getSingleResult();
             return numberOfRecord;
         } catch (Exception e) {
             e.printStackTrace();
@@ -385,9 +433,7 @@ public class AuctionManager {
         }
     }
 
-     
-    public static boolean changeAuctionStatus(int auctionId)
-    {
+    public static boolean changeAuctionStatus(int auctionId) {
         EntityManagerFactory entityManagerFactory = null;
         EntityManager entityManager = null;
         EntityTransaction transaction = null;
@@ -396,7 +442,7 @@ public class AuctionManager {
             entityManager = entityManagerFactory.createEntityManager();
             transaction = entityManager.getTransaction();
             transaction.begin();
-            AuctionTable auction = (AuctionTable) entityManager.find(AuctionTable.class,auctionId);
+            AuctionTable auction = (AuctionTable) entityManager.find(AuctionTable.class, auctionId);
             if (auction.getStatus() == ActiveOrDeactive.ACTIVE) {
                 auction.setStatus(ActiveOrDeactive.DEACTIVE);
             } else {

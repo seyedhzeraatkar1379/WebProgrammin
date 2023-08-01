@@ -52,6 +52,7 @@
                 <div class="row" dir="rtl" >
                     <!-- Page Header -->
                     <br/><br/><br/><br/>
+                    <div class="col-md-12">
                     <div class="col-lg-12">
                         <h1 class="page-header">مدیریت کاربران</h1>
                     </div>
@@ -74,7 +75,8 @@
                                     <div id="dataTables-example_filter" class="dataTables_filter">
                                         <label>
                                             Search:
-                                            <input onkeydown="if (event.keyCode == 13)searchEvent()" type="search" class="form-control input-sm" aria-controls="dataTables-example" id="searchinput">
+                                            <input onkeydown="if (event.keyCode == 13)
+                                                        searchEvent()" type="search" class="form-control input-sm" aria-controls="dataTables-example" id="searchinput">
                                         </label>
                                         <%if (filterUser != "") {%>
                                         <a href="/admin/usermanager?PG=1&NR=<%=numberOfRecord%>">نمایش تمام کاربران</a>
@@ -82,76 +84,79 @@
                                     </div>
                                 </div>
                             </div>
-                            <table  class="table table-striped table-bordered table-hover dataTable no-footer" id="dataTables-example" aria-describedby="dataTables-example_info" >
-                                <thead >
-                                    <tr role="row" >
-                                        <th style="text-align: right;" class="sorting_asc" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" style="width: 100px; " aria-sort="ascending" aria-label="Rendering engine: activate to sort column ascending">
-                                            &nbsp;کد کاربر&nbsp;
-                                        </th>
-                                        <th style="text-align: right;" class="" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" style="width: 219px;" aria-label="Browser: activate to sort column ascending">
-                                            نام
-                                        </th>
-                                        <th style="text-align: right;" class="" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" style="width: 201px;" aria-label="Platform(s): activate to sort column ascending">
-                                            ایمیل
-                                        </th>
-                                        <th style="text-align: right;" class="" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" style="width: 143px;" aria-label="Engine version: activate to sort column ascending">
-                                            شماره تماس
-                                        </th>
-                                        <th style="text-align: right;" class="" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" style="width: 102px;" aria-label="CSS grade: activate to sort column ascending">
-                                            آدرس
-                                        </th>
-                                        <th style="text-align: right;" class="" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" style="width: 102px;" aria-label="CSS grade: activate to sort column ascending">
-                                            کد ملی
-                                        </th>
-                                        <th style="text-align: right;" class="" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" style="width: 102px;" aria-label="CSS grade: activate to sort column ascending">
-                                            تایید قوانین
-                                        </th>
-                                        <th style="text-align: right;" class="" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" style="width: 102px;" aria-label="CSS grade: activate to sort column ascending">
-                                            فعال/غیرفعال
-                                        </th>
-                                        <th style="text-align: right;" class="" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" style="width: 102px;" aria-label="CSS grade: activate to sort column ascending">
-                                            حذف
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <%
-                                        
-                                        List<UserTable> users;
-                                        if (request.getParameter("search") != null) {
-                                            users = UserManager.getAllUser(filterUser);
-                                        } else {
-                                            users = UserManager.getAllUser();
-                                        }
-                                        if (users != null)
-                                            if (users.size() > numberOfRecord * (tablePage - 1)) {
-                                                for (int i = (numberOfRecord * (tablePage - 1)), j = 1; j <= numberOfRecord && i < users.size(); i++, j++) {
-                                                
-                                    %>
-                                    <tr class="gradeA odd">
-                                        <td class="sorting_1"><%=users.get(i).getId()%></td>
-                                        <td class=" "><%=users.get(i).getFullname()%></td>
-                                        <td class=" "><%=users.get(i).getEmail()%></td>
-                                        <td class="center "><%=users.get(i).getPhoneNumber()%></td>
-                                        <td class="center "><%=users.get(i).getAddress()%></td>
-                                        <td class=" "><%=users.get(i).getIdCardCode()%></td>
-                                        <%if (users.get(i).getCommitmentLeterPath() == ActiveOrDeactive.ACTIVE) { %>
-                                        <td ><i class="fa fa-check"></i></td>
-                                            <%} else {%>
-                                        <td ><i class="fa fa-close"></i></td>
-                                            <%}
-                                                if (users.get(i).getUserStatus() == ActiveOrDeactive.ACTIVE) {%>
-                                        <td><a href="/admin/changeuserstatus?PG=<%=tablePage%>&NR=<%=numberOfRecord%>&userid=<%=users.get(i).getId()%>&status=<%=ActiveOrDeactive.DEACTIVE.ordinal()%><%=filterString!=""?filterString:""%>"><i class="fa fa-thumbs-o-down"></i></a></td>
+                                    <br/>
+                            <div class="row">
+                                <table  class="table table-striped table-bordered table-hover dataTable no-footer" id="dataTables-example" aria-describedby="dataTables-example_info" >
+                                    <thead >
+                                        <tr role="row" >
+                                            <th style="text-align: right;" class="sorting_asc" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" style="width: 100px; " aria-sort="ascending" aria-label="Rendering engine: activate to sort column ascending">
+                                                &nbsp;کد کاربر&nbsp;
+                                            </th>
+                                            <th style="text-align: right;" class="" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" style="width: 219px;" aria-label="Browser: activate to sort column ascending">
+                                                نام
+                                            </th>
+                                            <th style="text-align: right;" class="" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" style="width: 201px;" aria-label="Platform(s): activate to sort column ascending">
+                                                ایمیل
+                                            </th>
+                                            <th style="text-align: right;" class="" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" style="width: 143px;" aria-label="Engine version: activate to sort column ascending">
+                                                شماره تماس
+                                            </th>
+                                            <th style="text-align: right;" class="" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" style="width: 102px;" aria-label="CSS grade: activate to sort column ascending">
+                                                آدرس
+                                            </th>
+                                            <th style="text-align: right;" class="" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" style="width: 102px;" aria-label="CSS grade: activate to sort column ascending">
+                                                کد ملی
+                                            </th>
+                                            <th style="text-align: right;" class="" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" style="width: 102px;" aria-label="CSS grade: activate to sort column ascending">
+                                                تایید قوانین
+                                            </th>
+                                            <th style="text-align: right;" class="" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" style="width: 102px;" aria-label="CSS grade: activate to sort column ascending">
+                                                فعال/غیرفعال
+                                            </th>
+                                            <th style="text-align: right;" class="" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" style="width: 102px;" aria-label="CSS grade: activate to sort column ascending">
+                                                حذف
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <%
+
+                                            List<UserTable> users;
+                                            if (request.getParameter("search") != null) {
+                                                users = UserManager.getAllUser(filterUser);
+                                            } else {
+                                                users = UserManager.getAllUser();
+                                            }
+                                            if (users != null)
+                                                if (users.size() > numberOfRecord * (tablePage - 1)) {
+                                                    for (int i = (numberOfRecord * (tablePage - 1)), j = 1; j <= numberOfRecord && i < users.size(); i++, j++) {
+
+                                        %>
+                                        <tr class="gradeA odd">
+                                            <td class="sorting_1"><%=users.get(i).getId()%></td>
+                                            <td class=" "><%=users.get(i).getFullname()%></td>
+                                            <td class=" "><%=users.get(i).getEmail()%></td>
+                                            <td class="center "><%=users.get(i).getPhoneNumber()%></td>
+                                            <td class="center "><%=users.get(i).getAddress()%></td>
+                                            <td class=" "><%=users.get(i).getIdCardCode()%></td>
+                                            <%if (users.get(i).getCommitmentLeterPath() == ActiveOrDeactive.ACTIVE) { %>
+                                            <td ><i class="fa fa-check"></i></td>
                                                 <%} else {%>
-                                        <td><a href="/admin/changeuserstatus?PG=<%=tablePage%>&NR=<%=numberOfRecord%>&userid=<%=users.get(i).getId()%>&status=<%=ActiveOrDeactive.ACTIVE.ordinal()%><%=filterString!=""?filterString:""%>"><i class="fa fa-thumbs-o-up"></i></a></td>
-                                                <%}%>  
-                                        <td><a href="/admin/removeuser?userid=<%=users.get(i).getId()%>"><i class="fa fa-trash-o"></i></a></td>
-                                    </tr>
-                                    <%
-                                                }
-                                            }%>
-                                </tbody>
-                            </table>
+                                            <td ><i class="fa fa-close"></i></td>
+                                                <%}
+                                                if (users.get(i).getUserStatus() == ActiveOrDeactive.ACTIVE) {%>
+                                            <td><a href="/admin/changeuserstatus?PG=<%=tablePage%>&NR=<%=numberOfRecord%>&userid=<%=users.get(i).getId()%>&status=<%=ActiveOrDeactive.DEACTIVE.ordinal()%><%=filterString != "" ? filterString : ""%>"><i class="fa fa-thumbs-o-down"></i></a></td>
+                                                    <%} else {%>
+                                            <td><a href="/admin/changeuserstatus?PG=<%=tablePage%>&NR=<%=numberOfRecord%>&userid=<%=users.get(i).getId()%>&status=<%=ActiveOrDeactive.ACTIVE.ordinal()%><%=filterString != "" ? filterString : ""%>"><i class="fa fa-thumbs-o-up"></i></a></td>
+                                                    <%}%>  
+                                            <td><a href="/admin/removeuser?userid=<%=users.get(i).getId()%>"><i class="fa fa-trash-o"></i></a></td>
+                                        </tr>
+                                        <%
+                                                    }
+                                                }%>
+                                    </tbody>
+                                </table>
+                            </div>
                             <div class="row">
                                 <div class="col-sm-6">
                                 </div>
@@ -162,7 +167,7 @@
                                             <li class="paginate_button previous" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_previous"><a href="/admin/usermanager?PG=<%=tablePage - 1%>&NR=<%=numberOfRecord%><%=filterString%>">Previous</a></li>
                                                 <%}
                                                     if (users != null) {
-                                                        for (int i = 0; i < Math.ceil((double)users.size() / numberOfRecord); i++) {
+                                                        for (int i = 0; i < Math.ceil((double) users.size() / numberOfRecord); i++) {
                                                             if (tablePage == i + 1) {
                                                 %>
                                             <li class="paginate_button active" aria-controls="dataTables-example" tabindex="0"><a href="#"><%=i + 1%></a></li>
@@ -171,7 +176,7 @@
                                                 <%}
                                                     }
 
-                                                    if (tablePage < Math.ceil((double)users.size() / numberOfRecord)) {
+                                                    if (tablePage < Math.ceil((double) users.size() / numberOfRecord)) {
                                                 %>
                                             <li class="paginate_button next" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_next">
                                                 <a href="/admin/usermanager?PG=<%=tablePage + 1%>&NR=<%=numberOfRecord%><%=filterString%>">Next</a>
@@ -185,6 +190,7 @@
                         </div>
                     </div>
                     <!--End Page Header -->
+                    </div>
                 </div>
 
 
