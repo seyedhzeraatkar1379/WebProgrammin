@@ -13,7 +13,7 @@
 <!DOCTYPE html>
 <html>
     <%
-        int tablePageTodo = 1, numberOfRecordTodo = 10,tablePageDoing = 1, numberOfRecordDoing = 10,tablePageDone = 1, numberOfRecordDone = 10;
+        int tablePageTodo = 1, numberOfRecordTodo = 10, tablePageDoing = 1, numberOfRecordDoing = 10, tablePageDone = 1, numberOfRecordDone = 10;
 //        String filterAuction = "";
 //        if (request.getParameter("search") != null) {
 //            filterAuction = request.getParameter("search");
@@ -132,7 +132,7 @@
                                     <div id="dataTables-example_wrapper" class="dataTables_wrapper form-inline" role="grid">
                                         <div class="row">
                                             <div class="col-sm-6">
-                                                
+
                                             </div>
                                             <div class="col-sm-6">
                                                 <div class="dataTables_length" id="dataTables-example_length">
@@ -179,17 +179,19 @@
                                             <tbody>
                                                 <%
                                                     List<AuctionTable> toDoAuction = AuctionManager.getAuctionActiveToDo();
-                                                    for (AuctionTable i2 : toDoAuction) {
+                                                    if (toDoAuction != null)
+                                                        if (toDoAuction.size() > numberOfRecordTodo * (tablePageTodo - 1))
+                                                            for (int i = (numberOfRecordTodo * (tablePageTodo - 1)),j=1; j <= numberOfRecordTodo && i < toDoAuction.size(); i++, j++) {
                                                 %>
                                                 <tr>
-                                                    <td><%=i2.getId()%></td>
-                                                    <td><%=i2.getArtId().getId()%></td>
-                                                    <td><%=i2.getArtId().getName()%></td>
-                                                    <td><%=dateformat.format(i2.getStartDate())%></td>
-                                                    <td><%=dateformat.format(i2.getEndDate())%></td>
-                                                    <td><%=i2.getStatus()%></td>
-                                                    <td><a href="/admin/removeauction?auctionid=<%=i2.getId()%>">rm</a></td>
-                                                    <td><a href="/admin/changestatusauction?auctionid=<%=i2.getId()%>">change</a></td>
+                                                    <td><%=toDoAuction.get(i).getId()%></td>
+                                                    <td><%=toDoAuction.get(i).getArtId().getId()%></td>
+                                                    <td><%=toDoAuction.get(i).getArtId().getName()%></td>
+                                                    <td><%=dateformat.format(toDoAuction.get(i).getStartDate())%></td>
+                                                    <td><%=dateformat.format(toDoAuction.get(i).getEndDate())%></td>
+                                                    <td><%=toDoAuction.get(i).getStatus()%></td>
+                                                    <td><a href="/admin/removeauction?auctionid=<%=toDoAuction.get(i).getId()%>">rm</a></td>
+                                                    <td><a href="/admin/changestatusauction?auctionid=<%=toDoAuction.get(i).getId()%>">change</a></td>
                                                 </tr>
                                                 <%}%>
                                         </table>
@@ -199,21 +201,27 @@
                                             <div class="col-sm-6">
                                                 <div class="dataTables_paginate paging_simple_numbers" id="dataTables-example_paginate">
                                                     <ul class="pagination">
-                                                        <li class="paginate_button previous disabled" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_previous">
-                                                            <a href="#">
-                                                                Previous
-                                                            </a>
-                                                        </li>
-                                                        <li class="paginate_button active" aria-controls="dataTables-example" tabindex="0">
-                                                            <a href="#">
-                                                                1
-                                                            </a>
-                                                        </li>
+                                                        <%if (tablePageTodo > 1) {%>
+                                                        <li class="paginate_button previous" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_previous"><a href="/admin/auctionmanager?PG=<%=tablePage - 1%>&NR=<%=numberOfRecord%><%=filterString%>">Previous</a></li>
+                                                            <%}
+                                                                if (toDoAuction != null) {
+                                                                    for (int i = 0; i < Math.ceil((double)toDoAuction.size() / numberOfRecordTodo); i++) {
+
+                                                                        if (tablePageTodo == i + 1) {
+                                                            %>
+                                                        <li class="paginate_button active" aria-controls="dataTables-example" tabindex="0"><a href="#"><%=i + 1%></a></li>
+                                                            <%} else {%>
+                                                        <li class="paginate_button" aria-controls="dataTables-example" tabindex="0"><a href="/admin/auctionmanager?PG=<%=i + 1%>&NR=<%=numberOfRecord%><%=filterString%>"><%=i + 1%></a></li>
+                                                            <%}
+                                                                }
+
+                                                                if (tablePageTodo < Math.ceil((double)toDoAuction.size() / numberOfRecordTodo)) {
+                                                            %>
                                                         <li class="paginate_button next" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_next">
-                                                            <a href="#">
-                                                                Next
-                                                            </a>
+                                                            <a href="/admin/auctionmanager?PGTodo=<%=tablePageTodo + 1%>&NRTodo=<%=numberOfRecordTodo %>&PGDoing=<%=tablePageDoing%>&NRDoing=<%=numberOfRecordDoing%>&PGDone=<%=tablePageDone%>&NRDone=<%=numberOfRecordDone%>">Next</a>
                                                         </li>
+                                                        <%}
+                                                }%>
                                                     </ul>
                                                 </div>
                                             </div>
@@ -241,7 +249,7 @@
                                     <div id="dataTables-example_wrapper" class="dataTables_wrapper form-inline" role="grid">
                                         <div class="row">
                                             <div class="col-sm-6">
-                                                
+
                                             </div>
                                             <div class="col-sm-6">
                                                 <div class="dataTables_length" id="dataTables-example_length">
@@ -354,7 +362,7 @@
                                     <div id="dataTables-example_wrapper" class="dataTables_wrapper form-inline" role="grid">
                                         <div class="row">
                                             <div class="col-sm-6">
-                                                
+
                                             </div>
                                             <div class="col-sm-6">
                                                 <div class="dataTables_length" id="dataTables-example_length">
@@ -466,9 +474,9 @@
             {
                 let currentUrl = window.location;
                 let thisloc = new URL(currentUrl);
-                let NRTodo = <%=numberOfRecordTodo %>;
-                let NRDone = <%=numberOfRecordDone %>;
-                let NRDoing = <%=numberOfRecordDoing %>;
+                let NRTodo = <%=numberOfRecordTodo%>;
+                let NRDone = <%=numberOfRecordDone%>;
+                let NRDoing = <%=numberOfRecordDoing%>;
                 var comboBoxTodo = document.getElementById("NumberOfRecordTodo");
                 var comboBoxDone = document.getElementById("NumberOfRecordDone");
                 var comboBoxDoing = document.getElementById("NumberOfRecordDoing");
@@ -514,11 +522,11 @@
                 let thisloc = new URL(currentUrl);
                 let PGTodo = <%=tablePageTodo%>;
                 let NRTodo = document.getElementById("NumberOfRecordTodo").value;
-                 let PGDoing = <%=tablePageDoing%>;
+                let PGDoing = <%=tablePageDoing%>;
                 let NRDoing = document.getElementById("NumberOfRecordDoing").value;
-                 let PGDone = <%=tablePageDone%>;
+                let PGDone = <%=tablePageDone%>;
                 let NRDone = document.getElementById("NumberOfRecordDone").value;
-                
+
                 //currentUrl.set
                 if (PGTodo == null)
                 {
@@ -532,7 +540,7 @@
                 {
                     PGDone = "1";
                 }
-                location.replace(thisloc.protocol + "//" + thisloc.host + "/admin/auctionmanager" + "?PGTodo=" + PGTodo + "&NRTodo=" + NRTodo +"&PGDoing=" + PGDoing + "&NRDoing=" + NRDoing + "&PGDone=" + PGDone + "&NRDone=" + NRDone);
+                location.replace(thisloc.protocol + "//" + thisloc.host + "/admin/auctionmanager" + "?PGTodo=" + PGTodo + "&NRTodo=" + NRTodo + "&PGDoing=" + PGDoing + "&NRDoing=" + NRDoing + "&PGDone=" + PGDone + "&NRDone=" + NRDone);
                 console.log("5");
             }
         </script>
