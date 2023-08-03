@@ -4,6 +4,8 @@
     Author     : seyedhossein
 --%>
 
+<%@page import="DatabaseManager.ArtInfoManager"%>
+<%@page import="Model.ArtinfoTable"%>
 <%@page import="Enum.ActiveOrDeactive"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="Model.AdminTable"%>
@@ -41,6 +43,7 @@
         if (request.getParameter("NRDone") != null) {
             numberOfRecordDone = Integer.parseInt(request.getParameter("NRDone"));
         }
+        List<ArtinfoTable> artListDosntInAuction = ArtInfoManager.getArtDosntInAuction();
         //List<AuctionTable> auctions = filterAuction == "" ? AuctionManager.getAllAuction() : AuctionManager.getAllAuctionByArtName(filterString);
     %>
     <head>
@@ -83,7 +86,11 @@
                             <div class="col-md-offset-6">
                                 <div class="form-group col-md-6" style="text-align: right;">
                                     <label>آیدی اثر</label>
-                                    <input class="form-control" placeholder="art id" type="number" name="artId"/>
+                                    <select class="form-control" id="cars" name="artId">
+                                        <%for(ArtinfoTable art : artListDosntInAuction){%>
+                                        <option value="<%=art.getId()%>"><%="id: "+art.getId()+"name: "+art.getName()%></option>
+                                        <%}%>
+                                    </select>
                                 </div>
                                 <div class="form-group col-md-6" style="text-align: right;">
                                     <label>آیدی ادمین</label>
@@ -190,7 +197,7 @@
                                                     <td><%=toDoAuction.get(i).getArtId().getName()%></td>
                                                     <td><%=dateformat.format(toDoAuction.get(i).getStartDate())%></td>
                                                     <td><%=dateformat.format(toDoAuction.get(i).getEndDate())%></td>
-                                                    <td><i class="<%=toDoAuction.get(i).getStatus()==ActiveOrDeactive.ACTIVE?"fa fa-eye":"fa fa-eye-slash"%>"></i></td>
+                                                    <td><i class="<%=toDoAuction.get(i).getStatus() == ActiveOrDeactive.ACTIVE ? "fa fa-eye" : "fa fa-eye-slash"%>"></i></td>
                                                     <td><a href="/admin/removeauction?auctionid=<%=toDoAuction.get(i).getId()%>&PGTodo=<%=tablePageTodo%>&NRTodo=<%=numberOfRecordTodo%>&PGDoing=<%=tablePageDoing%>&NRDoing=<%=numberOfRecordDoing%>&PGDone=<%=tablePageDone%>&NRDone=<%=numberOfRecordDone%>"><i class="fa fa-trash-o"></i></a></td>
                                                     <td><a href="/admin/changestatusauction?auctionid=<%=toDoAuction.get(i).getId()%>&PGTodo=<%=tablePageTodo%>&NRTodo=<%=numberOfRecordTodo%>&PGDoing=<%=tablePageDoing%>&NRDoing=<%=numberOfRecordDoing%>&PGDone=<%=tablePageDone%>&NRDone=<%=numberOfRecordDone%>"><i class="fa fa-refresh"></i></a></td>
                                                 </tr>
@@ -310,7 +317,7 @@
                                                     <td><%=doingAuction.get(i).getArtId().getName()%></td>
                                                     <td><%=dateformat.format(doingAuction.get(i).getStartDate())%></td>
                                                     <td><%=dateformat.format(doingAuction.get(i).getEndDate())%></td>
-                                                    <td><i class="<%=doingAuction.get(i).getStatus()==ActiveOrDeactive.ACTIVE?"fa fa-eye":"fa fa-eye-slash"%>"></i></td>
+                                                    <td><i class="<%=doingAuction.get(i).getStatus() == ActiveOrDeactive.ACTIVE ? "fa fa-eye" : "fa fa-eye-slash"%>"></i></td>
                                                     <td><a href="/admin/removeauction?auctionid=<%=doingAuction.get(i).getId()%>&PGTodo=<%=tablePageTodo%>&NRTodo=<%=numberOfRecordTodo%>&PGDoing=<%=tablePageDoing%>&NRDoing=<%=numberOfRecordDoing%>&PGDone=<%=tablePageDone%>&NRDone=<%=numberOfRecordDone%>"><i class="fa fa-trash-o"></i></a></td>
                                                     <td><a href="/admin/changestatusauction?auctionid=<%=doingAuction.get(i).getId()%>&PGTodo=<%=tablePageTodo%>&NRTodo=<%=numberOfRecordTodo%>&PGDoing=<%=tablePageDoing%>&NRDoing=<%=numberOfRecordDoing%>&PGDone=<%=tablePageDone%>&NRDone=<%=numberOfRecordDone%>"><i class="fa fa-refresh"></i></a></td>
                                                     <td><a href="/admin/auctionparticipantmanager?auctionid=<%=doingAuction.get(i).getId()%>"><i class="fa fa-eye"></i></a></td>
@@ -436,10 +443,10 @@
                                                     <td><%=doneAuction.get(i).getArtId().getName()%></td>
                                                     <td><%=dateformat.format(doneAuction.get(i).getStartDate())%></td>
                                                     <td><%=dateformat.format(doneAuction.get(i).getEndDate())%></td>
-                                                    <td><i class="<%=doneAuction.get(i).getStatus()==ActiveOrDeactive.ACTIVE?"fa fa-eye":"fa fa-eye-slash"%>"></i></td>
+                                                    <td><i class="<%=doneAuction.get(i).getStatus() == ActiveOrDeactive.ACTIVE ? "fa fa-eye" : "fa fa-eye-slash"%>"></i></td>
                                                     <td><a href="/admin/removeauction?auctionid=<%=doneAuction.get(i).getId()%>&PGTodo=<%=tablePageTodo%>&NRTodo=<%=numberOfRecordTodo%>&PGDoing=<%=tablePageDoing%>&NRDoing=<%=numberOfRecordDoing%>&PGDone=<%=tablePageDone%>&NRDone=<%=numberOfRecordDone%>"><i class="fa fa-trash-o"></i></a></td>
                                                     <td><a href="/admin/changestatusauction?auctionid=<%=doneAuction.get(i).getId()%>&PGTodo=<%=tablePageTodo%>&NRTodo=<%=numberOfRecordTodo%>&PGDoing=<%=tablePageDoing%>&NRDoing=<%=numberOfRecordDoing%>&PGDone=<%=tablePageDone%>&NRDone=<%=numberOfRecordDone%>"><i class="fa fa-refresh"></i></a></td>
-                                                    <td><a href="/admin/auctionparticipantmanager?auctionid=<%=doneAuction.get(i).getId() %>"><i class="fa fa-eye"></i></a></td>
+                                                    <td><a href="/admin/auctionparticipantmanager?auctionid=<%=doneAuction.get(i).getId()%>"><i class="fa fa-eye"></i></a></td>
                                                 </tr>
                                                 <%}%>
                                         </table>

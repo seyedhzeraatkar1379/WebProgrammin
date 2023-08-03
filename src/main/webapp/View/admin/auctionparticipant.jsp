@@ -216,9 +216,6 @@
                         <!--End Collapsible Accordion Panel Group   -->
                     </div>
                 </div>
-                <%=auction.getId()%>
-                <%=participant.size()%>
-                <%=participant%>
                 <%}%>
             </div>
         </div>
