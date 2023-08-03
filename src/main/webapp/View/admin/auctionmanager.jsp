@@ -190,8 +190,8 @@
                                                     <td><%=dateformat.format(toDoAuction.get(i).getStartDate())%></td>
                                                     <td><%=dateformat.format(toDoAuction.get(i).getEndDate())%></td>
                                                     <td><%=toDoAuction.get(i).getStatus()%></td>
-                                                    <td><a href="/admin/removeauction?auctionid=<%=toDoAuction.get(i).getId()%>">rm</a></td>
-                                                    <td><a href="/admin/changestatusauction?auctionid=<%=toDoAuction.get(i).getId()%>">change</a></td>
+                                                    <td><a href="/admin/removeauction?auctionid=<%=toDoAuction.get(i).getId()%>&PGTodo=<%=tablePageTodo%>&NRTodo=<%=numberOfRecordTodo%>&PGDoing=<%=tablePageDoing%>&NRDoing=<%=numberOfRecordDoing%>&PGDone=<%=tablePageDone%>&NRDone=<%=numberOfRecordDone%>">rm</a></td>
+                                                    <td><a href="/admin/changestatusauction?auctionid=<%=toDoAuction.get(i).getId()%>&PGTodo=<%=tablePageTodo%>&NRTodo=<%=numberOfRecordTodo%>&PGDoing=<%=tablePageDoing%>&NRDoing=<%=numberOfRecordDoing%>&PGDone=<%=tablePageDone%>&NRDone=<%=numberOfRecordDone%>">change</a></td>
                                                 </tr>
                                                 <%}%>
                                         </table>
@@ -202,7 +202,7 @@
                                                 <div class="dataTables_paginate paging_simple_numbers" id="dataTables-example_paginate">
                                                     <ul class="pagination">
                                                         <%if (tablePageTodo > 1) {%>
-                                                        <li class="paginate_button previous" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_previous"><a href="/admin/auctionmanager?PG=<%=tablePage - 1%>&NR=<%=numberOfRecord%><%=filterString%>">Previous</a></li>
+                                                        <li class="paginate_button previous" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_previous"><a href="/admin/auctionmanager?PGTodo=<%=tablePageTodo - 1%>&NRTodo=<%=numberOfRecordTodo %>&PGDoing=<%=tablePageDoing%>&NRDoing=<%=numberOfRecordDoing%>&PGDone=<%=tablePageDone%>&NRDone=<%=numberOfRecordDone%>">Previous</a></li>
                                                             <%}
                                                                 if (toDoAuction != null) {
                                                                     for (int i = 0; i < Math.ceil((double)toDoAuction.size() / numberOfRecordTodo); i++) {
@@ -211,7 +211,7 @@
                                                             %>
                                                         <li class="paginate_button active" aria-controls="dataTables-example" tabindex="0"><a href="#"><%=i + 1%></a></li>
                                                             <%} else {%>
-                                                        <li class="paginate_button" aria-controls="dataTables-example" tabindex="0"><a href="/admin/auctionmanager?PG=<%=i + 1%>&NR=<%=numberOfRecord%><%=filterString%>"><%=i + 1%></a></li>
+                                                        <li class="paginate_button" aria-controls="dataTables-example" tabindex="0"><a href="/admin/auctionmanager?PGTodo=<%=i+1%>&NRTodo=<%=numberOfRecordTodo %>&PGDoing=<%=tablePageDoing%>&NRDoing=<%=numberOfRecordDoing%>&PGDone=<%=tablePageDone%>&NRDone=<%=numberOfRecordDone%>"><%=i + 1%></a></li>
                                                             <%}
                                                                 }
 
@@ -292,24 +292,26 @@
                                                         تغییر وضعیت
                                                     </th>
                                                     <th style="text-align: right;" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" style="width: 167px;" aria-sort="ascending" aria-label="Rendering engine: activate to sort column ascending">
-                                                        مشاهده کاربران
+                                                        اطلاعات بیشتر
                                                     </th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <%
                                                     List<AuctionTable> doingAuction = AuctionManager.getAuctionActiveDoing();
-                                                    for (AuctionTable i3 : doingAuction) {
+                                                    if (doingAuction != null)
+                                                        if (doingAuction.size() > numberOfRecordDoing * (tablePageDoing - 1))
+                                                            for (int i = (numberOfRecordDoing * (tablePageDoing - 1)),j=1; j <= numberOfRecordDoing && i < doingAuction.size(); i++, j++) {
                                                 %>
                                                 <tr>
-                                                    <td><%=i3.getId()%></td>
-                                                    <td><%=i3.getArtId().getId()%></td>
-                                                    <td><%=i3.getArtId().getName()%></td>
-                                                    <td><%=dateformat.format(i3.getStartDate())%></td>
-                                                    <td><%=dateformat.format(i3.getEndDate())%></td>
-                                                    <td><%=i3.getStatus()%></td>
-                                                    <td><a href="/admin/removeauction?auctionid=<%=i3.getId()%>">rm</a></td>
-                                                    <td><a href="/admin/changestatusauction?auctionid=<%=i3.getId()%>">change</a></td>
+                                                    <td><%=doingAuction.get(i).getId()%></td>
+                                                    <td><%=doingAuction.get(i).getArtId().getId()%></td>
+                                                    <td><%=doingAuction.get(i).getArtId().getName()%></td>
+                                                    <td><%=dateformat.format(doingAuction.get(i).getStartDate())%></td>
+                                                    <td><%=dateformat.format(doingAuction.get(i).getEndDate())%></td>
+                                                    <td><%=doingAuction.get(i).getStatus()%></td>
+                                                    <td><a href="/admin/removeauction?auctionid=<%=doingAuction.get(i).getId()%>&PGTodo=<%=tablePageTodo%>&NRTodo=<%=numberOfRecordTodo%>&PGDoing=<%=tablePageDoing%>&NRDoing=<%=numberOfRecordDoing%>&PGDone=<%=tablePageDone%>&NRDone=<%=numberOfRecordDone%>">rm</a></td>
+                                                    <td><a href="/admin/changestatusauction?auctionid=<%=doingAuction.get(i).getId()%>&PGTodo=<%=tablePageTodo%>&NRTodo=<%=numberOfRecordTodo%>&PGDoing=<%=tablePageDoing%>&NRDoing=<%=numberOfRecordDoing%>&PGDone=<%=tablePageDone%>&NRDone=<%=numberOfRecordDone%>">change</a></td>
                                                     <td></td>
                                                 </tr>
                                                 <%}%>
@@ -320,21 +322,32 @@
                                             <div class="col-sm-6">
                                                 <div class="dataTables_paginate paging_simple_numbers" id="dataTables-example_paginate">
                                                     <ul class="pagination">
-                                                        <li class="paginate_button previous disabled" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_previous">
-                                                            <a href="#">
+                                                        <%if (tablePageDoing > 1) {%>
+                                                        <li class="paginate_button previous" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_previous">
+                                                            <a href="/admin/auctionmanager?PGTodo=<%=tablePageTodo%>&NRTodo=<%=numberOfRecordTodo%>&PGDoing=<%=tablePageDoing - 1%>&NRDoing=<%=numberOfRecordDoing%>&PGDone=<%=tablePageDone%>&NRDone=<%=numberOfRecordDone%>">
                                                                 Previous
                                                             </a>
                                                         </li>
-                                                        <li class="paginate_button active" aria-controls="dataTables-example" tabindex="0">
-                                                            <a href="#">
-                                                                1
-                                                            </a>
-                                                        </li>
+                                                        <%}
+                                                            if (doingAuction != null) {
+                                                                for (int i = 0; i < Math.ceil((double) doingAuction.size() / numberOfRecordDoing); i++) {
+                                                                    if (tablePageDoing == i + 1) {
+                                                        %>
+                                                        <li class="paginate_button active" aria-controls="dataTables-example" tabindex="0"><a href="#"><%=i + 1%></a></li>
+                                                            <%} else {%>
+                                                        <li class="paginate_button" aria-controls="dataTables-example" tabindex="0"><a href="/admin/auctionmanager?PGTodo=<%=tablePageTodo%>&NRTodo=<%=numberOfRecordTodo%>&PGDoing=<%=i + 1%>&NRDoing=<%=numberOfRecordDoing%>&PGDone=<%=tablePageDone%>&NRDone=<%=numberOfRecordDone%>"><%=i + 1%></a></li>
+                                                            <%}
+                                                                }
+
+                                                                if (tablePageDoing < Math.ceil((double) doingAuction.size() / numberOfRecordDoing)) {
+                                                            %>
                                                         <li class="paginate_button next" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_next">
-                                                            <a href="#">
+                                                            <a href="/admin/auctionmanager?PGTodo=<%=tablePageTodo%>&NRTodo=<%=numberOfRecordTodo%>&PGDoing=<%=tablePageDoing + 1%>&NRDoing=<%=numberOfRecordDoing%>&PGDone=<%=tablePageDone%>&NRDone=<%=numberOfRecordDone%>">
                                                                 Next
                                                             </a>
                                                         </li>
+                                                        <%}
+                                                            }%>
                                                     </ul>
                                                 </div>
                                             </div>
@@ -405,24 +418,26 @@
                                                         تغییر وضعیت
                                                     </th>
                                                     <th style="text-align: right;" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" style="width: 167px;" aria-sort="ascending" aria-label="Rendering engine: activate to sort column ascending">
-                                                        مشاهده کاربران
+                                                        اطلاعات بیشتر
                                                     </th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <%
                                                     List<AuctionTable> doneAuction = AuctionManager.getAuctionActiveDone();
-                                                    for (AuctionTable i4 : doneAuction) {
+                                                    if (doneAuction != null)
+                                                        if (doneAuction.size() > numberOfRecordDone* (tablePageDone - 1))
+                                                            for (int i = (numberOfRecordDone * (tablePageDone - 1)),j=1; j <= numberOfRecordDone && i < doneAuction.size(); i++, j++) {
                                                 %>
                                                 <tr>
-                                                    <td><%=i4.getId()%></td>
-                                                    <td><%=i4.getArtId().getId()%></td>
-                                                    <td><%=i4.getArtId().getName()%></td>
-                                                    <td><%=dateformat.format(i4.getStartDate())%></td>
-                                                    <td><%=dateformat.format(i4.getEndDate())%></td>
-                                                    <td><%=i4.getStatus()%></td>
-                                                    <td><a href="/admin/removeauction?auctionid=<%=i4.getId()%>">rm</a></td>
-                                                    <td><a href="/admin/changestatusauction?auctionid=<%=i4.getId()%>">change</a></td>
+                                                    <td><%=doneAuction.get(i).getId()%></td>
+                                                    <td><%=doneAuction.get(i).getArtId().getId()%></td>
+                                                    <td><%=doneAuction.get(i).getArtId().getName()%></td>
+                                                    <td><%=dateformat.format(doneAuction.get(i).getStartDate())%></td>
+                                                    <td><%=dateformat.format(doneAuction.get(i).getEndDate())%></td>
+                                                    <td><%=doneAuction.get(i).getStatus()%></td>
+                                                    <td><a href="/admin/removeauction?auctionid=<%=doneAuction.get(i).getId()%>&PGTodo=<%=tablePageTodo%>&NRTodo=<%=numberOfRecordTodo%>&PGDoing=<%=tablePageDoing%>&NRDoing=<%=numberOfRecordDoing%>&PGDone=<%=tablePageDone%>&NRDone=<%=numberOfRecordDone%>">rm</a></td>
+                                                    <td><a href="/admin/changestatusauction?auctionid=<%=doneAuction.get(i).getId()%>&PGTodo=<%=tablePageTodo%>&NRTodo=<%=numberOfRecordTodo%>&PGDoing=<%=tablePageDoing%>&NRDoing=<%=numberOfRecordDoing%>&PGDone=<%=tablePageDone%>&NRDone=<%=numberOfRecordDone%>">change</a></td>
                                                     <td></td>
                                                 </tr>
                                                 <%}%>
@@ -433,21 +448,32 @@
                                             <div class="col-sm-6">
                                                 <div class="dataTables_paginate paging_simple_numbers" id="dataTables-example_paginate">
                                                     <ul class="pagination">
-                                                        <li class="paginate_button previous disabled" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_previous">
-                                                            <a href="#">
+                                                        <%if (tablePageDone > 1) {%>
+                                                        <li class="paginate_button previous" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_previous">
+                                                            <a href="/admin/auctionmanager?PGTodo=<%=tablePageTodo%>&NRTodo=<%=numberOfRecordTodo %>&PGDoing=<%=tablePageDoing%>&NRDoing=<%=numberOfRecordDoing%>&PGDone=<%=tablePageDone-1%>&NRDone=<%=numberOfRecordDone%>">
                                                                 Previous
                                                             </a>
                                                         </li>
-                                                        <li class="paginate_button active" aria-controls="dataTables-example" tabindex="0">
-                                                            <a href="#">
-                                                                1
-                                                            </a>
-                                                        </li>
+                                                            <%}
+                                                                if (doneAuction != null) {
+                                                                    for (int i = 0; i < Math.ceil((double)doneAuction.size() / numberOfRecordDone); i++) {
+                                                                        if (tablePageDone == i + 1) {
+                                                            %>
+                                                        <li class="paginate_button active" aria-controls="dataTables-example" tabindex="0"><a href="#"><%=i + 1%></a></li>
+                                                            <%} else {%>
+                                                        <li class="paginate_button" aria-controls="dataTables-example" tabindex="0"><a href="/admin/auctionmanager?PGTodo=<%=tablePageTodo%>&NRTodo=<%=numberOfRecordTodo %>&PGDoing=<%=tablePageDoing%>&NRDoing=<%=numberOfRecordDoing%>&PGDone=<%=i+1%>&NRDone=<%=numberOfRecordDone%>"><%=i + 1%></a></li>
+                                                            <%}
+                                                                }
+
+                                                                if (tablePageDone < Math.ceil((double)doneAuction.size() / numberOfRecordDone)) {
+                                                            %>
                                                         <li class="paginate_button next" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_next">
-                                                            <a href="#">
+                                                            <a href="/admin/auctionmanager?PGTodo=<%=tablePageTodo%>&NRTodo=<%=numberOfRecordTodo %>&PGDoing=<%=tablePageDoing%>&NRDoing=<%=numberOfRecordDoing%>&PGDone=<%=tablePageDone+1%>&NRDone=<%=numberOfRecordDone%>">
                                                                 Next
                                                             </a>
                                                         </li>
+                                                        <%}
+                                                }%>
                                                     </ul>
                                                 </div>
                                             </div>
