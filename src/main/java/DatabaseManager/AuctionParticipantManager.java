@@ -23,13 +23,14 @@ public class AuctionParticipantManager {
         try {
             entityManagerFactory = Persistence.createEntityManagerFactory(PUN);
             entityManager = entityManagerFactory.createEntityManager();
-
+            Date date = new Date();
             transaction.begin();
             UserTable user = (UserTable) entityManager.find(UserTable.class, Integer.valueOf(userid));
             AuctionTable auction = AuctionManager.getAuctionByIdActive(auctionid);
             if (user != null && auction != null) {
                 auctionParticipant.setAuctionId(auction);
                 auctionParticipant.setUserId(user);
+                auctionParticipant.setPerposedDatetime(date);
                 entityManager.persist(auctionParticipant);
                 transaction.commit();
                 return true;

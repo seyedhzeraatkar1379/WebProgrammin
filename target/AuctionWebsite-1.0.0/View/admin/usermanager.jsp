@@ -134,11 +134,11 @@
                                         %>
                                         <tr class="gradeA odd">
                                             <td class="sorting_1"><%=users.get(i).getId()%></td>
-                                            <td class=" "><%=users.get(i).getFullname()%></td>
+                                            <td class=" "><%=users.get(i).getFullname()!=null ?users.get(i).getFullname():""%></td>
                                             <td class=" "><%=users.get(i).getEmail()%></td>
-                                            <td class="center "><%=users.get(i).getPhoneNumber()%></td>
-                                            <td class="center "><%=users.get(i).getAddress()%></td>
-                                            <td class=" "><%=users.get(i).getIdCardCode()%></td>
+                                            <td class="center "><%=users.get(i).getPhoneNumber()!=null?users.get(i).getPhoneNumber():""%></td>
+                                            <td class="center "><%=users.get(i).getAddress()!=null?users.get(i).getAddress():""%></td>
+                                            <td class=" "><%=users.get(i).getIdCardCode()!=null?users.get(i).getIdCardCode():""%></td>
                                             <%if (users.get(i).getCommitmentLeterPath() == ActiveOrDeactive.ACTIVE) { %>
                                             <td ><i class="fa fa-check"></i></td>
                                                 <%} else {%>

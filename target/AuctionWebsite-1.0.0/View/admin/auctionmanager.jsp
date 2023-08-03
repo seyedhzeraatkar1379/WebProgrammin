@@ -4,6 +4,7 @@
     Author     : seyedhossein
 --%>
 
+<%@page import="Enum.ActiveOrDeactive"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="Model.AdminTable"%>
 <%@page import="java.util.List"%>
@@ -189,9 +190,9 @@
                                                     <td><%=toDoAuction.get(i).getArtId().getName()%></td>
                                                     <td><%=dateformat.format(toDoAuction.get(i).getStartDate())%></td>
                                                     <td><%=dateformat.format(toDoAuction.get(i).getEndDate())%></td>
-                                                    <td><%=toDoAuction.get(i).getStatus()%></td>
-                                                    <td><a href="/admin/removeauction?auctionid=<%=toDoAuction.get(i).getId()%>&PGTodo=<%=tablePageTodo%>&NRTodo=<%=numberOfRecordTodo%>&PGDoing=<%=tablePageDoing%>&NRDoing=<%=numberOfRecordDoing%>&PGDone=<%=tablePageDone%>&NRDone=<%=numberOfRecordDone%>">rm</a></td>
-                                                    <td><a href="/admin/changestatusauction?auctionid=<%=toDoAuction.get(i).getId()%>&PGTodo=<%=tablePageTodo%>&NRTodo=<%=numberOfRecordTodo%>&PGDoing=<%=tablePageDoing%>&NRDoing=<%=numberOfRecordDoing%>&PGDone=<%=tablePageDone%>&NRDone=<%=numberOfRecordDone%>">change</a></td>
+                                                    <td><i class="<%=toDoAuction.get(i).getStatus()==ActiveOrDeactive.ACTIVE?"fa fa-eye":"fa fa-eye-slash"%>"></i></td>
+                                                    <td><a href="/admin/removeauction?auctionid=<%=toDoAuction.get(i).getId()%>&PGTodo=<%=tablePageTodo%>&NRTodo=<%=numberOfRecordTodo%>&PGDoing=<%=tablePageDoing%>&NRDoing=<%=numberOfRecordDoing%>&PGDone=<%=tablePageDone%>&NRDone=<%=numberOfRecordDone%>"><i class="fa fa-trash-o"></i></a></td>
+                                                    <td><a href="/admin/changestatusauction?auctionid=<%=toDoAuction.get(i).getId()%>&PGTodo=<%=tablePageTodo%>&NRTodo=<%=numberOfRecordTodo%>&PGDoing=<%=tablePageDoing%>&NRDoing=<%=numberOfRecordDoing%>&PGDone=<%=tablePageDone%>&NRDone=<%=numberOfRecordDone%>"><i class="fa fa-refresh"></i></a></td>
                                                 </tr>
                                                 <%}%>
                                         </table>
@@ -309,10 +310,10 @@
                                                     <td><%=doingAuction.get(i).getArtId().getName()%></td>
                                                     <td><%=dateformat.format(doingAuction.get(i).getStartDate())%></td>
                                                     <td><%=dateformat.format(doingAuction.get(i).getEndDate())%></td>
-                                                    <td><%=doingAuction.get(i).getStatus()%></td>
-                                                    <td><a href="/admin/removeauction?auctionid=<%=doingAuction.get(i).getId()%>&PGTodo=<%=tablePageTodo%>&NRTodo=<%=numberOfRecordTodo%>&PGDoing=<%=tablePageDoing%>&NRDoing=<%=numberOfRecordDoing%>&PGDone=<%=tablePageDone%>&NRDone=<%=numberOfRecordDone%>">rm</a></td>
-                                                    <td><a href="/admin/changestatusauction?auctionid=<%=doingAuction.get(i).getId()%>&PGTodo=<%=tablePageTodo%>&NRTodo=<%=numberOfRecordTodo%>&PGDoing=<%=tablePageDoing%>&NRDoing=<%=numberOfRecordDoing%>&PGDone=<%=tablePageDone%>&NRDone=<%=numberOfRecordDone%>">change</a></td>
-                                                    <td></td>
+                                                    <td><i class="<%=doingAuction.get(i).getStatus()==ActiveOrDeactive.ACTIVE?"fa fa-eye":"fa fa-eye-slash"%>"></i></td>
+                                                    <td><a href="/admin/removeauction?auctionid=<%=doingAuction.get(i).getId()%>&PGTodo=<%=tablePageTodo%>&NRTodo=<%=numberOfRecordTodo%>&PGDoing=<%=tablePageDoing%>&NRDoing=<%=numberOfRecordDoing%>&PGDone=<%=tablePageDone%>&NRDone=<%=numberOfRecordDone%>"><i class="fa fa-trash-o"></i></a></td>
+                                                    <td><a href="/admin/changestatusauction?auctionid=<%=doingAuction.get(i).getId()%>&PGTodo=<%=tablePageTodo%>&NRTodo=<%=numberOfRecordTodo%>&PGDoing=<%=tablePageDoing%>&NRDoing=<%=numberOfRecordDoing%>&PGDone=<%=tablePageDone%>&NRDone=<%=numberOfRecordDone%>"><i class="fa fa-refresh"></i></a></td>
+                                                    <td><a href="/admin/auctionparticipantmanager?auctionid=<%=doingAuction.get(i).getId()%>"><i class="fa fa-eye"></i></a></td>
                                                 </tr>
                                                 <%}%>
                                         </table>
@@ -435,10 +436,10 @@
                                                     <td><%=doneAuction.get(i).getArtId().getName()%></td>
                                                     <td><%=dateformat.format(doneAuction.get(i).getStartDate())%></td>
                                                     <td><%=dateformat.format(doneAuction.get(i).getEndDate())%></td>
-                                                    <td><%=doneAuction.get(i).getStatus()%></td>
-                                                    <td><a href="/admin/removeauction?auctionid=<%=doneAuction.get(i).getId()%>&PGTodo=<%=tablePageTodo%>&NRTodo=<%=numberOfRecordTodo%>&PGDoing=<%=tablePageDoing%>&NRDoing=<%=numberOfRecordDoing%>&PGDone=<%=tablePageDone%>&NRDone=<%=numberOfRecordDone%>">rm</a></td>
-                                                    <td><a href="/admin/changestatusauction?auctionid=<%=doneAuction.get(i).getId()%>&PGTodo=<%=tablePageTodo%>&NRTodo=<%=numberOfRecordTodo%>&PGDoing=<%=tablePageDoing%>&NRDoing=<%=numberOfRecordDoing%>&PGDone=<%=tablePageDone%>&NRDone=<%=numberOfRecordDone%>">change</a></td>
-                                                    <td></td>
+                                                    <td><i class="<%=doneAuction.get(i).getStatus()==ActiveOrDeactive.ACTIVE?"fa fa-eye":"fa fa-eye-slash"%>"></i></td>
+                                                    <td><a href="/admin/removeauction?auctionid=<%=doneAuction.get(i).getId()%>&PGTodo=<%=tablePageTodo%>&NRTodo=<%=numberOfRecordTodo%>&PGDoing=<%=tablePageDoing%>&NRDoing=<%=numberOfRecordDoing%>&PGDone=<%=tablePageDone%>&NRDone=<%=numberOfRecordDone%>"><i class="fa fa-trash-o"></i></a></td>
+                                                    <td><a href="/admin/changestatusauction?auctionid=<%=doneAuction.get(i).getId()%>&PGTodo=<%=tablePageTodo%>&NRTodo=<%=numberOfRecordTodo%>&PGDoing=<%=tablePageDoing%>&NRDoing=<%=numberOfRecordDoing%>&PGDone=<%=tablePageDone%>&NRDone=<%=numberOfRecordDone%>"><i class="fa fa-refresh"></i></a></td>
+                                                    <td><a href="/admin/auctionparticipantmanager?auctionid=<%=doneAuction.get(i).getId() %>"><i class="fa fa-eye"></i></a></td>
                                                 </tr>
                                                 <%}%>
                                         </table>

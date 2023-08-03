@@ -66,19 +66,16 @@
 
                         <form action="/admin/insertart" method="post" enctype="multipart/form-data" role="form">
                             <div class="row" dir="rtl">
-                                <div class="col-sm-6"></div>
-                                <div class="form-group col-lg-3">
+                                <div class="form-group col-lg-offset-6">
                                     <label>نام اثر</label>
                                     <input class="form-control" type="text" placeholder="نام" name="nameart" />
                                     <p class="help-block"></p>
                                 </div>
-                                <div class="form-group col-lg-3">
+                                <div class="form-group col-lg-offset-6">
                                     <label>توضیحات</label>
                                     <input class="form-control" type="text" placeholder="توضیحات" name="descriptionart" />
                                     <p class="help-block"></p>
                                 </div>
-
-
                             </div>
                             <div class="row">
                                 <div class="col-sm-6"></div>
@@ -179,7 +176,7 @@
                                                     <td class="sorting_1"><%=arts.get(i).getId()%></td>
                                                     <td><%=arts.get(i).getName()%></td>
                                                     <td><%=arts.get(i).getDescription()%></td>
-                                                    <td class="center "><a href="<%=arts.get(i).getPhotoPath() != null ? "/images/arts/" + arts.get(i).getPhotoPath() : "#"%>"  height="50" width="50">img</a></td>
+                                                    <td class="center "><a href="<%=arts.get(i).getPhotoPath() != null ? "/images/arts/" + arts.get(i).getPhotoPath() : "#"%>"  height="50" width="50"><i class="fa fa-file"></i></a></td>
                                                     <td><a href="/admin/removeart?artid=<%=arts.get(i).getId()%>"><i class="fa fa-trash-o"></i></a></td>
                                                 </tr>
                                                 <%}

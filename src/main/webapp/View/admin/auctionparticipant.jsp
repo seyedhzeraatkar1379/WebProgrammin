@@ -4,6 +4,7 @@
     Author     : seyedhossein
 --%>
 
+<%@page import="java.util.Date"%>
 <%@page import="java.util.List"%>
 <%@page import="DatabaseManager.AuctionManager"%>
 <%@page import="Model.AuctionTable"%>
@@ -43,22 +44,23 @@
 
             <div id="page-wrapper" style="text-align: right; direction: rtl;">
                 <br/><br/><br/><br/>
-
+                <%
+                    if (auction == null) {
+                %>
+                ERROR
+                <%} else {%>
                 <div class="row" dir="rtl">
                     <!-- Page Header -->
                     <div class="col-lg-12">
-                        <h1 class="page-header">شرکت کنندگان مزایده: <%=auction.getArtId().getName()%></h1>
+                        <h1 class="page-header">شرکت کنندگان مزایده: <%=auction.getId() %></h1>
                     </div>
                     <!--End Page Header -->
                 </div>
                 <div class="row" >
 
                 </div>
-                <%
-                    if (auction == null) {
-                %>
-                ERROR
-                <%} else {%>
+
+
                 <div class="row">
                     <div class="col-lg-12">
                         <!--Collapsible Accordion Panel Group   -->
@@ -150,7 +152,61 @@
                                         </div>
                                         <div id="collapseThree" class="panel-collapse collapse" style="height: 0px;">
                                             <div class="panel-body">
-                                                //asd
+                                                <div class="col-lg-12">
+                                                    <!--    Context Classes  -->
+                                                    <div class="panel panel-default">
+
+                                                        <div class="panel-heading">
+                                                            Context Classes
+                                                        </div>
+
+                                                        <div class="panel-body">
+                                                            <div class="table-responsive">
+                                                                <table class="table" >
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th style="text-align: right; direction: rtl;">آیدی</th>
+                                                                            <th style="text-align: right; direction: rtl;">کد کاربر</th>
+                                                                            <th style="text-align: right; direction: rtl;">نام کاربر</th>
+                                                                            <th style="text-align: right; direction: rtl;">تاریخ ثبت</th>
+                                                                            <th style="text-align: right; direction: rtl;">قیمت پیشنهادی</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        <%
+                                                                            Date nowDate = new Date();
+                                                                            boolean done = false, winner = true;
+                                                                            if (auction.getEndDate().before(nowDate)) {
+                                                                                done = true;
+                                                                            }
+                                                                            for (AuctionParticipantTable partic : participant) {
+                                                                                if (done && winner == true) {
+                                                                                    winner = false;
+                                                                        %>
+                                                                        <tr class="success">
+                                                                            <td><%=partic.getId()%></td>
+                                                                            <td><%=partic.getUserId().getId()%></td>
+                                                                            <td><%=partic.getUserId().getFullname() != null ? partic.getUserId().getFullname() : ""%></td>
+                                                                            <td><%=dateFormat.format(partic.getPerposedDatetime())%></td>
+                                                                            <td><%=partic.getPerposedPrice()%></td>
+                                                                        </tr>
+                                                                        <%} else {%>
+                                                                        <tr>
+                                                                            <td><%=partic.getId()%></td>
+                                                                            <td><%=partic.getUserId().getId()%></td>
+                                                                            <td><%=partic.getUserId().getFullname() != null ? partic.getUserId().getFullname() : ""%></td>
+                                                                            <td><%=dateFormat.format(partic.getPerposedDatetime())%></td>
+                                                                            <td><%=partic.getPerposedPrice()%></td>
+                                                                        </tr>
+                                                                        <%}
+                                                                            }%>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!--  end  Context Classes  -->
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -173,3 +229,5 @@
         <script src="/View/admin/assets/scripts/siminta.js"></script>
     </body>
 </html>
+
+
