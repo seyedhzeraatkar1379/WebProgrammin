@@ -13,139 +13,163 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
+
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>auctionparticipant Page</title>
-    </head>
-    <body>
+        <link href="/View/admin/assets/plugins/bootstrap/bootstrap.css" rel="stylesheet">
+        <link href="/View/admin/assets/font-awesome/css/font-awesome.css" rel="stylesheet">
+        <link href="/View/admin/assets/plugins/pace/pace-theme-big-counter.css" rel="stylesheet">
+        <link href="/View/admin/assets/css/style.css" rel="stylesheet">
+        <link href="/View/admin/assets/css/main-style.css" rel="stylesheet">
         <%
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+            if (request.getParameter("auctionid") == null) {
+                response.sendRedirect("/admin/auctionmanager");
+                return;
+            } else if (request.getParameter("auctionid") == "") {
+                response.sendRedirect("/admin/auctionmanager");
+            }
+            int auctionId = Integer.parseInt(request.getParameter("auctionid"));
+            AuctionTable auction = AuctionManager.getAuctionById(auctionId);
+            List<AuctionParticipantTable> participant = null;
+            if (auction != null)
+                participant = AuctionParticipantManager.getAuctionAllParticipantById(auction.getId());
         %>
+    </head>
+    <body>
+        <div id="wrapper">
+            <%@include file="ConstPageSection/header.jspf" %>
 
-        <%--
-        //  Show Auction
-        --%>
-        <h1>قابلیت سزچ بر اساس مزایده ها</h1>
-        <h1>قابلیت سزچ بر اساس کد کاربر و نام کاربر</h1>
-        <h1>قابلیت سزچ بر اساس تاریخ شروع مزایده وپایان مزایده و وضعیت مزایده</h1>
-        <h1>وضعیت مزایده (درحال برگزاریو تمام شده و آینده)</h1>
-        <hr/>
-        <h1>در حال برگزاری</h1>
-        <%
-            List<AuctionTable> auctions = AuctionManager.getAuctionActiveDoing() ;
-            if (auctions != null) {
-                for (AuctionTable auction : auctions) {
-        %>
-        <table>
-            <tr>
-                <th>auction id</th>
-                <th>Art name</th>
-                <th>start date</th>
-                <th>end date</th>
-                <th>status</th>
-            </tr>
-            <tr>
-                <td><%=auction.getId()%></td>
-                <td><%=auction.getArtId().getName()%></td>
-                <td><%=dateFormat.format(auction.getStartDate())%></td>
-                <td><%=dateFormat.format(auction.getEndDate())%></td>
-                <td><%=auction.getStatus()%></td>          
+            <div id="page-wrapper" style="text-align: right; direction: rtl;">
+                <br/><br/><br/><br/>
 
-            </tr>
-        </table>
-        <%
-                    List<AuctionParticipantTable> participants = AuctionParticipantManager.getAuctionAllParticipantById(auction.getId());
-                    if (participants != null) {%>
-        <table>
-            <tr>
-                <th>participant id</th>
-                <th>purposed price</th>
-                <th>purposed date time</th>
-                <th>status</th>
-                <th>user id</th>
-                <th>user name</th>
-                <th>remove</th>
-            </tr>
-            <%
-                    for (AuctionParticipantTable part : participants) {
-            %>
-            <tr>
-                <td><%=part.getId()%></td>
-                <td><%=part.getPerposedPrice() %></td>
-                <td><%=part.getPerposedDatetime() %></td>
-                <td><%=part.getStatusCollateral() %></td>
-                <td><%=part.getUserId().getId() %></td>
-                <td><%=part.getUserId().getFullname() %></td>
-                <td><a href="/admin/removeparticipant?id=<%=part.getId()%>">rem</a></td>
-            </tr>
-            <%}%>
-        </table>
-        <%
-                    }%>
-        <%
-                }
-            }%>
+                <div class="row" dir="rtl">
+                    <!-- Page Header -->
+                    <div class="col-lg-12">
+                        <h1 class="page-header">شرکت کنندگان مزایده: <%=auction.getArtId().getName()%></h1>
+                    </div>
+                    <!--End Page Header -->
+                </div>
+                <div class="row" >
 
-        <h1>شروع نشده</h1>
+                </div>
+                <%
+                    if (auction == null) {
+                %>
+                ERROR
+                <%} else {%>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <!--Collapsible Accordion Panel Group   -->
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                مزایده
+                            </div>
+                            <div class="panel-body">
+                                <div class="panel-group" id="accordion">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h4 class="panel-title">
+                                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" class="collapsed">اطلاعات اثر</a>
+                                            </h4>
+                                        </div>
+                                        <div id="collapseOne" class="panel-collapse collapse" style="height: 0px;">
+                                            <div class="panel-body">
+                                                <div class="col-lg-12">
+                                                    <!--  Blockquotes-->
+                                                    <div class="panel panel-default">
+                                                        <div class="panel-heading">
+                                                            <%=auction.getArtId().getName()%>
+                                                        </div>
+                                                        <div class="panel-body">
+                                                            <h4>آیدی</h4>
+                                                            <blockquote>
+                                                                <p><%=auction.getArtId().getId()%></p>
+                                                            </blockquote>
+                                                            <h4>نام اثر</h4>
+                                                            <blockquote>
+                                                                <p><%=auction.getArtId().getName()%></p>
+                                                            </blockquote>
+                                                            <h4>تصویر</h4>
+                                                            <blockquote>
+                                                                <p><a href="<%=auction.getArtId().getPhotoPath() != null ? "/images/arts/" + auction.getArtId().getPhotoPath() : "#"%>"  height="50" width="50">img</a></p>
+                                                            </blockquote>
+                                                            <h4>توضیحات</h4>
+                                                            <blockquote>
+                                                                <p><%=auction.getArtId().getDescription()%></p>
+                                                            </blockquote>
 
-        <%
-            List<AuctionTable> auctions1 = AuctionManager.getAuctionActiveToDo() ;
-            if (auctions1 != null) {
-                for (AuctionTable auction : auctions1) {
-        %>
-        <table>
-            <tr>
-                <th>auction id</th>
-                <th>Art name</th>
-                <th>start date</th>
-                <th>end date</th>
-                <th>status</th>
-            </tr>
-            <tr>
-                <td><%=auction.getId()%></td>
-                <td><%=auction.getArtId().getName()%></td>
-                <td><%=dateFormat.format(auction.getStartDate())%></td>
-                <td><%=dateFormat.format(auction.getEndDate())%></td>
-                <td><%=auction.getStatus()%></td>          
-            </tr>
-        </table>
-        <%
-                    List<AuctionParticipantTable> participants = AuctionParticipantManager.getAuctionAllParticipantById(auction.getId());
-                    if (participants != null) {%>
-        <table>
-            <tr>
-                <th>participant id</th>
-                <th>purposed price</th>
-                <th>purposed date time</th>
-                <th>status</th>
-                <th>user id</th>
-                <th>user name</th>
-                <th>remove</th>
-            </tr>
-            <%
-                    for (AuctionParticipantTable part : participants) {
-            %>
-            <tr>
-                <td><%=part.getId()%></td>
-                <td><%=part.getPerposedPrice() %></td>
-                <td><%=part.getPerposedDatetime() %></td>
-                <td><%=part.getStatusCollateral() %></td>
-                <td><%=part.getUserId().getId() %></td>
-                <td><%=part.getUserId().getFullname() %></td>
-                <td><a href="/admin/removeparticipant?id=<%=part.getId()%>">rem</a></td>
-
-            </tr>
-            <%}%>
-        </table>
-        <%
-                    }%>
-        <%
-                }
-            }%>
-
-        <h1>تمام شده</h1>
-
-        
-
+                                                        </div>
+                                                    </div>
+                                                    <!-- End Blockquotes-->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h4 class="panel-title">
+                                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" class="">اطلاعات مزایده</a>
+                                            </h4>
+                                        </div>
+                                        <div id="collapseTwo" class="panel-collapse collapse in" style="height: auto;">
+                                            <div class="panel-body">
+                                                <div class="col-lg-12">
+                                                    <!--  Blockquotes-->
+                                                    <div class="panel panel-default">
+                                                        <div class="panel-heading">
+                                                            مزایده
+                                                        </div>
+                                                        <div class="panel-body">
+                                                            <h4>آیدی</h4>
+                                                            <blockquote>
+                                                                <p><%=auction.getId()%></p>
+                                                            </blockquote>
+                                                            <h4>تاریخ و زمان</h4>
+                                                            <blockquote>
+                                                                <p><%=dateFormat.format(auction.getStartDate())%></p>
+                                                                <p><%=dateFormat.format(auction.getEndDate())%></p>
+                                                            </blockquote>
+                                                            <h4>وضعیت</h4>
+                                                            <blockquote class="pull-right">
+                                                                <p><%=auction.getStatus()%></p>
+                                                            </blockquote>
+                                                        </div>
+                                                    </div>
+                                                    <!-- End Blockquotes-->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h4 class="panel-title">
+                                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" class="collapsed">شرکت کنندگان</a>
+                                            </h4>
+                                        </div>
+                                        <div id="collapseThree" class="panel-collapse collapse" style="height: 0px;">
+                                            <div class="panel-body">
+                                                //asd
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--End Collapsible Accordion Panel Group   -->
+                    </div>
+                </div>
+                <%=auction.getId()%>
+                <%=participant.size()%>
+                <%=participant%>
+                <%}%>
+            </div>
+        </div>
+        <script src="/View/admin/assets/plugins/jquery-1.10.2.js"></script>
+        <script src="/View/admin/assets/plugins/bootstrap/bootstrap.min.js"></script>
+        <script src="/View/admin/assets/plugins/metisMenu/jquery.metisMenu.js"></script>
+        <script src="/View/admin/assets/plugins/pace/pace.js"></script>
+        <script src="/View/admin/assets/scripts/siminta.js"></script>
     </body>
 </html>
