@@ -19,7 +19,7 @@ public class AdminInsertAuction
         extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if (request.getSession().getAttribute("admin") != null&&request.getParameter("artId") != null && request.getParameter("startDate") != null && request.getParameter("endDate") != null) {
+        if (request.getSession().getAttribute("admin") != null && request.getParameter("artId") != null && request.getParameter("startDate") != null && request.getParameter("endDate") != null) {
             int artId = Integer.parseInt(request.getParameter("artId"));
             int adminId = ((AdminTable) request.getSession().getAttribute("admin")).getId().intValue();
             String startDate = request.getParameter("startDate").replace('T', ' ');
@@ -29,10 +29,13 @@ public class AdminInsertAuction
             try {
                 auction.setStartDate((new SimpleDateFormat("yyyy-MM-dd HH:mm")).parse(startDate));
                 auction.setEndDate((new SimpleDateFormat("yyyy-MM-dd HH:mm")).parse(endDate));
-                
+                if (!auction.getStartDate().before(auction.getEndDate())) {
+                    response.sendRedirect("/admin/auctionmanager?statusins=" + StatusQuery.PARAMETER_NOT_VALID.ordinal());
+                    return;
+                }
             } catch (Exception ex) {
                 ex.printStackTrace();
-                response.sendRedirect("/admin/auctionmanager?status=" + StatusQuery.PARAMETER_NOT_VALID.ordinal());
+                response.sendRedirect("/admin/auctionmanager?statusins=" + StatusQuery.PARAMETER_NOT_VALID.ordinal());
                 return;
             }
             if (status != null) {
@@ -41,15 +44,15 @@ public class AdminInsertAuction
                 auction.setStatus(ActiveOrDeactive.DEACTIVE);
             }
             if (AuctionManager.insertAuction(auction, adminId, artId)) {
-                response.sendRedirect("/admin/auctionmanager?status=" + StatusQuery.SUCCESS.ordinal());
+                response.sendRedirect("/admin/auctionmanager?statusins=" + StatusQuery.SUCCESS.ordinal());
                 return;
             }
         } else {
 
-            response.sendRedirect("/admin/auctionmanager?status=" + StatusQuery.PARAMETER_NOT_VALID.ordinal());
+            response.sendRedirect("/admin/auctionmanager?statusins=" + StatusQuery.PARAMETER_NOT_VALID.ordinal());
             return;
         }
-        response.sendRedirect("/admin/auctionmanager?status=" + StatusQuery.FAILD.ordinal());
-            return;
+        response.sendRedirect("/admin/auctionmanager?statusins=" + StatusQuery.FAILD.ordinal());
+        return;
     }
 }

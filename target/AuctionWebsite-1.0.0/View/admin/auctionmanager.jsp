@@ -4,6 +4,7 @@
     Author     : seyedhossein
 --%>
 
+<%@page import="Enum.StatusQuery"%>
 <%@page import="DatabaseManager.ArtInfoManager"%>
 <%@page import="Model.ArtinfoTable"%>
 <%@page import="Enum.ActiveOrDeactive"%>
@@ -87,8 +88,8 @@
                                 <div class="form-group col-md-6" style="text-align: right;">
                                     <label>آیدی اثر</label>
                                     <select class="form-control" id="cars" name="artId">
-                                        <%for(ArtinfoTable art : artListDosntInAuction){%>
-                                        <option value="<%=art.getId()%>"><%="id: "+art.getId()+"name: "+art.getName()%></option>
+                                        <%for (ArtinfoTable art : artListDosntInAuction) {%>
+                                        <option value="<%=art.getId()%>"><%="id: " + art.getId() + "name: " + art.getName()%></option>
                                         <%}%>
                                     </select>
                                 </div>
@@ -126,6 +127,15 @@
                     </form>
                     <!--End Page Header -->
                 </div>
+                <br/>
+                <%if (request.getParameter("statusins") != null)
+                        if (!request.getParameter("statusins").isEmpty()) {
+                %>
+                <div class="alert <%=Integer.parseInt(request.getParameter("statusins")) == StatusQuery.SUCCESS.ordinal() ? "alert-success" : "alert-danger"%> alert-dismissable">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    <%=StatusQuery.values()[Integer.parseInt(request.getParameter("statusins"))]%>.
+                </div>
+                <%}%>
                 <br/>
                 <div class="row" >
                     <!-- Advanced Tables -->
@@ -198,7 +208,7 @@
                                                     <td><%=dateformat.format(toDoAuction.get(i).getStartDate())%></td>
                                                     <td><%=dateformat.format(toDoAuction.get(i).getEndDate())%></td>
                                                     <td><i class="<%=toDoAuction.get(i).getStatus() == ActiveOrDeactive.ACTIVE ? "fa fa-eye" : "fa fa-eye-slash"%>"></i></td>
-                                                    <td><a href="/admin/removeauction?auctionid=<%=toDoAuction.get(i).getId()%>&PGTodo=<%=tablePageTodo%>&NRTodo=<%=numberOfRecordTodo%>&PGDoing=<%=tablePageDoing%>&NRDoing=<%=numberOfRecordDoing%>&PGDone=<%=tablePageDone%>&NRDone=<%=numberOfRecordDone%>"><i class="fa fa-trash-o"></i></a></td>
+                                                    <td><a href="/admin/removeauction?datetype=1&auctionid=<%=toDoAuction.get(i).getId()%>&PGTodo=<%=tablePageTodo%>&NRTodo=<%=numberOfRecordTodo%>&PGDoing=<%=tablePageDoing%>&NRDoing=<%=numberOfRecordDoing%>&PGDone=<%=tablePageDone%>&NRDone=<%=numberOfRecordDone%>"><i class="fa fa-trash-o"></i></a></td>
                                                     <td><a href="/admin/changestatusauction?auctionid=<%=toDoAuction.get(i).getId()%>&PGTodo=<%=tablePageTodo%>&NRTodo=<%=numberOfRecordTodo%>&PGDoing=<%=tablePageDoing%>&NRDoing=<%=numberOfRecordDoing%>&PGDone=<%=tablePageDone%>&NRDone=<%=numberOfRecordDone%>"><i class="fa fa-refresh"></i></a></td>
                                                 </tr>
                                                 <%}%>
@@ -234,6 +244,14 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <%if (request.getParameter("datetype") != null && request.getParameter("statusrmv") != null)
+                                                if (Integer.parseInt(request.getParameter("datetype")) == 1) {
+                                        %>
+                                        <div class="alert <%=Integer.parseInt(request.getParameter("statusrmv")) == StatusQuery.SUCCESS.ordinal() ? "alert-success" : "alert-danger"%> alert-dismissable">
+                                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                            <%=StatusQuery.values()[Integer.parseInt(request.getParameter("statusrmv"))]%>.
+                                        </div>
+                                        <%}%>
                                     </div>
                                 </div>
 
@@ -318,7 +336,7 @@
                                                     <td><%=dateformat.format(doingAuction.get(i).getStartDate())%></td>
                                                     <td><%=dateformat.format(doingAuction.get(i).getEndDate())%></td>
                                                     <td><i class="<%=doingAuction.get(i).getStatus() == ActiveOrDeactive.ACTIVE ? "fa fa-eye" : "fa fa-eye-slash"%>"></i></td>
-                                                    <td><a href="/admin/removeauction?auctionid=<%=doingAuction.get(i).getId()%>&PGTodo=<%=tablePageTodo%>&NRTodo=<%=numberOfRecordTodo%>&PGDoing=<%=tablePageDoing%>&NRDoing=<%=numberOfRecordDoing%>&PGDone=<%=tablePageDone%>&NRDone=<%=numberOfRecordDone%>"><i class="fa fa-trash-o"></i></a></td>
+                                                    <td><a href="/admin/removeauction?datetype=2&auctionid=<%=doingAuction.get(i).getId()%>&PGTodo=<%=tablePageTodo%>&NRTodo=<%=numberOfRecordTodo%>&PGDoing=<%=tablePageDoing%>&NRDoing=<%=numberOfRecordDoing%>&PGDone=<%=tablePageDone%>&NRDone=<%=numberOfRecordDone%>"><i class="fa fa-trash-o"></i></a></td>
                                                     <td><a href="/admin/changestatusauction?auctionid=<%=doingAuction.get(i).getId()%>&PGTodo=<%=tablePageTodo%>&NRTodo=<%=numberOfRecordTodo%>&PGDoing=<%=tablePageDoing%>&NRDoing=<%=numberOfRecordDoing%>&PGDone=<%=tablePageDone%>&NRDone=<%=numberOfRecordDone%>"><i class="fa fa-refresh"></i></a></td>
                                                     <td><a href="/admin/auctionparticipantmanager?auctionid=<%=doingAuction.get(i).getId()%>"><i class="fa fa-eye"></i></a></td>
                                                 </tr>
@@ -360,6 +378,14 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <%if (request.getParameter("datetype") != null && request.getParameter("statusrmv") != null)
+                                                if (Integer.parseInt(request.getParameter("datetype")) == 2) {
+                                        %>
+                                        <div class="alert <%=Integer.parseInt(request.getParameter("statusrmv")) == StatusQuery.SUCCESS.ordinal() ? "alert-success" : "alert-danger"%> alert-dismissable">
+                                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                            <%=StatusQuery.values()[Integer.parseInt(request.getParameter("statusrmv"))]%>.
+                                        </div>
+                                        <%}%>
                                     </div>
                                 </div>
 
@@ -444,12 +470,13 @@
                                                     <td><%=dateformat.format(doneAuction.get(i).getStartDate())%></td>
                                                     <td><%=dateformat.format(doneAuction.get(i).getEndDate())%></td>
                                                     <td><i class="<%=doneAuction.get(i).getStatus() == ActiveOrDeactive.ACTIVE ? "fa fa-eye" : "fa fa-eye-slash"%>"></i></td>
-                                                    <td><a href="/admin/removeauction?auctionid=<%=doneAuction.get(i).getId()%>&PGTodo=<%=tablePageTodo%>&NRTodo=<%=numberOfRecordTodo%>&PGDoing=<%=tablePageDoing%>&NRDoing=<%=numberOfRecordDoing%>&PGDone=<%=tablePageDone%>&NRDone=<%=numberOfRecordDone%>"><i class="fa fa-trash-o"></i></a></td>
+                                                    <td><a href="/admin/removeauction?datetype=3&auctionid=<%=doneAuction.get(i).getId()%>&PGTodo=<%=tablePageTodo%>&NRTodo=<%=numberOfRecordTodo%>&PGDoing=<%=tablePageDoing%>&NRDoing=<%=numberOfRecordDoing%>&PGDone=<%=tablePageDone%>&NRDone=<%=numberOfRecordDone%>"><i class="fa fa-trash-o"></i></a></td>
                                                     <td><a href="/admin/changestatusauction?auctionid=<%=doneAuction.get(i).getId()%>&PGTodo=<%=tablePageTodo%>&NRTodo=<%=numberOfRecordTodo%>&PGDoing=<%=tablePageDoing%>&NRDoing=<%=numberOfRecordDoing%>&PGDone=<%=tablePageDone%>&NRDone=<%=numberOfRecordDone%>"><i class="fa fa-refresh"></i></a></td>
                                                     <td><a href="/admin/auctionparticipantmanager?auctionid=<%=doneAuction.get(i).getId()%>"><i class="fa fa-eye"></i></a></td>
                                                 </tr>
                                                 <%}%>
                                         </table>
+
                                         <div class="row">
                                             <div class="col-sm-6">
                                             </div>
@@ -486,6 +513,14 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <%if (request.getParameter("datetype") != null && request.getParameter("statusrmv") != null)
+                                                if (Integer.parseInt(request.getParameter("datetype")) == 3) {
+                                        %>
+                                        <div class="alert <%=Integer.parseInt(request.getParameter("statusrmv")) == StatusQuery.SUCCESS.ordinal() ? "alert-success" : "alert-danger"%> alert-dismissable">
+                                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                            <%=StatusQuery.values()[Integer.parseInt(request.getParameter("statusrmv"))]%>.
+                                        </div>
+                                        <%}%>
                                     </div>
                                 </div>
 

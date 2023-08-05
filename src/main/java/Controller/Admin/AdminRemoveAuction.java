@@ -20,17 +20,19 @@ public class AdminRemoveAuction
         String NRDoing = request.getParameter("NRDoing") != null ? "&NRDoing="+request.getParameter("NRDoing") : "";
         String PGDone  = request.getParameter("PGDone") != null ? "&PGDone="+request.getParameter("PGDone") : "";
         String NRDone  = request.getParameter("NRDone") != null ? "&NRDone="+request.getParameter("NRDone") : "";
+        String datetype = request.getParameter("datetype") != null ? "&datetype="+request.getParameter("datetype") : "";
         if (request.getParameter("auctionid") != null) {
             if (AuctionManager.removeAuction(Integer.parseInt(request.getParameter("auctionid")))) {
-                response.sendRedirect("/admin/auctionmanager?status=" + StatusQuery.SUCCESS.ordinal()+PGTodo+NRTodo+PGDoing+NRDoing+PGDone+NRDone);
+                response.sendRedirect("/admin/auctionmanager?statusrmv=" + StatusQuery.SUCCESS.ordinal()+datetype+PGTodo+NRTodo+PGDoing+NRDoing+PGDone+NRDone);
                 return;
             } else {
-                response.sendRedirect("/admin/auctionmanager?status=" + StatusQuery.FAILD_DEPENDENCY.ordinal()+PGTodo+NRTodo+PGDoing+NRDoing+PGDone+NRDone);
+                response.sendRedirect("/admin/auctionmanager?statusrmv=" + StatusQuery.FAILD_DEPENDENCY.ordinal()+datetype+PGTodo+NRTodo+PGDoing+NRDoing+PGDone+NRDone);
                 return;
             }
         } else {
-            response.sendRedirect("/admin/auctionmanager?status=" + StatusQuery.PARAMETER_NOT_VALID.ordinal()+PGTodo+NRTodo+PGDoing+NRDoing+PGDone+NRDone);
+            response.sendRedirect("/admin/auctionmanager?statusrmv=" + StatusQuery.PARAMETER_NOT_VALID.ordinal()+datetype+PGTodo+NRTodo+PGDoing+NRDoing+PGDone+NRDone);
             return;
         }
     }
 }
+

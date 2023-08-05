@@ -24,11 +24,11 @@
         }
         if (request.getParameter("PG") != null) {
             tablePage = Integer.parseInt(request.getParameter("PG"));
-            
+
         }
         if (request.getParameter("NR") != null) {
             numberOfRecord = Integer.parseInt(request.getParameter("NR"));
-            
+
         }
         List<ArtinfoTable> arts = (filterArt == null ? ArtInfoManager.getAllArt() : ArtInfoManager.getAllArt(filterArt));
     %>
@@ -91,9 +91,15 @@
                         <%if (request.getParameter("statusinsert") != null) {
                                 if (request.getParameter("statusinsert").compareTo(Integer.toString(StatusQuery.SUCCESS.ordinal())) == 0) {
                         %>
-                        <h5 style="color: green;">Success</h5>
+                        <div class="alert alert-success alert-dismissable">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                            <%=StatusQuery.values()[Integer.parseInt(request.getParameter("statusinsert"))]%>
+                        </div>
                         <%} else {%>
-                        <h5 style="color: red;"><%=StatusQuery.values()[Integer.parseInt(request.getParameter("statusinsert"))]%></h5>
+                        <div class="alert alert-danger alert-dismissable">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                            <%=StatusQuery.values()[Integer.parseInt(request.getParameter("statusinsert"))]%>
+                        </div>
                         <%}
                             }%>
                     </div>
@@ -199,7 +205,7 @@
                                                         <li class="paginate_button previous" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_previous"><a href="/admin/artmanager?PG=<%=tablePage - 1%>&NR=<%=numberOfRecord%><%=filterString%>">Previous</a></li>
                                                             <%}
                                                                 if (arts != null) {
-                                                                    for (int i = 0; i < Math.ceil((double)arts.size() / numberOfRecord); i++) {
+                                                                    for (int i = 0; i < Math.ceil((double) arts.size() / numberOfRecord); i++) {
 
                                                                         if (tablePage == i + 1) {
                                                             %>
@@ -209,17 +215,25 @@
                                                             <%}
                                                                 }
 
-                                                                if (tablePage < Math.ceil((double)arts.size() / numberOfRecord)) {
+                                                                if (tablePage < Math.ceil((double) arts.size() / numberOfRecord)) {
                                                             %>
                                                         <li class="paginate_button next" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_next">
                                                             <a href="/admin/artmanager?PG=<%=tablePage + 1%>&NR=<%=numberOfRecord%><%=filterString%>">Next</a>
                                                         </li>
                                                         <%}
-                                                }%>
+                                                            }%>
                                                     </ul>
                                                 </div>
                                             </div>
                                         </div>
+                                        <%if (request.getParameter("statusrmv") != null)
+                                                if (!request.getParameter("statusrmv").isEmpty()) {
+                                        %>
+                                        <div class="alert <%=Integer.parseInt(request.getParameter("statusrmv")) == StatusQuery.SUCCESS.ordinal() ? "alert-success" : "alert-danger"%> alert-dismissable">
+                                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                            <%=StatusQuery.values()[Integer.parseInt(request.getParameter("statusrmv"))]%>.
+                                        </div>
+                                        <%}%>
                                     </div>
                                 </div>
 

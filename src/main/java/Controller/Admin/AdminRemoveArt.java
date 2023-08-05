@@ -35,12 +35,12 @@ public class AdminRemoveArt
                     }
                 }
                 if (ArtInfoManager.removeArtById(art.getId())) {
-                    response.sendRedirect("/admin/artmanager?status=" + StatusQuery.SUCCESS.ordinal());
+                    response.sendRedirect("/admin/artmanager?statusrmv=" + StatusQuery.SUCCESS.ordinal());
                     return;
                 }
             }
         }
-        response.sendRedirect("/admin/artmanager?status=" + StatusQuery.FAILD_DEPENDENCY.ordinal());
+        response.sendRedirect("/admin/artmanager?statusrmv=" + StatusQuery.FAILD_DEPENDENCY.ordinal());
         return;
 
     }
