@@ -33,6 +33,8 @@ public class AdminChangeAuctionStatus extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
         String PGTodo  = request.getParameter("PGTodo") != null ? "&PGTodo="+request.getParameter("PGTodo") : "";
         String NRTodo  = request.getParameter("NRTodo") != null ? "&NRTodo="+request.getParameter("NRTodo") : "";
         String PGDoing = request.getParameter("PGDoing") != null ? "&PGDoing="+request.getParameter("PGDoing") : "";

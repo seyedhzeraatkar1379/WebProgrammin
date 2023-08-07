@@ -18,6 +18,8 @@ public class AdminRemoveArt
         extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
         if (request.getParameter("artid") == null) {
             response.sendRedirect("/admin/artmanager?status=" + StatusQuery.PARAMETER_NOT_VALID.ordinal());
             return;

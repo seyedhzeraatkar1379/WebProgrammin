@@ -13,16 +13,16 @@
     </head>
     <body>
         <h1>login</h1>
-        <form method="post" action="/logincheck">
+        <form method="post" action="/user/logincheck">
             <input type="email" placeholder="Email" name="email"/>
             <input type="password" placeholder="password" name="password"/>
             <input type="submit" />
         </form>
         <h1>register</h1>
-        <form method="post" action="/register">
+        <form method="post" action="/user/register">
             <input placeholder="Email" type="email" name="email"/>
             <input placeholder="password" type="password" name="password"/>
-            <input placeholder="confirm password" type="password1"/>
+            <input placeholder="confirm password" type="password" name="confirmpassword"/>
             <input type="checkbox" name="commitment" value="1"/>
             <input type="submit" />
         </form>   

@@ -4,6 +4,7 @@
  */
 package Model;
 
+import Enum.ActiveOrDeactive;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -49,7 +50,7 @@ public class AuctionParticipantTable implements Serializable {
     private Date perposedDatetime;
     @Basic(optional = false)
     @Column(name = "status_collateral")
-    private Character statusCollateral;
+    private String statusCollateral;
     @JoinColumn(name = "auction_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private AuctionTable auctionId;
@@ -64,7 +65,7 @@ public class AuctionParticipantTable implements Serializable {
         this.id = id;
     }
 
-    public AuctionParticipantTable(Integer id, String perposedPrice, Date perposedDatetime, Character statusCollateral) {
+    public AuctionParticipantTable(Integer id, String perposedPrice, Date perposedDatetime, String statusCollateral) {
         this.id = id;
         this.perposedPrice = perposedPrice;
         this.perposedDatetime = perposedDatetime;
@@ -95,12 +96,16 @@ public class AuctionParticipantTable implements Serializable {
         this.perposedDatetime = perposedDatetime;
     }
 
-    public Character getStatusCollateral() {
-        return statusCollateral;
+    public ActiveOrDeactive getStatusCollateral() {
+        if (statusCollateral == Integer.toString(ActiveOrDeactive.ACTIVE.ordinal())) {
+            return ActiveOrDeactive.ACTIVE;
+        } else {
+            return ActiveOrDeactive.DEACTIVE;
+        }
     }
 
-    public void setStatusCollateral(Character statusCollateral) {
-        this.statusCollateral = statusCollateral;
+    public void setStatusCollateral(ActiveOrDeactive statusCollateral) {
+        this.statusCollateral = Integer.toString(statusCollateral.ordinal());
     }
 
     public AuctionTable getAuctionId() {
@@ -143,5 +148,5 @@ public class AuctionParticipantTable implements Serializable {
     public String toString() {
         return "models.AuctionParticipantTable[ id=" + id + " ]";
     }
-    
+
 }

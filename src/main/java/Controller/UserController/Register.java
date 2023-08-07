@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author hossein
  */
-@WebServlet(name = "Register", urlPatterns = {"/register"})
+@WebServlet(name = "Register", urlPatterns = {"/user/register"})
 public class Register extends HttpServlet {
 
     /**
@@ -31,13 +31,24 @@ public class Register extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
         if (request.getParameter("email") != null && request.getParameter("password") != null && request.getParameter("commitment") != null) {
-            if (request.getParameter("commitment").compareTo("1") == 0) {
-                if (UserManager.registerUserlv1(request.getParameter("email"), request.getParameter("password"))) {
-                    response.sendRedirect("/login?status=" + StatusQuery.SUCCESS.ordinal());
+            if (request.getParameter("password").compareTo(request.getParameter("confirmpassword")) == 0) {
+                if (request.getParameter("commitment").compareTo("1") == 0) {
+                    if (UserManager.registerUserlv1(request.getParameter("email"), request.getParameter("password"))) {
+                        response.sendRedirect("/login?status=" + StatusQuery.SUCCESS.ordinal());
+                        return;
+                    } else {
+                        response.sendRedirect("/login?registerstatus=" + StatusQuery.RECORD_EXIST.ordinal());
+                        return;
+                    }
+                } else {
+                    response.sendRedirect("/login?registerstatus=" + StatusQuery.COMMITMENT_NOT_ACCEPT.ordinal());
                     return;
                 }
-                response.sendRedirect("/login?registerstatus=" + StatusQuery.RECORD_EXIST.ordinal());
+            } else {
+                response.sendRedirect("/login?registerstatus=" + StatusQuery.NEW_PASSWORD_RETRY_INCORRECT.ordinal());
                 return;
             }
         }

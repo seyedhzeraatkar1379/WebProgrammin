@@ -33,6 +33,8 @@ public class AdminLogout extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
         request.getSession().invalidate();
         response.sendRedirect("/admin/login");
         return;

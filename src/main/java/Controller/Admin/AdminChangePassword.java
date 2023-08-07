@@ -18,6 +18,8 @@ public class AdminChangePassword
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
         AdminTable admin = (AdminTable) request.getSession().getAttribute("admin");
         String currentPassword = request.getParameter("currentPassword");
         String newPassword = request.getParameter("newPassword");

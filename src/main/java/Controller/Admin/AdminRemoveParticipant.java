@@ -33,6 +33,8 @@ public class AdminRemoveParticipant extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
         if (request.getParameter("id") != null) {
             if (AuctionParticipantManager.removeAuctionParticipant(Integer.parseInt(request.getParameter("id")))) {
                 response.sendRedirect("/admin/auctionparticipantmanager?status=" + StatusQuery.SUCCESS);

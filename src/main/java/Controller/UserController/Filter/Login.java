@@ -16,12 +16,13 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  *
  * @author hossein
  */
-@WebFilter(filterName = "LoginFilter", urlPatterns = {"/userpanel"})
+@WebFilter(filterName = "LoginFilter", urlPatterns = {"/user/*"})
 public class Login implements Filter {
 
     /**
@@ -36,9 +37,18 @@ public class Login implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response,
             FilterChain chain)
             throws IOException, ServletException {
-        HttpServletRequest req = (HttpServletRequest)request;
-        if(req.getSession().getAttribute("user")!=null)
+        HttpServletRequest req = (HttpServletRequest) request;
+        HttpServletResponse res = (HttpServletResponse) response;
+        if (req.getRequestURI().compareTo("/user/logincheck") == 0 || req.getRequestURI().compareTo("/user/register") == 0) {
+            if(req.getSession().getAttribute("user") != null)
+                res.sendRedirect("/home");
+            else
+                chain.doFilter(request, response);
+        } else if (req.getSession().getAttribute("user") != null) {
             chain.doFilter(request, response);
+        } else {
+            res.sendRedirect("/login");
+        }
     }
 
 }

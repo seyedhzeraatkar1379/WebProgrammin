@@ -1,6 +1,8 @@
 package DatabaseManager;
 
 import DatabaseManager.AuctionManager;
+import Enum.ActiveOrDeactive;
+import Enum.ParticipateStatus;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -16,34 +18,84 @@ public class AuctionParticipantManager {
 
     private static final String PUN = "Auction_website";
 
-    public static boolean insertAuctionParticipant(AuctionParticipantTable auctionParticipant, int auctionid, int userid) {
+    private static long getRecordIfExist(int userId, int auctionId) {
         EntityManagerFactory entityManagerFactory = null;
         EntityManager entityManager = null;
         EntityTransaction transaction = null;
         try {
             entityManagerFactory = Persistence.createEntityManagerFactory(PUN);
             entityManager = entityManagerFactory.createEntityManager();
-            Date date = new Date();
-            transaction.begin();
-            UserTable user = (UserTable) entityManager.find(UserTable.class, Integer.valueOf(userid));
-            AuctionTable auction = AuctionManager.getAuctionByIdActive(auctionid);
-            if (user != null && auction != null) {
-                auctionParticipant.setAuctionId(auction);
-                auctionParticipant.setUserId(user);
-                auctionParticipant.setPerposedDatetime(date);
-                entityManager.persist(auctionParticipant);
-                transaction.commit();
-                return true;
+            Query query = entityManager.createQuery("select count(partic) from AuctionParticipantTable partic where partic.auctionId.id=?1 and partic.userId.id=?2");
+            query.setParameter("1", auctionId);
+            query.setParameter("2", userId);
+            long aucId = (long) query.getSingleResult();
+            if (aucId > 0) {
+                return aucId;
+            } else {
+                return 0;
             }
-            return false;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return -1;
+        }
+    }
+
+    public static ParticipateStatus insertOrUpdateAuctionParticipant(AuctionParticipantTable auctionParticipant, int auctionid, int userid) {
+        EntityManagerFactory entityManagerFactory = null;
+        EntityManager entityManager = null;
+        EntityTransaction transaction = null;
+        try {
+            entityManagerFactory = Persistence.createEntityManagerFactory(PUN);
+            entityManager = entityManagerFactory.createEntityManager();
+            transaction = entityManager.getTransaction();
+            Date date = new Date();
+            UserTable user = (UserTable) entityManager.find(UserTable.class, Integer.valueOf(userid));
+            AuctionTable auction = AuctionManager.getAuctionTodoByIdActive(auctionid);
+            if (user != null && auction != null) {
+                if (user.getUserStatus() != ActiveOrDeactive.ACTIVE) {
+                    return ParticipateStatus.USER_DEACTIVE;
+                }
+                if (auction.getStatus() != ActiveOrDeactive.ACTIVE) {
+                    return ParticipateStatus.AUCTION_DEACTIVE;
+                }
+                int aucParticId = (int)getRecordIfExist(userid, auctionid);
+                switch (aucParticId) {
+                    case -1:
+                        return ParticipateStatus.ERROR;
+                    case 0:
+                        transaction.begin();
+                        auctionParticipant.setAuctionId(auction);
+                        auctionParticipant.setUserId(user);
+                        auctionParticipant.setPerposedDatetime(date);
+                        entityManager.persist(auctionParticipant);
+                        transaction.commit();
+                        return ParticipateStatus.SUCCESS_INSERT;
+                    default:
+                        transaction.begin();
+                        AuctionParticipantTable aucpartic = entityManager.find(AuctionParticipantTable.class,aucParticId);
+                        if(Integer.parseInt(aucpartic.getPerposedPrice())<Integer.parseInt(auctionParticipant.getPerposedPrice()))
+                        {
+                            aucpartic.setPerposedDatetime(date);
+                            aucpartic.setPerposedPrice(auctionParticipant.getPerposedPrice());
+                            transaction.commit();
+                            return ParticipateStatus.SUCCESS_UPDATE;
+                        }
+                        else
+                        {
+                            transaction.rollback();
+                            return ParticipateStatus.PRICE_NOTCORRECT;
+                        }
+                }
+            }
+            return ParticipateStatus.ERROR;
         } catch (Exception e) {
             if (transaction != null) {
                 if (transaction.isActive()) {
-                    entityManager.getTransaction().rollback();
+                    transaction.rollback();
                 }
             }
             e.printStackTrace();
-            return false;
+            return ParticipateStatus.ERROR;
         } finally {
             if (entityManager != null) {
                 entityManager.close();
@@ -111,7 +163,7 @@ public class AuctionParticipantManager {
             }
         }
     }
-    
+
     public static long getNumberOfParticipant() {
         EntityManagerFactory entityManagerFactory = null;
         EntityManager entityManager = null;
@@ -121,7 +173,7 @@ public class AuctionParticipantManager {
 
             Query query = entityManager.createQuery("select count(partic) from AuctionParticipantTable partic GROUP BY partic.userId");
 
-            long numberOfParticipants = (long)query.getSingleResult();
+            long numberOfParticipants = (long) query.getSingleResult();
             return numberOfParticipants;
         } catch (Exception e) {
             e.printStackTrace();

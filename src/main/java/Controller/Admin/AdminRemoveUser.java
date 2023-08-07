@@ -14,6 +14,8 @@ public class AdminRemoveUser
         extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
         if (request.getParameter("userid") != null) {
             int userId = Integer.parseInt(request.getParameter("userid"));
             UserManager.removeUser(userId);

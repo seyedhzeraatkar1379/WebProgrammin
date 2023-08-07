@@ -5,7 +5,6 @@
 package Controller.UserController;
 
 import DatabaseManager.UserManager;
-import Enum.StatusQuery;
 import Model.UserTable;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -19,8 +18,10 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author hossein
  */
-@WebServlet(name = "LoginControll", urlPatterns = {"/user/logincheck"})
-public class Login extends HttpServlet {
+@WebServlet(name = "UpdateUser", urlPatterns = {"/user/updateuser"})
+public class UpdateUser extends HttpServlet {
+
+
 
     /**
      * Handles the HTTP <code>POST</code> method.
@@ -35,24 +36,12 @@ public class Login extends HttpServlet {
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
-        if (request.getParameter("email") != null && request.getParameter("password") != null) {
-            if (!request.getParameter("email").isEmpty() && !request.getParameter("password").isEmpty()) {
-                UserTable user = UserManager.loginUser(request.getParameter("email"), request.getParameter("password"));
-                if (user != null) {
-                    request.getSession().setAttribute("user", user);
-                    response.sendRedirect("/");
-                    return;
-                }else{
-                    response.sendRedirect("/login?statuslogin="+StatusQuery.USERNAME_PASSWORD_INCORRECT.ordinal());
-                    return;
-                }
-            }
-            else{
-                response.sendRedirect("/login?statuslogin="+StatusQuery.PARAMETER_NOT_VALID.ordinal());
-                    return;
-            }
-        }
-        response.sendRedirect("/login?statuslogin=" + StatusQuery.FAILD.ordinal());
+        UserTable user = (UserTable)request.getSession().getAttribute("user");
+        user.setPhoneNumber(request.getParameter("phoneNumber")!=null?request.getParameter("phoneNumber"):"");
+        user.setAddress(request.getParameter("address")!=null?request.getParameter("address"):"");
+        user.setFullname(request.getParameter("fullName")!=null?request.getParameter("fullName"):"");
+        user.setIdCardCode(request.getParameter("idCardCode")!=null?request.getParameter("idCardCode"):"");
+        UserManager.updateUser(user);
+        response.sendRedirect("/user/userpanel");
     }
-
 }

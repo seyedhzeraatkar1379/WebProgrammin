@@ -255,17 +255,18 @@ public class AuctionManager {
         }
     }
 
-    public static AuctionTable getAuctionByIdActive(int id) {
+    public static AuctionTable getAuctionTodoByIdActive(int id) {
         EntityManagerFactory entityManagerFactory = null;
         EntityManager entityManager = null;
         try {
             Date currDate = new Date();
             entityManagerFactory = Persistence.createEntityManagerFactory(PUN);
             entityManager = entityManagerFactory.createEntityManager();
-            Query query = entityManager.createQuery("select auc from AuctionTable auc where auc.id = ?1 and auc.startDate <= ?2 and auc.endDate >= ?3");
+            Query query = entityManager.createQuery("select auc from AuctionTable auc where auc.id = ?1 and auc.startDate <= ?2 and auc.endDate >= ?3 and auc.status=?4");
             query.setParameter(1, Integer.valueOf(id));
             query.setParameter(2, currDate);
             query.setParameter(3, currDate);
+            query.setParameter(4, Integer.toString(ActiveOrDeactive.ACTIVE.ordinal()));
             List<AuctionTable> list = query.getResultList();
             return (AuctionTable) list.get(0);
         } catch (Exception e) {

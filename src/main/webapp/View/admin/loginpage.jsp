@@ -55,7 +55,7 @@
                                 </fieldset>
                             </form>
                             <%if (request.getParameter("status") != null)
-                                if (request.getParameter("status").compareTo(Integer.toString(StatusQuery.USERNAME_PASSORD_INCORRECT.ordinal())) == 0) {%>
+                                if (request.getParameter("status").compareTo(Integer.toString(StatusQuery.USERNAME_PASSWORD_INCORRECT.ordinal())) == 0) {%>
                             <h3>username/Password Incorrect</h3>
                             <%}%>
                         </div>

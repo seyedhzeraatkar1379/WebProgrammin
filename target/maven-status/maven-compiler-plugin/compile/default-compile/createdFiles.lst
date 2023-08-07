@@ -1,4 +1,5 @@
 Model\AdminTable.class
+Controller\UserController\ParticipateAuction.class
 DatabaseManager\AuctionParticipantManager.class
 Model\ArtinfoTable_.class
 Model\AuctionTable_.class
@@ -10,7 +11,6 @@ DatabaseManager\ContactUsManager.class
 Controller\Admin\AdminChangePassword.class
 Model\AuctionTable.class
 Controller\UserController\Register.class
-Enum\AdminErrorLogin.class
 Controller\Admin\AdminRemoveParticipant.class
 Controller\UserController\Filter\Login.class
 Model\ContactusTable.class
@@ -29,6 +29,7 @@ Model\UserTable.class
 Controller\Admin\AdminChangeAuctionStatus.class
 Controller\Admin\AdminRemoveUser.class
 DatabaseManager\AdminManager.class
+Controller\UserController\UpdateUser.class
 Model\ArtinfoTable.class
 Controller\Admin\AdminRemoveAuction.class
 Controller\Admin\AdminInsertArt.class

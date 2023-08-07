@@ -14,6 +14,8 @@ public class AdminChangeUserStatus
         extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
         int pageNumber = 1, numberOfRecord = 10;
         if (request.getParameter("PG") != null) {
             pageNumber = Integer.parseInt(request.getParameter("PG"));

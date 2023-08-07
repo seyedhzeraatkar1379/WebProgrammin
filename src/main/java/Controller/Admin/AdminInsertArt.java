@@ -24,6 +24,8 @@ public class AdminInsertArt
         extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
         String FaildUrl = "/admin/artmanager?statusinsert=" + StatusQuery.FAILD.ordinal();
         if (ServletFileUpload.isMultipartContent(request)) {
             ArtinfoTable newArt = new ArtinfoTable();

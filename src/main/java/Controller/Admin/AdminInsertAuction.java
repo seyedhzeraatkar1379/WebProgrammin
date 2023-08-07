@@ -19,6 +19,8 @@ public class AdminInsertAuction
         extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
         if (request.getSession().getAttribute("admin") != null && request.getParameter("artId") != null && request.getParameter("startDate") != null && request.getParameter("endDate") != null) {
             int artId = Integer.parseInt(request.getParameter("artId"));
             int adminId = ((AdminTable) request.getSession().getAttribute("admin")).getId().intValue();

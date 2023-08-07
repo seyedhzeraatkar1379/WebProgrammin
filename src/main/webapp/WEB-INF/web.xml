@@ -72,4 +72,13 @@
         <servlet-name>Login</servlet-name>
         <url-pattern>/login</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>UserPanel</servlet-name>
+        <jsp-file>/View/userpanel.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UserPanel</servlet-name>
+        <url-pattern>/user/userpanel</url-pattern>
+    </servlet-mapping>
+    
 </web-app>

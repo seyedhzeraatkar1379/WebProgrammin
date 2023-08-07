@@ -13,7 +13,8 @@
         <title>JSP Page</title>
     </head>
     <body>
-        
-
+        <h1>home</h1>
+        <a href="/login">login</a>
+        <a href="/userpanel">user panel</a>
     </body>
 </html>

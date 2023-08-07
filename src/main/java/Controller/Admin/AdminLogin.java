@@ -17,6 +17,8 @@ import Enum.StatusQuery;
    extends HttpServlet
  {
    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+       request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
      String username = request.getParameter("username");
      String password = request.getParameter("password");
      
@@ -30,7 +32,7 @@ import Enum.StatusQuery;
        return;
      } else {
        
-       response.sendRedirect("/admin/login?status=" + StatusQuery.USERNAME_PASSORD_INCORRECT.ordinal());
+       response.sendRedirect("/admin/login?status=" + StatusQuery.USERNAME_PASSWORD_INCORRECT.ordinal());
        return;
      } 
    }
