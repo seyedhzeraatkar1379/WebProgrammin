@@ -18,9 +18,13 @@ public class AdminRemoveUser
         response.setCharacterEncoding("UTF-8");
         if (request.getParameter("userid") != null) {
             int userId = Integer.parseInt(request.getParameter("userid"));
-            UserManager.removeUser(userId);
-            response.sendRedirect("/admin/usermanager?status=" + StatusQuery.SUCCESS.ordinal());
+            if(UserManager.removeUser(userId))
+            {response.sendRedirect("/admin/usermanager?status=" + StatusQuery.SUCCESS.ordinal());
+            return;}
+            else{
+                response.sendRedirect("/admin/usermanager?status=" + StatusQuery.FAILD_DEPENDENCY.ordinal());
             return;
+            }
         } else {
             response.sendRedirect("/admin/usermanager?status=" + StatusQuery.PARAMETER_NOT_VALID.ordinal());
             return;

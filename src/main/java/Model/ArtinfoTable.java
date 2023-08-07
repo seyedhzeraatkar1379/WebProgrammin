@@ -45,7 +45,7 @@ public class ArtinfoTable implements Serializable {
     private String description;
     @Column(name = "photo_path")
     private String photoPath;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "artId")
+    @OneToMany(mappedBy = "artId")
     private List<AuctionTable> auctionTableCollection;
 
     public ArtinfoTable() {

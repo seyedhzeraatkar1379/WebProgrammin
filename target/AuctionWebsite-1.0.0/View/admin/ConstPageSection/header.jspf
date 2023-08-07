@@ -3,9 +3,7 @@
 <%@ page pageEncoding="UTF-8" %>
 
 
-<!-- navbar top -->
 <nav class="navbar navbar-default navbar-fixed-top" role="navigation" id="navbar">
-    <!-- navbar-header -->
     <div class="navbar-header">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
             <span class="sr-only">Toggle navigation</span>
@@ -14,61 +12,30 @@
             <span class="icon-bar"></span>
         </button>
         <a class="navbar-brand" href="#">
-            <!-- <img src="#" alt="" /> -->
             <h1>Auction</h1>
         </a>
     </div>
-    <!-- end navbar-header -->
-    <!-- navbar-top-links -->
     <ul class="nav navbar-top-links navbar-right">
-        <!-- main dropdown -->
-        <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                <span class="top-label label label-warning">5</span>  <i class="fa fa-bell fa-3x"></i>
-            </a>
-            <!-- dropdown alerts-->
-            <ul class="dropdown-menu dropdown-alerts">
-                <li>
-                    <a href="#">
-                        <div>
-                            <i class="fa fa-comment fa-fw"></i>New Comment
-                            <span class="pull-right text-muted small">4 minutes ago</span>
-                        </div>
-                    </a>
-                </li>
-                <li class="divider"></li>
-            </ul>
-            <!-- end dropdown-alerts -->
-        </li>
-
         <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                 <i class="fa fa-user fa-3x"></i>
             </a>
-            <!-- dropdown user-->
             <ul class="dropdown-menu dropdown-user">
                 <li><a href="/admin/home"><i class="fa fa-user fa-fw"></i>پنل کاربری</a>
                 <li class="divider"></li>
                 <li><a href="/admin/logout"><i class="fa fa-sign-out fa-fw"></i>خروج</a>
                 </li>
             </ul>
-            <!-- end dropdown-user -->
         </li>
-        <!-- end main dropdown -->
     </ul>
-    <!-- end navbar-top-links -->
 
 </nav>
-<!-- end navbar top -->
 
-<!-- navbar side -->
 <nav class="navbar-default navbar-static-side" role="navigation"  style="text-align: right;">
     <!-- sidebar-collapse -->
     <div class="sidebar-collapse">
-        <!-- side-menu -->
         <ul class="nav" id="side-menu">
             <li>
-                <!-- user image section-->
                 <div class="user-section">
                     <div class="user-section-inner">
                         <img src="/View/admin/assets/img/user.jpg" alt="">
@@ -80,10 +47,8 @@
                         </div>
                     </div>
                 </div>
-                <!--end user image section-->
             </li>
             <li class="sidebar-search">
-                <!-- search section-->
                 <div class="input-group custom-search-form">
                     <input type="text" class="form-control" placeholder="Search...">
                     <span class="input-group-btn">
@@ -92,14 +57,12 @@
                         </button>
                     </span>
                 </div>
-                <!--end search section-->
             </li>
             <li class="">
                 <a href="/admin/home">پنل کاربری<i class="fa fa-dashboard fa-fw"></i></a>
             </li>
             <li>
                 <a href="/admin/artmanager">مدیریت آثار<i class="fa fa-circle fa-fw"></i></a>
-                <!-- second-level-items -->
             </li>
             <li>
                 <a href="/admin/auctionmanager">مزایده ها<i class="fa fa-circle fa-fw"></i></a>
@@ -111,9 +74,5 @@
                 <a href="/admin/logout">خروج<i class="fa fa-sign-out fa-fw"></i></a>
             </li>
         </ul>
-        <!-- end side-menu -->
     </div>
-    <!-- end sidebar-collapse -->
 </nav>
-<!-- end navbar side -->
-<!--  page-wrapper -->
