@@ -39,16 +39,28 @@ public class Login implements Filter {
             throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse res = (HttpServletResponse) response;
-        if (req.getRequestURI().compareTo("/user/logincheck") == 0 || req.getRequestURI().compareTo("/user/register") == 0) {
-            if(req.getSession().getAttribute("user") != null)
-                res.sendRedirect("/home");
+        System.out.println(req.getRequestURI());
+        if(req.getSession().getAttribute("user") == null)
+        {
+            if(req.getRequestURI().compareTo("/user/logincheck") == 0 || req.getRequestURI().compareTo("/user/register") == 0 || req.getRequestURI().compareTo("/user/login") == 0)
+            {
+                chain.doFilter(request, response);
+            }
+            else{
+                res.sendRedirect("/user/login");
+                return;
+            }
+        }
+        else
+        {
+            if (req.getRequestURI().compareTo("/user/logincheck") == 0 || req.getRequestURI().compareTo("/user/register") == 0 || req.getRequestURI().compareTo("/user/login") == 0) {
+                res.sendRedirect("/user/userpanel");
+                return;
+            }
             else
                 chain.doFilter(request, response);
-        } else if (req.getSession().getAttribute("user") != null) {
-            chain.doFilter(request, response);
-        } else {
-            res.sendRedirect("/login");
         }
+        
     }
 
 }

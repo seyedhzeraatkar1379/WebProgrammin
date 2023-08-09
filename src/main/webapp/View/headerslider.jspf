@@ -1,0 +1,28 @@
+<%-- any content can be specified here e.g.: --%>
+<%@ page pageEncoding="UTF-8" %>
+<!-- اسلایدر متحرک -->
+<div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <img src="View/images/slide1.jpg" class="d-block w-100" alt="اسلاید 1">
+            <div class="carousel-caption">
+                <h3>عنوان اسلاید 1</h3>
+                <p>توضیحات مربوط به اسلاید 1.</p>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <img src="View/images/slide2.jpg" class="d-block w-100" alt="اسلاید 2">
+            <div class="carousel-caption">
+                <h3>عنوان اسلاید 2</h3>
+                <p>توضیحات مربوط به اسلاید 2.</p>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <img src="View/images/slide3.jpg" class="d-block w-100" alt="اسلاید 3">
+            <div class="carousel-caption">
+                <h3>عنوان اسلاید 3</h3>
+                <p>توضیحات مربوط به اسلاید 3.</p>
+            </div>
+        </div>
+    </div>
+</div>

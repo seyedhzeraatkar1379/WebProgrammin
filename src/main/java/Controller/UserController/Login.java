@@ -35,9 +35,9 @@ public class Login extends HttpServlet {
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
-        if (request.getParameter("email") != null && request.getParameter("password") != null) {
-            if (!request.getParameter("email").isEmpty() && !request.getParameter("password").isEmpty()) {
-                UserTable user = UserManager.loginUser(request.getParameter("email"), request.getParameter("password"));
+        if (request.getParameter("enaillogin") != null && request.getParameter("passwordlogin") != null) {
+            if (!request.getParameter("enaillogin").isEmpty() && !request.getParameter("passwordlogin").isEmpty()) {
+                UserTable user = UserManager.loginUser(request.getParameter("enaillogin"), request.getParameter("passwordlogin"));
                 if (user != null) {
                     request.getSession().setAttribute("user", user);
                     response.sendRedirect("/");

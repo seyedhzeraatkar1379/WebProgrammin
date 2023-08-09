@@ -1,0 +1,40 @@
+<%-- any content can be specified here e.g.: --%>
+<%@ page pageEncoding="UTF-8" %>
+<!-- منو -->
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+        <a class="navbar-brand" href="#">نام سایت</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/home">صفحه اصلی</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="category.html">مزایده ها</a>
+                </li>
+
+
+            </ul>
+
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <img src="/View/images/register.png" class="register" >
+                    <a class="nav-link" href="/user/login">ورود و عضویت</a>
+                </li>
+                <li class="nav-item">
+                    <img src="" class="register" >
+                    <a class="nav-link" href="/user/logout">خروج</a>
+                </li>
+
+                <li class="nav-item active">
+                    <img src="/View/images/user.png" class="register" >
+                    <a class="nav-link" href="/user/userpanel">پروفایل کاربری</a>
+                </li>
+
+            </ul>
+        </div></div>
+</nav>

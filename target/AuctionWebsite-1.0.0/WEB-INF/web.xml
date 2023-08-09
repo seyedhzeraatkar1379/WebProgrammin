@@ -64,13 +64,14 @@
         <servlet-name>AdminUserManager</servlet-name>
         <url-pattern>/admin/usermanager</url-pattern>
     </servlet-mapping>
+    <!--user-->
     <servlet>
         <servlet-name>Login</servlet-name>
         <jsp-file>/View/login.jsp</jsp-file>
     </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
-        <url-pattern>/login</url-pattern>
+        <url-pattern>/user/login</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>UserPanel</servlet-name>
@@ -80,5 +81,12 @@
         <servlet-name>UserPanel</servlet-name>
         <url-pattern>/user/userpanel</url-pattern>
     </servlet-mapping>
-    
+    <servlet>
+        <servlet-name>Home</servlet-name>
+        <jsp-file>/View/home.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Home</servlet-name>
+        <url-pattern>/home</url-pattern>
+    </servlet-mapping>
 </web-app>

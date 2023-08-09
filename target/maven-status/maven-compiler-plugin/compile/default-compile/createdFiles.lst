@@ -33,5 +33,6 @@ Controller\UserController\UpdateUser.class
 Model\ArtinfoTable.class
 Controller\Admin\AdminRemoveAuction.class
 Controller\Admin\AdminInsertArt.class
+Enum\ParticipateStatus.class
 Model\AuctionParticipantTable_.class
 Enum\StatusQuery.class
