@@ -14,8 +14,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>صفحه اصلی</title>
 
-        <link rel="stylesheet" href="/View/styles1.css">
-        <link rel="stylesheet" href="/View/bootstrap.min.css">
+        <link rel="stylesheet" href="/View/css/styles1.css">
+        <link rel="stylesheet" href="/View/css/bootstrap.min.css">
 
         <style>
 
@@ -47,7 +47,7 @@
         </style>
     </head>
     <body>
-        <%@include file="headermenu.jspf" %>
+        <%@include file="constpage/headermenu.jspf" %>
         <div class="container">
             <%
                 UserTable user = (UserTable) request.getSession().getAttribute("user");
@@ -64,10 +64,10 @@
                     <input type="text" name ="passwrod" value="***" disabled>
                     <label for="fullname">نام کامل:</label>
                     <input name="fullName" id="fullname" type="text" placeholder="نام" value="<%=user.getFullname() != null ? user.getFullname() : ""%>" />
-                    <label for="mobile">شماره موبایل:</label>
-                    <input name="phoneNumber" id="mobile" type="tel" placeholder="تلفن" value="<%=user.getPhoneNumber() != null ? user.getPhoneNumber() : ""%>"/>
+                    <label for="phoneNumber">شماره موبایل:</label>
+                    <input name="phoneNumber" id="phoneNumber" type="tel" placeholder="تلفن" value="<%=user.getPhoneNumber() != null ? user.getPhoneNumber() : ""%>"/>
                     <label for="address">آدرس:</label>
-                    <textarea id="address" name="address" required><%=user.getAddress() != null ? user.getAddress() : ""%></textarea>
+                    <textarea id="address" name="address" ><%=user.getAddress() != null ? user.getAddress() : ""%></textarea>
                     <label for="idcardcode">کد ملی:</label>
                     <input name="idCardCode" type="text" id="idcardcode" placeholder="کد ملی" value="<%=user.getIdCardCode() != null ? user.getIdCardCode() : ""%>"/>
 
@@ -76,6 +76,6 @@
             </div>
         </div>
         <!-- فوتر با سه بخش -->
-        <%@include file="footer.jspf" %>
+        <%@include file="constpage/footer.jspf" %>
     </body>
 </html>

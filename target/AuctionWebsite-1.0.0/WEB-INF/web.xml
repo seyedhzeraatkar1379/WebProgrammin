@@ -89,4 +89,20 @@
         <servlet-name>Home</servlet-name>
         <url-pattern>/home</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>Auctions</servlet-name>
+        <jsp-file>/View/auction.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Auctions</servlet-name>
+        <url-pattern>/auctions</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>AuctionDescp</servlet-name>
+        <jsp-file>/View/auctiondescription.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AuctionDescp</servlet-name>
+        <url-pattern>/auctiondescp</url-pattern>
+    </servlet-mapping>
 </web-app>

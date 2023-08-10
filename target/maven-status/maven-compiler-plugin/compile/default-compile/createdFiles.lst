@@ -5,6 +5,7 @@ Model\ArtinfoTable_.class
 Model\AuctionTable_.class
 Controller\Admin\AdminFilter\AdminFilter.class
 Controller\Admin\AdminLogout.class
+Controller\UserController\Logout.class
 Controller\Admin\AdminLogin.class
 Controller\Admin\AdminRemoveArt.class
 DatabaseManager\ContactUsManager.class

@@ -8,11 +8,14 @@
 
 <!DOCTYPE html>
 <html lang="fa">
+    <%
+        
+    %>
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>صفحه اصلی</title>
-        <link rel="stylesheet" href="/View/bootstrap.min.css">
+        <link rel="stylesheet" href="/View/css/bootstrap.min.css">
         <!-- اضافه کردن فونت Vazir از طریق CDN -->
 
         <style>
@@ -77,11 +80,11 @@
         </style>
     </head>
     <body>
-        <%@include file="headermenu.jspf" %>
-        <%@include file="headerslider.jspf"%>
+        <%@include file="constpage/headermenu.jspf" %>
+        <%@include file="constpage/headerslider.jspf"%>
         <!-- 7 بخش جدید با گروسل و چرخشی -->
         <div class="container mt-5">
-            <h2>مزایده های جاری</h2>
+            <h2>مزایده های جاری <span><a href="/auctions?type=doing" style="font-size: 15px;">کلیک کنید</a></span></h2>
             <div class="row">
                 <div class="col-md-3">
                     <div class="card">
@@ -93,33 +96,19 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+        <!-- 7 بخش جدید با گروسل و چرخشی -->
+        <div class="container mt-5">
+            <h2>مزایده های تمام شده <span><a href="/auctions?type=done" style="font-size: 15px;">کلیک کنید</a></span></h2>
+            <div class="row">
                 <div class="col-md-3">
                     <div class="card">
-                        <img src="View/images/section2.jpg" class="card-img-top" alt="بخش 2">
+                        <img src="View/images/section1.jpg" class="card-img-top" alt="بخش 1">
                         <div class="card-body">
-                            <h5 class="card-title">بخش 2</h5>
-                            <p class="card-text">توضیحات مربوط به بخش 2.</p>
-                            <a href="pages.html" class="btn btn-primary">شرکت در مزایده</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card">
-                        <img src="View/images/section3.jpg" class="card-img-top" alt="بخش 3">
-                        <div class="card-body">
-                            <h5 class="card-title">بخش 3</h5>
-                            <p class="card-text">توضیحات مربوط به بخش 3.</p>
-                            <a href="pages.html" class="btn btn-primary">شرکت در مزایده</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card">
-                        <img src="View/images/section4.jpg" class="card-img-top" alt="بخش 4">
-                        <div class="card-body">
-                            <h5 class="card-title">بخش 4</h5>
-                            <p class="card-text">توضیحات مربوط به بخش 4.</p>
-                            <a href="pages.html" class="btn btn-primary">شرکت در مزایده</a>
+                            <h5 class="card-title">بخش 1</h5>
+                            <p class="card-text">توضیحات مربوط به بخش 1.</p>
+                            <a href="pages.html" class="btn btn-primary">مشاهده</a>
                         </div>
                     </div>
                 </div>
@@ -128,7 +117,7 @@
         </div>
         <!-- 7 بخش جدید با گروسل و چرخشی -->
         <div class="container mt-5">
-            <h2>مزایده های تمام شده</h2>
+            <h2>مزایده های پیش رو <span><a href="/auctions?type=todo" style="font-size: 15px;">کلیک کنید</a></span></h2>
             <div class="row">
                 <div class="col-md-3">
                     <div class="card">
@@ -136,95 +125,18 @@
                         <div class="card-body">
                             <h5 class="card-title">بخش 1</h5>
                             <p class="card-text">توضیحات مربوط به بخش 1.</p>
-                            <a href="pages.html" class="btn btn-primary">شرکت در مزایده</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card">
-                        <img src="View/images/section2.jpg" class="card-img-top" alt="بخش 2">
-                        <div class="card-body">
-                            <h5 class="card-title">بخش 2</h5>
-                            <p class="card-text">توضیحات مربوط به بخش 2.</p>
-                            <a href="pages.html" class="btn btn-primary">شرکت در مزایده</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card">
-                        <img src="View/images/section3.jpg" class="card-img-top" alt="بخش 3">
-                        <div class="card-body">
-                            <h5 class="card-title">بخش 3</h5>
-                            <p class="card-text">توضیحات مربوط به بخش 3.</p>
-                            <a href="pages.html" class="btn btn-primary">شرکت در مزایده</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card">
-                        <img src="View/images/section4.jpg" class="card-img-top" alt="بخش 4">
-                        <div class="card-body">
-                            <h5 class="card-title">بخش 4</h5>
-                            <p class="card-text">توضیحات مربوط به بخش 4.</p>
-                            <a href="pages.html" class="btn btn-primary">شرکت در مزایده</a>
+                            <a href="pages.html" class="btn btn-primary">مشاهده</a>
                         </div>
                     </div>
                 </div>
 
             </div>
         </div>
-        <!-- 7 بخش جدید با گروسل و چرخشی -->
-        <div class="container mt-5">
-            <h2>مزایده های پیش رو</h2>
-            <div class="row">
-                <div class="col-md-3">
-                    <div class="card">
-                        <img src="View/images/section1.jpg" class="card-img-top" alt="بخش 1">
-                        <div class="card-body">
-                            <h5 class="card-title">بخش 1</h5>
-                            <p class="card-text">توضیحات مربوط به بخش 1.</p>
-                            <a href="pages.html" class="btn btn-primary">شرکت در مزایده</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card">
-                        <img src="View/images/section2.jpg" class="card-img-top" alt="بخش 2">
-                        <div class="card-body">
-                            <h5 class="card-title">بخش 2</h5>
-                            <p class="card-text">توضیحات مربوط به بخش 2.</p>
-                            <a href="pages.html" class="btn btn-primary">شرکت در مزایده</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card">
-                        <img src="View/images/section3.jpg" class="card-img-top" alt="بخش 3">
-                        <div class="card-body">
-                            <h5 class="card-title">بخش 3</h5>
-                            <p class="card-text">توضیحات مربوط به بخش 3.</p>
-                            <a href="pages.html" class="btn btn-primary">شرکت در مزایده</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card">
-                        <img src="View/images/section4.jpg" class="card-img-top" alt="بخش 4">
-                        <div class="card-body">
-                            <h5 class="card-title">بخش 4</h5>
-                            <p class="card-text">توضیحات مربوط به بخش 4.</p>
-                            <a href="pages.html" class="btn btn-primary">شرکت در مزایده</a>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-        <%@include file="footer.jspf"%>
+        <%@include file="constpage/footer.jspf"%>
 
 
 
-        <script src="View/jquery-3.6.0.min.js"></script>
+        <script src="View/js/jquery-3.6.0.min.js"></script>
         <script>
             // کد جاوااسکریپت برای ایجاد اسلایدر متحرک
             $(document).ready(function () {

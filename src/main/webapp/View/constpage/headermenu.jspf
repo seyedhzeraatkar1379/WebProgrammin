@@ -14,7 +14,7 @@
                     <a class="nav-link" href="/home">صفحه اصلی</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="category.html">مزایده ها</a>
+                    <a class="nav-link" href="/auctions?type=doing">مزایده ها</a>
                 </li>
 
 

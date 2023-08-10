@@ -37,22 +37,22 @@ public class Register extends HttpServlet {
             if (request.getParameter("password").compareTo(request.getParameter("confirmpassword")) == 0) {
                 if (request.getParameter("commitment").compareTo("1") == 0) {
                     if (UserManager.registerUserlv1(request.getParameter("email"), request.getParameter("password"))) {
-                        response.sendRedirect("/login?status=" + StatusQuery.SUCCESS.ordinal());
+                        response.sendRedirect("/user/login?status=" + StatusQuery.SUCCESS.ordinal());
                         return;
                     } else {
-                        response.sendRedirect("/login?registerstatus=" + StatusQuery.RECORD_EXIST.ordinal());
+                        response.sendRedirect("/user/login?registerstatus=" + StatusQuery.RECORD_EXIST.ordinal());
                         return;
                     }
                 } else {
-                    response.sendRedirect("/login?registerstatus=" + StatusQuery.COMMITMENT_NOT_ACCEPT.ordinal());
+                    response.sendRedirect("/user/login?registerstatus=" + StatusQuery.COMMITMENT_NOT_ACCEPT.ordinal());
                     return;
                 }
             } else {
-                response.sendRedirect("/login?registerstatus=" + StatusQuery.NEW_PASSWORD_RETRY_INCORRECT.ordinal());
+                response.sendRedirect("/user/login?registerstatus=" + StatusQuery.NEW_PASSWORD_RETRY_INCORRECT.ordinal());
                 return;
             }
         }
-        response.sendRedirect("/login?registerstatus=" + StatusQuery.PARAMETER_NOT_VALID.ordinal());
+        response.sendRedirect("/user/login?registerstatus=" + StatusQuery.PARAMETER_NOT_VALID.ordinal());
     }
 
 }

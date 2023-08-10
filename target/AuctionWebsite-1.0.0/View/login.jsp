@@ -12,8 +12,8 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>فرم ورود و عضویت</title>
-        <link rel="stylesheet" href="/View/bootstrap.min.css">
-        <link rel="stylesheet" href="/View/styles.css">
+        <link rel="stylesheet" href="/View/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/View/css/styles.css">
 
 
 
@@ -46,7 +46,7 @@
         </style>
     </head>
     <body>
-        <%@include file="headermenu.jspf"%>
+        <%@include file="constpage/headermenu.jspf"%>
 
         <div class="container">
             <div class="form">
@@ -77,6 +77,6 @@
                 </form>
             </div>
         </div>
-        <%@include file="footer.jspf" %>
+        <%@include file="constpage/footer.jspf" %>
     </body>
 </html>

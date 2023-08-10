@@ -84,6 +84,7 @@ public class UserManager {
                 updUsr.setCommitmentLeterPath(user.getCommitmentLeterPath());
                 updUsr.setFullname(user.getFullname());
                 updUsr.setIdCardCode(user.getIdCardCode());
+                updUsr.setPhoneNumber(user.getPhoneNumber());
                 transaction.commit();
                 return true;
             } catch (Exception e) {
