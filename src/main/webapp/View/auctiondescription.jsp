@@ -4,6 +4,9 @@
     Author     : hossein
 --%>
 
+<%@page import="java.util.List"%>
+<%@page import="DatabaseManager.AuctionParticipantManager"%>
+<%@page import="Model.AuctionParticipantTable"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="DatabaseManager.AuctionManager"%>
 <%@page import="Model.AuctionTable"%>
@@ -21,7 +24,7 @@
                 return;
             }
         } else {
-            response.sendRedirect("/login");
+            response.sendRedirect("/user/login");
             return;
         }
         AuctionTable auction = AuctionManager.getAuctionById(aucid);
@@ -36,9 +39,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>صفحه اصلی</title>
-
-        <link rel="stylesheet" href="/View/css/bootstrap.min.css">
-
+<%@include file="constpage/headercssjs.jspf" %>
         <style>
 
             @font-face{
@@ -87,10 +88,16 @@
                     <!-- بخش لیست نفرات شرکت‌کننده در مزایده -->
                     <h4>لیست نفرات شرکت‌کننده در مزایده</h4>
                     <ul>
-                        <li>نفر 1</li>
-                        <li>نفر 2</li>
-                        <li>نفر 3</li>
-                        <li>نفر 4</li>
+                        <%
+                            List<AuctionParticipantTable> particList = AuctionParticipantManager.getAuctionAllParticipantById(aucid);
+                            if (particList != null) {
+                            if(particList.size()>4)
+                                particList = particList.subList(0, 3);
+                                int i = 1;
+                                for (AuctionParticipantTable partc : particList) {
+                        %>
+                        <li>نفر <%=i++%> => قیمت <%=partc.getPerposedPrice()%></li>
+                            <%}}%>  
                     </ul>
                     <!-- فرم ورود عدد پیشنهادی -->
                     <h4>پیشنهاد خود را وارد کنید</h4>
@@ -98,6 +105,7 @@
                         <div class="form-group">
                             <input type="number" class="form-control" placeholder="عدد پیشنهادی خود را وارد کنید">
                         </div>
+                        <br/>
                         <button type="submit" class="btn btn-primary">ثبت پیشنهاد</button>
                     </form>
                 </div>

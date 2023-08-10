@@ -36,8 +36,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>مزایده ها: <%=typeAuctionShow%></title>
-        <link rel="stylesheet" href="/View/css/bootstrap.min.css">
-
+        <%@include file="constpage/headercssjs.jspf" %>
         <style>
             @font-face{
                 font-family: 'Vazir';
@@ -76,7 +75,8 @@
                         for (AuctionTable auc : auctionList) {%>
                 <div class="col-md-3">
                     <div class="card">
-                        <img src="/images/arts/<%=auc.getArtId().getPhotoPath()%>" class="card-img-top" alt="بخش 1">
+                        <img src="/images/arts/<%=auc.getArtId().getPhotoPath()%>"
+                             class="card-img-top" alt="بخش 1">
                         <div class="card-body">
                             <h5 class="card-title"><%=auc.getArtId().getName()%></h5>
                             <p class="card-text"><%=auc.getArtId().getDescription()%></p>

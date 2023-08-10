@@ -1,7 +1,6 @@
 <%-- any content can be specified here e.g.: --%>
 <%@ page pageEncoding="UTF-8" %>
 <!-- منو -->
-
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container">
         <a class="navbar-brand" href="#">نام سایت</a>
@@ -21,20 +20,19 @@
             </ul>
 
             <ul class="navbar-nav">
+                <%if (request.getSession().getAttribute("user") == null) {%>
                 <li class="nav-item">
                     <img src="/View/images/register.png" class="register" >
                     <a class="nav-link" href="/user/login">ورود و عضویت</a>
                 </li>
-                <li class="nav-item">
-                    <img src="" class="register" >
-                    <a class="nav-link" href="/user/logout">خروج</a>
-                </li>
-
+                <%} else {%>
                 <li class="nav-item active">
-                    <img src="/View/images/user.png" class="register" >
-                    <a class="nav-link" href="/user/userpanel">پروفایل کاربری</a>
+                    <a class="nav-link" href="/user/userpanel"><i class="fa fa-user">&nbsp;پروفایل&nbsp;</i></a>
                 </li>
-
+                <li class="nav-item">
+                    <a class="nav-link" href="/user/logout"><i class="fa fa-sign-out"> خروج </i></a>
+                </li>
+                <%}%>
             </ul>
         </div></div>
 </nav>

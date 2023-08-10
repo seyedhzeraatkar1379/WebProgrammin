@@ -12,9 +12,8 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>فرم ورود و عضویت</title>
-        <link rel="stylesheet" href="/View/css/bootstrap.min.css">
         <link rel="stylesheet" href="/View/css/styles.css">
-
+        <%@include file="constpage/headercssjs.jspf" %>
 
 
         <style>
@@ -57,6 +56,7 @@
                     <input type="email" id="username" name="enaillogin" required>
                     <label for="password">رمز عبور:</label>
                     <input type="password" id="password" name="passwordlogin" required>
+                    <br/>
                     <input type="submit" value="ورود">
                 </form>
             </div>
@@ -72,7 +72,7 @@
                     <input type="password" id="new_confirmpassword" name="confirmpassword" required>
                     <label for="commitment">تایید قوانین</label>
                     <input type="checkbox" id="commitment" name="commitment" value="1"/>
-
+                    <br/>
                     <input type="submit" value="ثبت نام">
                 </form>
             </div>

@@ -4,18 +4,24 @@
     Author     : seyedhossein
 --%>
 
+<%@page import="DatabaseManager.AuctionManager"%>
+<%@page import="java.util.List"%>
+<%@page import="Model.AuctionTable"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
 <html lang="fa">
     <%
-        
+        List<AuctionTable> auctionTodo = AuctionManager.getAuctionActiveToDo();
+        List<AuctionTable> auctionDoing = AuctionManager.getAuctionActiveDoing();
+        List<AuctionTable> auctionDone = AuctionManager.getAuctionActiveDone();
     %>
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>صفحه اصلی</title>
         <link rel="stylesheet" href="/View/css/bootstrap.min.css">
+        <%@include file="constpage/headercssjs.jspf" %>
         <!-- اضافه کردن فونت Vazir از طریق CDN -->
 
         <style>
@@ -83,55 +89,97 @@
         <%@include file="constpage/headermenu.jspf" %>
         <%@include file="constpage/headerslider.jspf"%>
         <!-- 7 بخش جدید با گروسل و چرخشی -->
+        <%
+            if (auctionDoing != null)
+                if (auctionDoing.size() > 0) {
+
+                    if (auctionDoing.size() > 4) {
+                        auctionDoing = auctionDoing.subList(0, 3);
+                    }
+
+        %>
         <div class="container mt-5">
+
             <h2>مزایده های جاری <span><a href="/auctions?type=doing" style="font-size: 15px;">کلیک کنید</a></span></h2>
             <div class="row">
+                <%                    int i = 0;
+                    for (AuctionTable auc : auctionDoing) {
+
+                %>
                 <div class="col-md-3">
                     <div class="card">
-                        <img src="View/images/section1.jpg" class="card-img-top" alt="بخش 1">
+                        <img src="/images/arts/<%=auc.getArtId().getPhotoPath()%>" class="card-img-top" alt="بخش 1">
                         <div class="card-body">
-                            <h5 class="card-title">بخش 1</h5>
-                            <p class="card-text">توضیحات مربوط به بخش 1.</p>
-                            <a href="pages.html" class="btn btn-primary">شرکت در مزایده</a>
+                            <h5 class="card-title"><%=auc.getArtId().getName()%></h5>
+                            <p class="card-text"><%=auc.getArtId().getDescription()%></p>
+                            <a href="/auctiondescp?aucid=<%=auc.getId()%>" class="btn btn-primary">شرکت در مزایده</a>
                         </div>
                     </div>
                 </div>
+                <%}%>
             </div>
         </div>
+        <%}%>
         <!-- 7 بخش جدید با گروسل و چرخشی -->
+        <%
+            if (auctionDone != null)
+                if (auctionDone.size() > 0) {
+                    if (auctionDone.size() > 4) {
+                        auctionDone = auctionDone.subList(0, 3);
+                    }
+
+        %>
         <div class="container mt-5">
+
             <h2>مزایده های تمام شده <span><a href="/auctions?type=done" style="font-size: 15px;">کلیک کنید</a></span></h2>
             <div class="row">
+                <%                    int i = 0;
+                    for (AuctionTable auc : auctionDone) {
+
+                %>
                 <div class="col-md-3">
                     <div class="card">
-                        <img src="View/images/section1.jpg" class="card-img-top" alt="بخش 1">
+                        <img src="/images/arts/<%=auc.getArtId().getPhotoPath()%>" class="card-img-top" alt="بخش 1">
                         <div class="card-body">
-                            <h5 class="card-title">بخش 1</h5>
-                            <p class="card-text">توضیحات مربوط به بخش 1.</p>
+                            <h5 class="card-title"><%=auc.getArtId().getName()%></h5>
+                            <p class="card-text"><%=auc.getArtId().getDescription()%></p>
                             <a href="pages.html" class="btn btn-primary">مشاهده</a>
                         </div>
                     </div>
                 </div>
-
+                <%}%>
             </div>
         </div>
+        <%}%>
         <!-- 7 بخش جدید با گروسل و چرخشی -->
+        <%
+            if (auctionTodo != null)
+                if (auctionTodo.size() > 0) {
+                    if (auctionTodo.size() > 4) {
+                        auctionTodo = auctionTodo.subList(0, 3);
+                    }
+
+        %>
         <div class="container mt-5">
             <h2>مزایده های پیش رو <span><a href="/auctions?type=todo" style="font-size: 15px;">کلیک کنید</a></span></h2>
             <div class="row">
+                <%                    int i = 0;
+                    for (AuctionTable auc : auctionTodo) {
+
+                %>
                 <div class="col-md-3">
                     <div class="card">
-                        <img src="View/images/section1.jpg" class="card-img-top" alt="بخش 1">
+                        <img src="/images/arts/<%=auc.getArtId().getPhotoPath()%>" class="card-img-top" alt="بخش 1">
                         <div class="card-body">
-                            <h5 class="card-title">بخش 1</h5>
-                            <p class="card-text">توضیحات مربوط به بخش 1.</p>
-                            <a href="pages.html" class="btn btn-primary">مشاهده</a>
+                            <h5 class="card-title"><%=auc.getArtId().getName()%></h5>
+                            <p class="card-text"><%=auc.getArtId().getDescription()%></p>
                         </div>
                     </div>
                 </div>
-
+                <%}%>
             </div>
         </div>
+        <%}%>
         <%@include file="constpage/footer.jspf"%>
 
 

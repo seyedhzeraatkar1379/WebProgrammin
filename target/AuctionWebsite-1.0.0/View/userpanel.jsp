@@ -15,7 +15,7 @@
         <title>صفحه اصلی</title>
 
         <link rel="stylesheet" href="/View/css/styles1.css">
-        <link rel="stylesheet" href="/View/css/bootstrap.min.css">
+        <%@include file="constpage/headercssjs.jspf" %>
 
         <style>
 
@@ -59,17 +59,17 @@
                     <label for="id">id:</label>
                     <input type="number" id ="id" value="<%=user.getId()%>" disabled>
                     <label for="email">ایمیل:</label>
-                    <input type="text" name="email" value="<%=user.getEmail()%>" disabled>
+                    <input style="text-align: left; direction: ltr;" type="text" name="email" value="<%=user.getEmail()%>" disabled>
                     <label for="passwrod">رمز ورود:</label>
                     <input type="text" name ="passwrod" value="***" disabled>
                     <label for="fullname">نام کامل:</label>
                     <input name="fullName" id="fullname" type="text" placeholder="نام" value="<%=user.getFullname() != null ? user.getFullname() : ""%>" />
                     <label for="phoneNumber">شماره موبایل:</label>
-                    <input name="phoneNumber" id="phoneNumber" type="tel" placeholder="تلفن" value="<%=user.getPhoneNumber() != null ? user.getPhoneNumber() : ""%>"/>
+                    <input  style="text-align: left; direction: ltr;" name="phoneNumber" id="phoneNumber" type="tel" placeholder="تلفن" value="<%=user.getPhoneNumber() != null ? user.getPhoneNumber() : ""%>"/>
                     <label for="address">آدرس:</label>
                     <textarea id="address" name="address" ><%=user.getAddress() != null ? user.getAddress() : ""%></textarea>
                     <label for="idcardcode">کد ملی:</label>
-                    <input name="idCardCode" type="text" id="idcardcode" placeholder="کد ملی" value="<%=user.getIdCardCode() != null ? user.getIdCardCode() : ""%>"/>
+                    <input style="text-align: left; direction: ltr;" name="idCardCode" type="text" id="idcardcode" placeholder="کد ملی" value="<%=user.getIdCardCode() != null ? user.getIdCardCode() : ""%>"/>
 
                     <input type="submit" value="ثبت اطلاعات">
                 </form>
