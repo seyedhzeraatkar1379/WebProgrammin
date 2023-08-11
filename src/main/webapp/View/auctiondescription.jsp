@@ -4,6 +4,7 @@
     Author     : hossein
 --%>
 
+<%@page import="Enum.ActiveOrDeactive"%>
 <%@page import="java.util.Date"%>
 <%@page import="java.util.List"%>
 <%@page import="DatabaseManager.AuctionParticipantManager"%>
@@ -18,31 +19,33 @@
     <%
         UserTable user = request.getSession().getAttribute("user") != null ? (UserTable) request.getSession().getAttribute("user") : null;
         int aucid = -1;
-        if(user == null){
+        if (user == null) {
             response.sendRedirect("/user/login");
             return;
-        }
-        else if (request.getParameter("aucid") != null) {
+        } else if (request.getParameter("aucid") != null) {
             aucid = Integer.parseInt(request.getParameter("aucid"));
             if (aucid < 0) {
                 response.sendRedirect("/");
                 return;
             }
-        }
-        else
-        {
-        response.sendRedirect("/");
-                return;
+        } else {
+            response.sendRedirect("/");
+            return;
         }
         AuctionTable auction = AuctionManager.getAuctionById(aucid);
         if (auction == null) {
             response.sendRedirect("/");
             return;
         }
+        if (auction.getStatus() != ActiveOrDeactive.DEACTIVE) {
+            response.sendRedirect("/");
+            return;
+        }
+
         SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         Date today = new Date();
 
-    %>
+        %>
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">

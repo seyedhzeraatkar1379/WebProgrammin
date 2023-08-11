@@ -4,6 +4,7 @@
     Author     : seyedhossein
 --%>
 
+<%@page import="Enum.ActiveOrDeactive"%>
 <%@page import="DatabaseManager.AuctionManager"%>
 <%@page import="java.util.List"%>
 <%@page import="Model.AuctionTable"%>
@@ -103,7 +104,8 @@
             <h2>مزایده های جاری <span><a href="/auctions?type=doing" style="font-size: 15px;">کلیک کنید</a></span></h2>
             <div class="row">
                 <%                    int i = 0;
-                    for (AuctionTable auc : auctionDoing) {
+                    for (AuctionTable auc : auctionDoing)
+                        if (auc.getStatus() != ActiveOrDeactive.DEACTIVE) {
 
                 %>
                 <div class="col-md-3">
@@ -134,8 +136,8 @@
             <h2>مزایده های تمام شده <span><a href="/auctions?type=done" style="font-size: 15px;">کلیک کنید</a></span></h2>
             <div class="row">
                 <%                    int i = 0;
-                    for (AuctionTable auc : auctionDone) {
-
+                    for (AuctionTable auc : auctionDone)
+                        if (auc.getStatus() != ActiveOrDeactive.DEACTIVE) {
                 %>
                 <div class="col-md-3">
                     <div class="card">
@@ -164,8 +166,8 @@
             <h2>مزایده های پیش رو <span><a href="/auctions?type=todo" style="font-size: 15px;">کلیک کنید</a></span></h2>
             <div class="row">
                 <%                    int i = 0;
-                    for (AuctionTable auc : auctionTodo) {
-
+                    for (AuctionTable auc : auctionTodo)
+                        if (auc.getStatus() != ActiveOrDeactive.DEACTIVE) {
                 %>
                 <div class="col-md-3">
                     <div class="card">

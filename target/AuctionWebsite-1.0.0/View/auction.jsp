@@ -4,6 +4,7 @@
     Author     : hossein
 --%>
 
+<%@page import="Enum.ActiveOrDeactive"%>
 <%@page import="DatabaseManager.AuctionManager"%>
 <%@page import="java.util.List"%>
 <%@page import="Model.AuctionTable"%>
@@ -12,6 +13,7 @@
 <!DOCTYPE html>
 <html lang="fa">
     <%
+        int pageAuc = request.getParameter("page")!=null?Integer.parseInt(request.getParameter("page")):1;
         String AuctionT = request.getParameter("type") != null ? request.getParameter("type") : "";
         String typeAuctionShow = "";
         List<AuctionTable> auctionList = null;
@@ -31,6 +33,14 @@
             response.sendRedirect("/");
             return;
         }
+        if(auctionList!=null)
+            if(auctionList.size()>(pageAuc-1)*12){
+            int start = ((pageAuc-1)*12);
+            int end = ((pageAuc)*12)>auctionList.size()?auctionList.size():(pageAuc)*12;
+                auctionList = auctionList.subList(start,end);
+        }
+        else
+            response.sendRedirect("/");
     %>
     <head>
         <meta charset="UTF-8">
@@ -72,15 +82,18 @@
             <h2>مزایده ها <%=typeAuctionShow%> </h2>
             <div class="row">
                 <%if (auctionList != null)
-                        for (AuctionTable auc : auctionList) {%>
+                        for (AuctionTable auc : auctionList)
+                            if (auc.getStatus() != ActiveOrDeactive.DEACTIVE) {
+
+                %>
                 <div class="col-md-3">
                     <div class="card">
                         <img src="/images/arts/<%=auc.getArtId().getPhotoPath()%>"
                              class="card-img-top" alt="بخش 1">
                         <div class="card-body">
-                            <h5 class="card-title"><%=auc.getArtId().getName()%></h5>
+                            <h5 class="card-title"><%=auc.getArtId().getName()%><sub>(id: <%=auc.getArtId().getId()%>)</sub></h5>
                             <p class="card-text"><%=auc.getArtId().getDescription()%></p>
-                            <%=AuctionT.compareTo("doing")==0?"<a href=\"/user/auctiondescp?aucid="+auc.getId()+"\" class=\"btn btn-primary\">شرکت در مزایده</a>":""%>
+                            <%=AuctionT.compareTo("doing") == 0 ? "<a href=\"/user/auctiondescp?aucid=" + auc.getId() + "\" class=\"btn btn-primary\">شرکت در مزایده</a>" : ""%>
                         </div>
                     </div>
                 </div>
