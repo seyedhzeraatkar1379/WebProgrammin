@@ -47,21 +47,21 @@ public class ParticipateAuction extends HttpServlet {
             ParticipateStatus status = AuctionParticipantManager.insertOrUpdateAuctionParticipant(partic, auctionId, user.getId());
             if(status == ParticipateStatus.SUCCESS_INSERT)
             {
-                response.sendRedirect("/SuccessInsert");
+                response.sendRedirect("/user/auctiondescp?aucid="+auctionId+"&status=SuccessInsert");
                 return;
             }
             if(status == ParticipateStatus.SUCCESS_UPDATE)
             {
-                response.sendRedirect("/SuccessUpdate");
+                response.sendRedirect("/user/auctiondescp?aucid="+auctionId+"&status=SuccessUpdate");
                 return;
             }
             else
             {
-                response.sendRedirect("/"+status.toString());
+                response.sendRedirect("/user/auctiondescp?aucid="+auctionId+"&status="+status.toString());
                 return;
             }
         }
-        response.sendRedirect("/false");
+        response.sendRedirect("/user/auctiondescp?aucid="+auctionId+"&status=faild");
     }
 
 }

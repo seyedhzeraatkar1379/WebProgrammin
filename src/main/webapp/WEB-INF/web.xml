@@ -103,6 +103,6 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>AuctionDescp</servlet-name>
-        <url-pattern>/auctiondescp</url-pattern>
+        <url-pattern>/user/auctiondescp</url-pattern>
     </servlet-mapping>
 </web-app>

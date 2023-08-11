@@ -196,7 +196,7 @@ public class ArtInfoManager {
         try {
             entityManagerFactory = Persistence.createEntityManagerFactory("Auction_website");
             entityManager = entityManagerFactory.createEntityManager();
-            Query query = entityManager.createQuery("select arts from ArtinfoTable arts where arts.id NOT IN (SELECT artuse.id from AuctionTable artuse)");
+            Query query = entityManager.createQuery("select arts from ArtinfoTable arts where arts.id NOT IN (SELECT artuse.artId.id from AuctionTable artuse)");
             List<ArtinfoTable> arts = query.getResultList();
             return arts;
         } catch (Exception e) {

@@ -15,7 +15,7 @@
         List<AuctionTable> auctionTodo = AuctionManager.getAuctionActiveToDo();
         List<AuctionTable> auctionDoing = AuctionManager.getAuctionActiveDoing();
         List<AuctionTable> auctionDone = AuctionManager.getAuctionActiveDone();
-    %>
+        %>
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -112,7 +112,7 @@
                         <div class="card-body">
                             <h5 class="card-title"><%=auc.getArtId().getName()%></h5>
                             <p class="card-text"><%=auc.getArtId().getDescription()%></p>
-                            <a href="/auctiondescp?aucid=<%=auc.getId()%>" class="btn btn-primary">شرکت در مزایده</a>
+                            <a href="/user/auctiondescp?aucid=<%=auc.getId()%>" class="btn btn-primary">شرکت در مزایده</a>
                         </div>
                     </div>
                 </div>
@@ -143,7 +143,7 @@
                         <div class="card-body">
                             <h5 class="card-title"><%=auc.getArtId().getName()%></h5>
                             <p class="card-text"><%=auc.getArtId().getDescription()%></p>
-                            <a href="pages.html" class="btn btn-primary">مشاهده</a>
+                            <a href="/user/auctiondescp?aucid=<%=auc.getId()%>" class="btn btn-primary">مشاهده</a>
                         </div>
                     </div>
                 </div>
@@ -173,6 +173,7 @@
                         <div class="card-body">
                             <h5 class="card-title"><%=auc.getArtId().getName()%></h5>
                             <p class="card-text"><%=auc.getArtId().getDescription()%></p>
+                            <a href="/user/auctiondescp?aucid=<%=auc.getId()%>" class="btn btn-primary">مشاهده</a>
                         </div>
                     </div>
                 </div>

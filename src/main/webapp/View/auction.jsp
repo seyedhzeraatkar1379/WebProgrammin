@@ -80,7 +80,7 @@
                         <div class="card-body">
                             <h5 class="card-title"><%=auc.getArtId().getName()%></h5>
                             <p class="card-text"><%=auc.getArtId().getDescription()%></p>
-                            <%=AuctionT.compareTo("doing")==0?"<a href=\"/auctiondescp?aucid="+auc.getId()+"\" class=\"btn btn-primary\">شرکت در مزایده</a>":""%>
+                            <%=AuctionT.compareTo("doing")==0?"<a href=\"/user/auctiondescp?aucid="+auc.getId()+"\" class=\"btn btn-primary\">شرکت در مزایده</a>":""%>
                         </div>
                     </div>
                 </div>

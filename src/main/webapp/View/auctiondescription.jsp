@@ -4,6 +4,7 @@
     Author     : hossein
 --%>
 
+<%@page import="java.util.Date"%>
 <%@page import="java.util.List"%>
 <%@page import="DatabaseManager.AuctionParticipantManager"%>
 <%@page import="Model.AuctionParticipantTable"%>
@@ -17,15 +18,21 @@
     <%
         UserTable user = request.getSession().getAttribute("user") != null ? (UserTable) request.getSession().getAttribute("user") : null;
         int aucid = -1;
-        if (request.getParameter("aucid") != null && user != null) {
+        if(user == null){
+            response.sendRedirect("/user/login");
+            return;
+        }
+        else if (request.getParameter("aucid") != null) {
             aucid = Integer.parseInt(request.getParameter("aucid"));
             if (aucid < 0) {
                 response.sendRedirect("/");
                 return;
             }
-        } else {
-            response.sendRedirect("/user/login");
-            return;
+        }
+        else
+        {
+        response.sendRedirect("/");
+                return;
         }
         AuctionTable auction = AuctionManager.getAuctionById(aucid);
         if (auction == null) {
@@ -33,13 +40,14 @@
             return;
         }
         SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        Date today = new Date();
 
     %>
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>صفحه اصلی</title>
-<%@include file="constpage/headercssjs.jspf" %>
+        <%@include file="constpage/headercssjs.jspf" %>
         <style>
 
             @font-face{
@@ -85,29 +93,40 @@
                     <h4>تاریخ برگزاری</h4>
                     <p><%=dateformat.format(auction.getStartDate())%></p>
                     <p><%=dateformat.format(auction.getEndDate())%></p>
+                    <%
+                        if (today.after(auction.getStartDate())) {
+                    %>
                     <!-- بخش لیست نفرات شرکت‌کننده در مزایده -->
                     <h4>لیست نفرات شرکت‌کننده در مزایده</h4>
                     <ul>
                         <%
                             List<AuctionParticipantTable> particList = AuctionParticipantManager.getAuctionAllParticipantById(aucid);
                             if (particList != null) {
-                            if(particList.size()>4)
-                                particList = particList.subList(0, 3);
+                                if (particList.size() > 4) {
+                                    particList = particList.subList(0, 3);
+                                }
                                 int i = 1;
                                 for (AuctionParticipantTable partc : particList) {
                         %>
                         <li>نفر <%=i++%> => قیمت <%=partc.getPerposedPrice()%></li>
-                            <%}}%>  
+                            <%}
+                                }%>  
                     </ul>
+                    <%
+                        if (today.before(auction.getEndDate())) {
+                    %>
                     <!-- فرم ورود عدد پیشنهادی -->
                     <h4>پیشنهاد خود را وارد کنید</h4>
-                    <form>
+                    <form action="/user/participate" method="get">
                         <div class="form-group">
-                            <input type="number" class="form-control" placeholder="عدد پیشنهادی خود را وارد کنید">
+                            <input type="number" class="form-control" name="price" placeholder="عدد پیشنهادی خود را وارد کنید">
                         </div>
+                        <input type="hidden" class="form-control" name="auctionid" value="<%=auction.getId()%>">
                         <br/>
                         <button type="submit" class="btn btn-primary">ثبت پیشنهاد</button>
                     </form>
+                    <%}
+                        }%>
                 </div>
                 <!-- قسمت سمت راست با تصویر محصول -->
                 <div class="col-md-6">

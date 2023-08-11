@@ -18,19 +18,19 @@ public class AuctionParticipantManager {
 
     private static final String PUN = "Auction_website";
 
-    private static long getRecordIfExist(int userId, int auctionId) {
+    private static int getParticId(int userId, int auctionId) {
         EntityManagerFactory entityManagerFactory = null;
         EntityManager entityManager = null;
         EntityTransaction transaction = null;
         try {
             entityManagerFactory = Persistence.createEntityManagerFactory(PUN);
             entityManager = entityManagerFactory.createEntityManager();
-            Query query = entityManager.createQuery("select count(partic) from AuctionParticipantTable partic where partic.auctionId.id=?1 and partic.userId.id=?2");
+            Query query = entityManager.createQuery("select PARTIC.id from AuctionParticipantTable partic where partic.auctionId.id=?1 and partic.userId.id=?2");
             query.setParameter("1", auctionId);
             query.setParameter("2", userId);
-            long aucId = (long) query.getSingleResult();
-            if (aucId > 0) {
-                return aucId;
+            List<Integer> AucPartc = query.getResultList();            
+            if (AucPartc.size() > 0) {
+                return AucPartc.get(0);
             } else {
                 return 0;
             }
@@ -58,7 +58,7 @@ public class AuctionParticipantManager {
                 if (auction.getStatus() != ActiveOrDeactive.ACTIVE) {
                     return ParticipateStatus.AUCTION_DEACTIVE;
                 }
-                int aucParticId = (int)getRecordIfExist(userid, auctionid);
+                int aucParticId = (int)getParticId(userid, auctionid);
                 switch (aucParticId) {
                     case -1:
                         return ParticipateStatus.ERROR;
@@ -73,7 +73,7 @@ public class AuctionParticipantManager {
                     default:
                         transaction.begin();
                         AuctionParticipantTable aucpartic = entityManager.find(AuctionParticipantTable.class,aucParticId);
-                        if(Integer.parseInt(aucpartic.getPerposedPrice())<Integer.parseInt(auctionParticipant.getPerposedPrice()))
+                        if(Double.parseDouble(aucpartic.getPerposedPrice())<Double.parseDouble(auctionParticipant.getPerposedPrice()))
                         {
                             aucpartic.setPerposedDatetime(date);
                             aucpartic.setPerposedPrice(auctionParticipant.getPerposedPrice());
