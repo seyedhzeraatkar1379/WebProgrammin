@@ -33,14 +33,6 @@
             response.sendRedirect("/");
             return;
         }
-        if(auctionList!=null)
-            if(auctionList.size()>(pageAuc-1)*12){
-            int start = ((pageAuc-1)*12);
-            int end = ((pageAuc)*12)>auctionList.size()?auctionList.size():(pageAuc)*12;
-                auctionList = auctionList.subList(start,end);
-        }
-        else
-            response.sendRedirect("/");
     %>
     <head>
         <meta charset="UTF-8">
@@ -82,18 +74,19 @@
             <h2>مزایده ها <%=typeAuctionShow%> </h2>
             <div class="row">
                 <%if (auctionList != null)
-                        for (AuctionTable auc : auctionList)
-                            if (auc.getStatus() != ActiveOrDeactive.DEACTIVE) {
+                        for (int i = 0 ,j = 0; j < 12 && i < auctionList.size() ; i++)
+                            if (auctionList.get(i).getStatus() != ActiveOrDeactive.DEACTIVE) {
+                            j++;
 
                 %>
                 <div class="col-md-3">
                     <div class="card">
-                        <img src="/images/arts/<%=auc.getArtId().getPhotoPath()%>"
+                        <img src="/images/arts/<%=auctionList.get(i).getArtId().getPhotoPath()%>"
                              class="card-img-top" alt="بخش 1">
                         <div class="card-body">
-                            <h5 class="card-title"><%=auc.getArtId().getName()%><sub>(id: <%=auc.getArtId().getId()%>)</sub></h5>
-                            <p class="card-text"><%=auc.getArtId().getDescription()%></p>
-                            <%=AuctionT.compareTo("doing") == 0 ? "<a href=\"/user/auctiondescp?aucid=" + auc.getId() + "\" class=\"btn btn-primary\">شرکت در مزایده</a>" : ""%>
+                            <h5 class="card-title"><%=auctionList.get(i).getArtId().getName()%><sub>(id: <%=auctionList.get(i).getArtId().getId()%>)</sub></h5>
+                            <p class="card-text"><%=auctionList.get(i).getArtId().getDescription()%></p>
+                            <%=AuctionT.compareTo("doing") == 0 ? "<a href=\"/user/auctiondescp?aucid=" + auctionList.get(i).getId() + "\" class=\"btn btn-primary\">شرکت در مزایده</a>" : ""%>
                         </div>
                     </div>
                 </div>

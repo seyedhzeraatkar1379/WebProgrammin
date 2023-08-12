@@ -16,7 +16,7 @@
         List<AuctionTable> auctionTodo = AuctionManager.getAuctionActiveToDo();
         List<AuctionTable> auctionDoing = AuctionManager.getAuctionActiveDoing();
         List<AuctionTable> auctionDone = AuctionManager.getAuctionActiveDone();
-        %>
+    %>
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -93,18 +93,16 @@
         <%
             if (auctionDoing != null)
                 if (auctionDoing.size() > 0) {
-
-                    if (auctionDoing.size() > 4) {
-                        auctionDoing = auctionDoing.subList(0, 3);
-                    }
-
         %>
         <div class="container mt-5">
 
             <h2>مزایده های جاری <span><a href="/auctions?type=doing" style="font-size: 15px;">کلیک کنید</a></span></h2>
             <div class="row">
                 <%                    int i = 0;
-                    for (AuctionTable auc : auctionDoing)
+                    for (AuctionTable auc : auctionDoing) {
+                        if (i > 3) {
+                            break;
+                        }
                         if (auc.getStatus() != ActiveOrDeactive.DEACTIVE) {
 
                 %>
@@ -118,7 +116,9 @@
                         </div>
                     </div>
                 </div>
-                <%}%>
+                <%                            i++;
+                        }
+                    }%>
             </div>
         </div>
         <%}%>
@@ -126,9 +126,6 @@
         <%
             if (auctionDone != null)
                 if (auctionDone.size() > 0) {
-                    if (auctionDone.size() > 4) {
-                        auctionDone = auctionDone.subList(0, 3);
-                    }
 
         %>
         <div class="container mt-5">
@@ -136,8 +133,12 @@
             <h2>مزایده های تمام شده <span><a href="/auctions?type=done" style="font-size: 15px;">کلیک کنید</a></span></h2>
             <div class="row">
                 <%                    int i = 0;
-                    for (AuctionTable auc : auctionDone)
+                    for (AuctionTable auc : auctionDone) {
+                        if (i > 3) {
+                            break;
+                        }
                         if (auc.getStatus() != ActiveOrDeactive.DEACTIVE) {
+
                 %>
                 <div class="col-md-3">
                     <div class="card">
@@ -149,7 +150,9 @@
                         </div>
                     </div>
                 </div>
-                <%}%>
+                <%i++;
+                        }
+                    }%>
             </div>
         </div>
         <%}%>
@@ -157,16 +160,15 @@
         <%
             if (auctionTodo != null)
                 if (auctionTodo.size() > 0) {
-                    if (auctionTodo.size() > 4) {
-                        auctionTodo = auctionTodo.subList(0, 3);
-                    }
 
         %>
         <div class="container mt-5">
             <h2>مزایده های پیش رو <span><a href="/auctions?type=todo" style="font-size: 15px;">کلیک کنید</a></span></h2>
             <div class="row">
                 <%                    int i = 0;
-                    for (AuctionTable auc : auctionTodo)
+                    for (AuctionTable auc : auctionTodo){
+                    if(i>3)
+                    break;
                         if (auc.getStatus() != ActiveOrDeactive.DEACTIVE) {
                 %>
                 <div class="col-md-3">
@@ -179,7 +181,7 @@
                         </div>
                     </div>
                 </div>
-                <%}%>
+                <%i++;}}%>
             </div>
         </div>
         <%}%>

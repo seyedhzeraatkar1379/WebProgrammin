@@ -37,10 +37,10 @@
             response.sendRedirect("/");
             return;
         }
-        if (auction.getStatus() != ActiveOrDeactive.DEACTIVE) {
-            response.sendRedirect("/");
-            return;
-        }
+//        if (auction.getStatus() != ActiveOrDeactive.DEACTIVE) {
+//            response.sendRedirect("/");
+//            return;
+//        }
 
         SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         Date today = new Date();
