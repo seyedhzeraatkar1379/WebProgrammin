@@ -14,16 +14,15 @@ import javax.transaction.Transaction;
 public class UserManager {
 
     private static final String PUN = "Auction_website";
-
-    private static boolean checkUserExist(String email, String phone) {
+    //must be changed
+    private static boolean checkUserExist(String email) {
         EntityManagerFactory entityManagerFactory = null;
         EntityManager entityManager = null;
         try {
             entityManagerFactory = Persistence.createEntityManagerFactory(PUN);
             entityManager = entityManagerFactory.createEntityManager();
-            Query query = entityManager.createQuery("select usr from UserTable usr where usr.email = ?1 or usr.phoneNumber = ?2");
+            Query query = entityManager.createQuery("select usr from UserTable usr where usr.email = ?1");
             query.setParameter(1, email);
-            query.setParameter(2, phone);
             List<UserTable> user = query.getResultList();
             return !user.isEmpty();
         } catch (Exception e) {
@@ -40,7 +39,7 @@ public class UserManager {
 
     public static boolean registerUserlv1(String email, String password) {
 
-        if (!checkUserExist(email, password)) {
+        if (!checkUserExist(email)) {
             EntityManagerFactory entityManagerFactory = null;
             EntityManager entityManager = null;
             EntityTransaction transaction = null;
@@ -70,7 +69,7 @@ public class UserManager {
     }
 
     public static boolean registerUserlv2(UserTable user) {
-        if (checkUserExist(user.getEmail(), user.getPhoneNumber())) {
+        if (checkUserExist(user.getEmail())) {
             EntityManagerFactory entityManagerFactory = null;
             EntityManager entityManager = null;
             EntityTransaction transaction = null;
@@ -121,8 +120,8 @@ public class UserManager {
             transaction = entityManager.getTransaction();
             transaction.begin();
             UserTable user = (UserTable) entityManager.find(UserTable.class, Integer.valueOf(userId));
-            System.out.println(ActiveOrDeactive.ACTIVE.ordinal());
-            System.out.println(ActiveOrDeactive.DEACTIVE.ordinal());
+//            System.out.println(ActiveOrDeactive.ACTIVE.ordinal());
+//            System.out.println(ActiveOrDeactive.DEACTIVE.ordinal());
             if (user.getUserStatus() == ActiveOrDeactive.ACTIVE) {
                 user.setUserStatus(ActiveOrDeactive.DEACTIVE);
             } else {

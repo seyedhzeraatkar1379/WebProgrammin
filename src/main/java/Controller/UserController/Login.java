@@ -43,16 +43,16 @@ public class Login extends HttpServlet {
                     response.sendRedirect("/");
                     return;
                 }else{
-                    response.sendRedirect("/login?statuslogin="+StatusQuery.USERNAME_PASSWORD_INCORRECT.ordinal());
+                    response.sendRedirect("/user/login?statuslogin="+StatusQuery.USERNAME_PASSWORD_INCORRECT.ordinal());
                     return;
                 }
             }
             else{
-                response.sendRedirect("/login?statuslogin="+StatusQuery.PARAMETER_NOT_VALID.ordinal());
+                response.sendRedirect("/user/login?statuslogin="+StatusQuery.PARAMETER_NOT_VALID.ordinal());
                     return;
             }
         }
-        response.sendRedirect("/login?statuslogin=" + StatusQuery.FAILD.ordinal());
+        response.sendRedirect("/user/login?statuslogin=" + StatusQuery.FAILD.ordinal());
     }
 
 }

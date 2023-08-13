@@ -42,6 +42,9 @@ public class AuctionTable implements Serializable {
     @Column(name = "id")
     private Integer id;
     @Basic(optional = false)
+    @Column(name = "limit_price")
+    private String limitPrice;
+    @Basic(optional = false)
     @Column(name = "start_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date startDate;
@@ -147,6 +150,20 @@ public class AuctionTable implements Serializable {
     @Override
     public String toString() {
         return "models.AuctionTable[ id=" + id + " ]";
+    }
+
+    /**
+     * @return the limitPrice
+     */
+    public String getLimitPrice() {
+        return limitPrice;
+    }
+
+    /**
+     * @param limitPrice the limitPrice to set
+     */
+    public void setLimitPrice(String limitPrice) {
+        this.limitPrice = limitPrice;
     }
 
 }

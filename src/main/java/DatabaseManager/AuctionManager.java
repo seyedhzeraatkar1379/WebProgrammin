@@ -103,6 +103,7 @@ public class AuctionManager {
                 auctionup.setStartDate(auction.getStartDate());
                 auctionup.setEndDate(auction.getEndDate());
                 auctionup.setStatus(auction.getStatus());
+                auctionup.setLimitPrice(auction.getLimitPrice());
                 transaction.commit();
             } else {
                 if (transaction.isActive()) {

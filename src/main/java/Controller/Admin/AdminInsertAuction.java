@@ -27,6 +27,7 @@ public class AdminInsertAuction
             String startDate = request.getParameter("startDate").replace('T', ' ');
             String endDate = request.getParameter("endDate").replace('T', ' ');
             String status = request.getParameter("status");
+            String limitPrice = request.getParameter("limitStatus")!=null?request.getParameter("limitStatus"):"0";
             AuctionTable auction = new AuctionTable();
             try {
                 auction.setStartDate((new SimpleDateFormat("yyyy-MM-dd HH:mm")).parse(startDate));
@@ -35,6 +36,7 @@ public class AdminInsertAuction
                     response.sendRedirect("/admin/auctionmanager?statusins=" + StatusQuery.PARAMETER_NOT_VALID.ordinal());
                     return;
                 }
+                auction.setLimitPrice(limitPrice);
             } catch (Exception ex) {
                 ex.printStackTrace();
                 response.sendRedirect("/admin/auctionmanager?statusins=" + StatusQuery.PARAMETER_NOT_VALID.ordinal());

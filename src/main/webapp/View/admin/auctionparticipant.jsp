@@ -128,6 +128,10 @@
                                                             <blockquote>
                                                                 <p><%=auction.getId()%></p>
                                                             </blockquote>
+                                                            <h4>قیمت پایه</h4>
+                                                            <blockquote>
+                                                                <p><%=auction.getLimitPrice()%></p>
+                                                            </blockquote>
                                                             <h4>تاریخ و زمان</h4>
                                                             <blockquote>
                                                                 <p><%=dateFormat.format(auction.getStartDate())%></p>

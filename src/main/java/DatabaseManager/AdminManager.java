@@ -37,10 +37,8 @@ public class AdminManager {
     }
 
     public static boolean updatePasswordAdminByUsername(String username, String password) {
-        EntityManager entityManager;
-        EntityManagerFactory entityManagerFactory;
-        entityManagerFactory = null;
-        entityManager = null;
+        EntityManager entityManager= null;
+        EntityManagerFactory entityManagerFactory= null;
         EntityTransaction entityTransaction = null;
         try {
             entityManagerFactory = Persistence.createEntityManagerFactory(PUN);

@@ -15,7 +15,7 @@
 <%@page import="DatabaseManager.AuctionManager"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
+<html lang="fa">
     <%
         int tablePageTodo = 1, numberOfRecordTodo = 10, tablePageDoing = 1, numberOfRecordDoing = 10, tablePageDone = 1, numberOfRecordDone = 10;
 //        String filterAuction = "";
@@ -83,9 +83,13 @@
                 <div class="row" >
                     <!-- Page Header -->
                     <form method="post" action="/admin/insertaucion" role="form">
-                        <div class="row">
-                            <div class="col-md-offset-6">
-                                <div class="form-group col-md-6" style="text-align: right;">
+                        <div class="row" >
+                            <div class="col-md-6" style="float:right;">
+                                <div class="form-group col-md-6" style="float:right;">
+                                    <label>آیدی ادمین</label>
+                                    <input  class="form-control" type="number" name="adminId" value="<%=((AdminTable) request.getSession().getAttribute("admin")).getId()%>" disabled/>
+                                </div>
+                                <div class="form-group col-md-6" style="float:right;">
                                     <label>آیدی اثر</label>
                                     <select class="form-control" id="cars" name="artId">
                                         <%for (ArtinfoTable art : artListDosntInAuction) {%>
@@ -93,26 +97,24 @@
                                         <%}%>
                                     </select>
                                 </div>
-                                <div class="form-group col-md-6" style="text-align: right;">
-                                    <label>آیدی ادمین</label>
-                                    <input  class="form-control" type="number" name="adminId" value="<%=((AdminTable) request.getSession().getAttribute("admin")).getId()%>" disabled/>
-                                </div>
-
                             </div>
-                            <div class="col-md-offset-6">
-
-                                <div class="form-group col-md-6" style="text-align: right;">
-                                    <label>تاریخ پایان</label>
-                                    <input class="form-control" type="datetime-local" name="endDate"/>
-                                </div>
-                                <div class="form-group col-md-6" style="text-align: right;">
+                            <div class="col-md-6">
+                                <div class="form-group col-md-6" style="float:right;">
                                     <label >تاریخ شروع</label>
                                     <input class="form-control" type="datetime-local" name="startDate"/>
                                 </div>
+                                <div class="form-group col-md-6" style="float:right;">
+                                    <label>تاریخ پایان</label>
+                                    <input class="form-control" type="datetime-local" name="endDate"/>
+                                </div>
                             </div>
-                            <div class="col-md-offset-2" style="text-align: right;">
-                                <div class="col-md-12">
+                            <div class="col-md-6" style="float:right;">
+                                <div class="form-group col-md-6" style="float:right;">
 
+                                    <label>قیمت پایه</label>
+                                    <input class="form-control" placeholder="قیمت پایه" name="limitStatus" type="text"/>
+                                </div>
+                                <div class="form-group col-md-6" style="float:right;">
                                     <label>وضعیت</label>
                                     <input placeholder="status" value="1" name="status" type="checkbox"/>
                                 </div>
@@ -178,6 +180,9 @@
                                                         نام اثر
                                                     </th>
                                                     <th style="text-align: right;"  tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" style="width: 167px;" aria-sort="ascending" aria-label="Rendering engine: activate to sort column ascending">
+                                                        قیمت پایه
+                                                    </th>
+                                                    <th style="text-align: right;"  tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" style="width: 167px;" aria-sort="ascending" aria-label="Rendering engine: activate to sort column ascending">
                                                         تاریخ شروع
                                                     </th>
                                                     <th style="text-align: right;"  tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" style="width: 167px;" aria-sort="ascending" aria-label="Rendering engine: activate to sort column ascending">
@@ -205,6 +210,7 @@
                                                     <td><%=toDoAuction.get(i).getId()%></td>
                                                     <td><%=toDoAuction.get(i).getArtId().getId()%></td>
                                                     <td><%=toDoAuction.get(i).getArtId().getName()%></td>
+                                                    <td><%=toDoAuction.get(i).getLimitPrice()%></td>
                                                     <td><%=dateformat.format(toDoAuction.get(i).getStartDate())%></td>
                                                     <td><%=dateformat.format(toDoAuction.get(i).getEndDate())%></td>
                                                     <td><i class="<%=toDoAuction.get(i).getStatus() == ActiveOrDeactive.ACTIVE ? "fa fa-eye" : "fa fa-eye-slash"%>"></i></td>
@@ -303,6 +309,9 @@
                                                         نام اثر
                                                     </th>
                                                     <th style="text-align: right;"  tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" style="width: 167px;" aria-sort="ascending" aria-label="Rendering engine: activate to sort column ascending">
+                                                        قیمت پایه
+                                                    </th>
+                                                    <th style="text-align: right;"  tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" style="width: 167px;" aria-sort="ascending" aria-label="Rendering engine: activate to sort column ascending">
                                                         تاریخ شروع
                                                     </th>
                                                     <th style="text-align: right;"  tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" style="width: 167px;" aria-sort="ascending" aria-label="Rendering engine: activate to sort column ascending">
@@ -333,6 +342,7 @@
                                                     <td><%=doingAuction.get(i).getId()%></td>
                                                     <td><%=doingAuction.get(i).getArtId().getId()%></td>
                                                     <td><%=doingAuction.get(i).getArtId().getName()%></td>
+                                                    <td><%=doingAuction.get(i).getLimitPrice()%></td>
                                                     <td><%=dateformat.format(doingAuction.get(i).getStartDate())%></td>
                                                     <td><%=dateformat.format(doingAuction.get(i).getEndDate())%></td>
                                                     <td><i class="<%=doingAuction.get(i).getStatus() == ActiveOrDeactive.ACTIVE ? "fa fa-eye" : "fa fa-eye-slash"%>"></i></td>
@@ -437,6 +447,9 @@
                                                         نام اثر
                                                     </th>
                                                     <th style="text-align: right;"  tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" style="width: 167px;" aria-sort="ascending" aria-label="Rendering engine: activate to sort column ascending">
+                                                        قیمت پایه
+                                                    </th>
+                                                    <th style="text-align: right;"  tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" style="width: 167px;" aria-sort="ascending" aria-label="Rendering engine: activate to sort column ascending">
                                                         تاریخ شروع
                                                     </th>
                                                     <th style="text-align: right;"  tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" style="width: 167px;" aria-sort="ascending" aria-label="Rendering engine: activate to sort column ascending">
@@ -467,6 +480,7 @@
                                                     <td><%=doneAuction.get(i).getId()%></td>
                                                     <td><%=doneAuction.get(i).getArtId().getId()%></td>
                                                     <td><%=doneAuction.get(i).getArtId().getName()%></td>
+                                                    <td><%=doneAuction.get(i).getLimitPrice()%></td>
                                                     <td><%=dateformat.format(doneAuction.get(i).getStartDate())%></td>
                                                     <td><%=dateformat.format(doneAuction.get(i).getEndDate())%></td>
                                                     <td><i class="<%=doneAuction.get(i).getStatus() == ActiveOrDeactive.ACTIVE ? "fa fa-eye" : "fa fa-eye-slash"%>"></i></td>
