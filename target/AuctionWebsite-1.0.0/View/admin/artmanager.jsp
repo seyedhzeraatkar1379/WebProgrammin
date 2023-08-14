@@ -4,6 +4,7 @@
     Author     : seyedhossein
 --%>
 
+<%@page import="java.io.File"%>
 <%@page import="Enum.StatusQuery"%>
 <%@page import="DatabaseManager.ArtInfoManager"%>
 <%@page import="java.util.List"%>
@@ -36,7 +37,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Art Page</title>
+        <title>آثار</title>
         <!-- Core CSS - Include with every page -->
         <link href="/View/admin/assets/plugins/bootstrap/bootstrap.css" rel="stylesheet" />
         <link href="/View/admin/assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
@@ -159,16 +160,16 @@
                                                         id
                                                     </th>
                                                     <th dir="rtl" style="text-align: right;" class="" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" style="width: 219px;" aria-label="Browser: activate to sort column ascending">
-                                                        name
+                                                        نام اثر
                                                     </th>
                                                     <th dir="rtl" style="text-align: right;" class="" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" style="width: 201px;" aria-label="Platform(s): activate to sort column ascending">
-                                                        description
+                                                        توضیحات
                                                     </th>
                                                     <th dir="rtl" style="text-align: right;" class="" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" style="width: 143px;" aria-label="Engine version: activate to sort column ascending">
-                                                        image
+                                                        تصویر
                                                     </th>
                                                     <th dir="rtl" style="text-align: right;" class="" tabindex="0" aria-controls="dataTables-example" rowspan="1" colspan="1" style="width: 102px;" aria-label="CSS grade: activate to sort column ascending">
-                                                        remove
+                                                        حذف
                                                     </th>
                                                 </tr>
                                             </thead>
@@ -176,13 +177,15 @@
                                                 <%
                                                     if (arts != null)
                                                         if (arts.size() > numberOfRecord * (tablePage - 1)) {
+                                                        File f = null;
                                                             for (int i = (numberOfRecord * (tablePage - 1)), j = 1; j <= numberOfRecord && i < arts.size(); i++, j++) {
+                                                            f = new File("/images/arts/" + arts.get(i).getPhotoPath());
                                                 %>
                                                 <tr class="gradeA odd">
                                                     <td class="sorting_1"><%=arts.get(i).getId()%></td>
                                                     <td><%=arts.get(i).getName()%></td>
                                                     <td><%=arts.get(i).getDescription()%></td>
-                                                    <td class="center "><a href="<%=arts.get(i).getPhotoPath() != null ? "/images/arts/" + arts.get(i).getPhotoPath() : "#"%>"  height="50" width="50"><i class="fa fa-file"></i></a></td>
+                                                    <td class="center "><a href="<%=f.exists()&&!f.isDirectory()?"/images/arts/" + arts.get(i).getPhotoPath():""%>"  height="50" width="50"><i class="fa fa-file"></i></a></td>
                                                     <td><a href="/admin/removeart?artid=<%=arts.get(i).getId()%>"><i class="fa fa-trash-o"></i></a></td>
                                                 </tr>
                                                 <%}

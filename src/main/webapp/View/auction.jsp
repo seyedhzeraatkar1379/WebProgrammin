@@ -81,8 +81,7 @@
                 %>
                 <div class="col-md-3">
                     <div class="card">
-                        <img src="/images/arts/<%=auctionList.get(i).getArtId().getPhotoPath()%>"
-                             class="card-img-top" alt="بخش 1">
+                        <img src="<%=auctionList.get(i).getArtId().getPhotoPath()!=null?"/images/arts/"+auctionList.get(i).getArtId().getPhotoPath():"/View/images/default_art_image.jpg"%>" onerror="this.src='/View/images/default_art_image.jpg'"/>
                         <div class="card-body">
                             <h5 class="card-title"><%=auctionList.get(i).getArtId().getName()%><sub>(id: <%=auctionList.get(i).getArtId().getId()%>)</sub></h5>
                             <p class="card-text"><%=auctionList.get(i).getArtId().getDescription()%></p>

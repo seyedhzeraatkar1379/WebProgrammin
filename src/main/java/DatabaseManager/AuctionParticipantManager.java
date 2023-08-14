@@ -63,7 +63,7 @@ public class AuctionParticipantManager {
                     case -1:
                         return ParticipateStatus.ERROR;
                     case 0:
-                        if(Double.parseDouble(auction.getLimitPrice()) > Double.parseDouble(auctionParticipant.getAuctionId().getLimitPrice()))
+                        if(Double.parseDouble(auction.getLimitPrice()) > Double.parseDouble(auctionParticipant.getPerposedPrice()))
                             return ParticipateStatus.PRICE_NOTCORRECT;
                         transaction.begin();
                         auctionParticipant.setAuctionId(auction);

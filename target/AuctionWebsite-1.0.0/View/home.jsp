@@ -16,7 +16,7 @@
         List<AuctionTable> auctionTodo = AuctionManager.getAuctionActiveToDo();
         List<AuctionTable> auctionDoing = AuctionManager.getAuctionActiveDoing();
         List<AuctionTable> auctionDone = AuctionManager.getAuctionActiveDone();
-    %>
+        %>
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -108,7 +108,7 @@
                 %>
                 <div class="col-md-3">
                     <div class="card">
-                        <img src="/images/arts/<%=auc.getArtId().getPhotoPath()%>" class="card-img-top" alt="بخش 1">
+                        <img src="<%=auc.getArtId().getPhotoPath() != null ? "/images/arts/" + auc.getArtId().getPhotoPath() : "/View/images/default_art_image.jpg"%>" onerror="this.src='/View/images/default_art_image.jpg'"/>
                         <div class="card-body">
                             <h5 class="card-title"><%=auc.getArtId().getName()%></h5>
                             <p class="card-text"><%=auc.getArtId().getDescription()%></p>
@@ -142,7 +142,7 @@
                 %>
                 <div class="col-md-3">
                     <div class="card">
-                        <img src="/images/arts/<%=auc.getArtId().getPhotoPath()%>" class="card-img-top" alt="بخش 1">
+                        <img src="<%=auc.getArtId().getPhotoPath() != null ? "/images/arts/" + auc.getArtId().getPhotoPath() : "/View/images/default_art_image.jpg"%>" onerror="this.src='/View/images/default_art_image.jpg'"/>
                         <div class="card-body">
                             <h5 class="card-title"><%=auc.getArtId().getName()%></h5>
                             <p class="card-text"><%=auc.getArtId().getDescription()%></p>
@@ -166,14 +166,15 @@
             <h2>مزایده های پیش رو <span><a href="/auctions?type=todo" style="font-size: 15px;">کلیک کنید</a></span></h2>
             <div class="row">
                 <%                    int i = 0;
-                    for (AuctionTable auc : auctionTodo){
-                    if(i>3)
-                    break;
+                    for (AuctionTable auc : auctionTodo) {
+                        if (i > 3) {
+                            break;
+                        }
                         if (auc.getStatus() != ActiveOrDeactive.DEACTIVE) {
                 %>
                 <div class="col-md-3">
                     <div class="card">
-                        <img src="/images/arts/<%=auc.getArtId().getPhotoPath()%>" class="card-img-top" alt="بخش 1">
+                        <img src="<%=auc.getArtId().getPhotoPath() != null ? "/images/arts/" + auc.getArtId().getPhotoPath() : "/View/images/default_art_image.jpg"%>" onerror="this.src='/View/images/default_art_image.jpg'"/>
                         <div class="card-body">
                             <h5 class="card-title"><%=auc.getArtId().getName()%></h5>
                             <p class="card-text"><%=auc.getArtId().getDescription()%></p>
@@ -181,7 +182,9 @@
                         </div>
                     </div>
                 </div>
-                <%i++;}}%>
+                <%i++;
+                        }
+                    }%>
             </div>
         </div>
         <%}%>

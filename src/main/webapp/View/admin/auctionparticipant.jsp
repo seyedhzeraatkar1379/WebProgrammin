@@ -17,7 +17,7 @@
 
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>auctionparticipant Page</title>
+        <title>شرکت کنندگان مزایده</title>
         <link href="/View/admin/assets/plugins/bootstrap/bootstrap.css" rel="stylesheet">
         <link href="/View/admin/assets/font-awesome/css/font-awesome.css" rel="stylesheet">
         <link href="/View/admin/assets/plugins/pace/pace-theme-big-counter.css" rel="stylesheet">
