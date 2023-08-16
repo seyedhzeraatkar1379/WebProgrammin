@@ -14,9 +14,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-    <%
-        AdminTable admin = (AdminTable) request.getSession().getAttribute("admin");
-    %>
+    
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -131,9 +129,9 @@
                         </div>
                         <div class="row">
                             <%if (request.getParameter("status") != null) {%>
-                            <div class="alert alert-danger alert-dismissable">
+                            <div class="alert alert-danger alert-dismissable" style="text-align: right; direction: rtl;">
                                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                                <%=(StatusQuery.values()[Integer.parseInt(request.getParameter("status"))])%>
+                                <%=(StatusQuery.values()[Integer.parseInt(request.getParameter("status"))].getSize())%>
                             </div>
                             <%}%>
                         </div>

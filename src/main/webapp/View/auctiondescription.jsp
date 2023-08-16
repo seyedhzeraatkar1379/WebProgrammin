@@ -92,7 +92,7 @@
                     <p><%=auction.getArtId().getDescription()%></p>
                     <!-- بخش قیمت محصول -->
                     <h4>قیمت پایه مزایده </h4>
-                    <p>قیمت محصول: <%=auction.getLimitPrice() %> تومان</p>
+                    <p>قیمت محصول: <%=auction.getLimitPrice()%> تومان</p>
                     <h4>تاریخ برگزاری</h4>
                     <p><%=dateformat.format(auction.getStartDate())%></p>
                     <p><%=dateformat.format(auction.getEndDate())%></p>
@@ -133,7 +133,7 @@
                 </div>
                 <!-- قسمت سمت راست با تصویر محصول -->
                 <div class="col-md-6">
-                    <img src="/images/arts/<%=auction.getArtId().getPhotoPath()%>" class="img-fluid" alt="تصویر محصول">
+                    <img class="img-fluid" alt="تصویر محصول" src="<%=auction.getArtId().getPhotoPath() != null ? "/images/arts/" + auction.getArtId().getPhotoPath() : "/View/images/default_art_image.jpg"%>" onerror="this.src='/View/images/default_art_image.jpg'"/>
                 </div>
             </div>
         </div>

@@ -135,7 +135,7 @@
                 %>
                 <div class="alert <%=Integer.parseInt(request.getParameter("statusins")) == StatusQuery.SUCCESS.ordinal() ? "alert-success" : "alert-danger"%> alert-dismissable">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                    <%=StatusQuery.values()[Integer.parseInt(request.getParameter("statusins"))]%>.
+                    <%=StatusQuery.values()[Integer.parseInt(request.getParameter("statusins"))].getSize() %>.
                 </div>
                 <%}%>
                 <br/>
@@ -255,7 +255,7 @@
                                         %>
                                         <div class="alert <%=Integer.parseInt(request.getParameter("statusrmv")) == StatusQuery.SUCCESS.ordinal() ? "alert-success" : "alert-danger"%> alert-dismissable">
                                             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                                            <%=StatusQuery.values()[Integer.parseInt(request.getParameter("statusrmv"))]%>.
+                                            <%=StatusQuery.values()[Integer.parseInt(request.getParameter("statusrmv"))].getSize() %>.
                                         </div>
                                         <%}%>
                                     </div>
@@ -393,7 +393,7 @@
                                         %>
                                         <div class="alert <%=Integer.parseInt(request.getParameter("statusrmv")) == StatusQuery.SUCCESS.ordinal() ? "alert-success" : "alert-danger"%> alert-dismissable">
                                             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                                            <%=StatusQuery.values()[Integer.parseInt(request.getParameter("statusrmv"))]%>.
+                                            <%=StatusQuery.values()[Integer.parseInt(request.getParameter("statusrmv"))].getSize()%>.
                                         </div>
                                         <%}%>
                                     </div>
@@ -532,7 +532,7 @@
                                         %>
                                         <div class="alert <%=Integer.parseInt(request.getParameter("statusrmv")) == StatusQuery.SUCCESS.ordinal() ? "alert-success" : "alert-danger"%> alert-dismissable">
                                             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                                            <%=StatusQuery.values()[Integer.parseInt(request.getParameter("statusrmv"))]%>.
+                                            <%=StatusQuery.values()[Integer.parseInt(request.getParameter("statusrmv"))].getSize()%>.
                                         </div>
                                         <%}%>
                                     </div>

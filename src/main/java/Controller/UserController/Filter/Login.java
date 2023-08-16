@@ -39,7 +39,7 @@ public class Login implements Filter {
             throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse res = (HttpServletResponse) response;
-        System.out.println(req.getRequestURI());
+        //System.out.println(req.getRequestURI());
         if (req.getSession().getAttribute("user") == null) {
             if (req.getRequestURI().compareTo("/user/logincheck") == 0 || req.getRequestURI().compareTo("/user/register") == 0 || req.getRequestURI().compareTo("/user/login") == 0) {
                 chain.doFilter(request, response);

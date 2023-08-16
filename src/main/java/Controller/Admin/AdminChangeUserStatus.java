@@ -24,9 +24,13 @@ public class AdminChangeUserStatus
             numberOfRecord = Integer.parseInt(request.getParameter("NR"));
         }
         if (request.getParameter("userid") != null) {
-            UserManager.changeUserStatus(Integer.parseInt(request.getParameter("userid")));
-            response.sendRedirect("/admin/usermanager?PG=" + pageNumber + "&NR=" + numberOfRecord + "&status=" + StatusQuery.SUCCESS.ordinal());
-            return;
+            if (UserManager.changeUserStatus(Integer.parseInt(request.getParameter("userid"))) == true) {
+                response.sendRedirect("/admin/usermanager?PG=" + pageNumber + "&NR=" + numberOfRecord + "&status=" + StatusQuery.SUCCESS.ordinal());
+                return;
+            }else{
+                response.sendRedirect("/admin/usermanager?PG=" + pageNumber + "&NR=" + numberOfRecord + "&status=" + StatusQuery.PARAMETER_NOT_VALID.ordinal());
+                return;
+            }
         } else {
             response.sendRedirect("/admin/usermanager?PG=" + pageNumber + "&NR=" + numberOfRecord + "&status=" + StatusQuery.PARAMETER_NOT_VALID.ordinal());
             return;

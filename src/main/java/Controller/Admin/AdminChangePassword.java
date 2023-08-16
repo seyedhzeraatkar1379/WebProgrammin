@@ -1,8 +1,5 @@
 package Controller.Admin;
 
-
-
-
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import DatabaseManager.AdminManager;
 import Enum.StatusQuery;
 import Model.AdminTable;
+
 @WebServlet(name = "AdminChangePassword", urlPatterns = {"/admin/changepassword"})
 public class AdminChangePassword
         extends HttpServlet {
@@ -24,19 +22,35 @@ public class AdminChangePassword
         String currentPassword = request.getParameter("currentPassword");
         String newPassword = request.getParameter("newPassword");
         String newPasswordRepeat = request.getParameter("newPasswordRepeat");
-        if (newPassword.compareTo(newPasswordRepeat) == 0) {
-            if (admin.getPassword().compareTo(currentPassword) == 0) {
-                AdminManager.updatePasswordAdminByUsername(admin.getUsername(), newPassword);
-                request.getSession().invalidate();
-                response.sendRedirect("/admin/login?status="+StatusQuery.SUCCESS.ordinal());
-                return;
+        if (currentPassword != null && newPassword != null) {
+            if (!currentPassword.isEmpty() && !newPassword.isEmpty()) {
+                if (newPassword.compareTo(currentPassword) != 0) {
+                    if (newPassword.compareTo(newPasswordRepeat) == 0) {
+                        if (admin.getPassword().compareTo(currentPassword) == 0) {
+                            AdminManager.updatePasswordAdminByUsername(admin.getUsername(), newPassword);
+                            request.getSession().invalidate();
+                            response.sendRedirect("/admin/login?status=" + StatusQuery.SUCCESS.ordinal());
+                            return;
+                        } else {
+                            response.sendRedirect("/admin/home?status=" + StatusQuery.PASSWORD_INCORRECT.ordinal());
+                            return;
+                        }
+                    } else {
+                        response.sendRedirect("/admin/home?status=" + StatusQuery.NEW_PASSWORD_RETRY_INCORRECT.ordinal());
+                        return;
+                    }
+                } else {
+                    response.sendRedirect("/admin/home?status=" + StatusQuery.PASSWORD_EQUAL_NEWPASS.ordinal());
+                    return;
+                }
             } else {
-                response.sendRedirect("/admin/home?status=" + StatusQuery.PASSWORD_INCORRECT.ordinal());
+                response.sendRedirect("/admin/home?status=" + StatusQuery.PARAMETER_NOT_VALID.ordinal());
                 return;
             }
         } else {
-            response.sendRedirect("/admin/home?status=" + StatusQuery.NEW_PASSWORD_RETRY_INCORRECT.ordinal());
+            response.sendRedirect("/admin/home?status=" + StatusQuery.FAILD.ordinal());
             return;
         }
+
     }
 }

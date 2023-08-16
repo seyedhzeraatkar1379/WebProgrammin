@@ -37,7 +37,7 @@ public class Register extends HttpServlet {
             if (request.getParameter("password").compareTo(request.getParameter("confirmpassword")) == 0) {
                 if (request.getParameter("commitment").compareTo("1") == 0) {
                     if (UserManager.registerUserlv1(request.getParameter("email"), request.getParameter("password"))) {
-                        response.sendRedirect("/user/login?status=" + StatusQuery.SUCCESS.ordinal());
+                        response.sendRedirect("/user/login?registerstatus=" + StatusQuery.SUCCESS.ordinal());
                         return;
                     } else {
                         response.sendRedirect("/user/login?registerstatus=" + StatusQuery.RECORD_EXIST.ordinal());

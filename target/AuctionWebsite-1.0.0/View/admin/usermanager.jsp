@@ -77,7 +77,7 @@
                                             <label>
                                                 Search:
                                                 <input onkeydown="if (event.keyCode == 13)
-                                                        searchEvent()" type="search" class="form-control input-sm" aria-controls="dataTables-example" id="searchinput">
+                                                            searchEvent()" type="search" class="form-control input-sm" aria-controls="dataTables-example" id="searchinput">
                                             </label>
                                             <%if (filterUser != "") {%>
                                             <a href="/admin/usermanager?PG=1&NR=<%=numberOfRecord%>">نمایش تمام کاربران</a>
@@ -145,7 +145,7 @@
                                                     <%} else {%>
                                                 <td ><i class="fa fa-close"></i></td>
                                                     <%}
-                                                    if (users.get(i).getUserStatus() == ActiveOrDeactive.ACTIVE) {%>
+                                                        if (users.get(i).getUserStatus() == ActiveOrDeactive.ACTIVE) {%>
                                                 <td><a href="/admin/changeuserstatus?PG=<%=tablePage%>&NR=<%=numberOfRecord%>&userid=<%=users.get(i).getId()%>&status=<%=ActiveOrDeactive.DEACTIVE.ordinal()%><%=filterString != "" ? filterString : ""%>"><i class="fa fa-thumbs-o-up"></i></a></td>
                                                         <%} else {%>
                                                 <td><a href="/admin/changeuserstatus?PG=<%=tablePage%>&NR=<%=numberOfRecord%>&userid=<%=users.get(i).getId()%>&status=<%=ActiveOrDeactive.ACTIVE.ordinal()%><%=filterString != "" ? filterString : ""%>"><i class="fa fa-thumbs-o-down"></i></a></td>
@@ -183,17 +183,19 @@
                                                     <a href="/admin/usermanager?PG=<%=tablePage + 1%>&NR=<%=numberOfRecord%><%=filterString%>">Next</a>
                                                 </li>
                                                 <%}
-                                                }%>
+                                                    }%>
                                             </ul>
                                         </div>
                                     </div>
                                 </div>
                                 <%if (request.getParameter("status") != null)
                                         if (!request.getParameter("status").isEmpty()) {
+                                            StatusQuery status = StatusQuery.values()[Integer.parseInt(request.getParameter("status"))];
+
                                 %>
-                                <div class="alert <%=Integer.parseInt(request.getParameter("status")) == StatusQuery.SUCCESS.ordinal() ? "alert-success" : "alert-danger"%> alert-dismissable">
+                                <div class="alert <%=status == StatusQuery.SUCCESS ? "alert-success" : "alert-danger"%> alert-dismissable">
                                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                                    <%=StatusQuery.values()[Integer.parseInt(request.getParameter("status"))]%>.
+                                    <%= status == StatusQuery.FAILD_DEPENDENCY ? "این کاربر در مزایده ای شرکت کرده" : status == StatusQuery.SUCCESS ? "عملیات با موفقیت انجام شد" : "خطا!"%>.
                                 </div>
                                 <%}%>
                             </div>

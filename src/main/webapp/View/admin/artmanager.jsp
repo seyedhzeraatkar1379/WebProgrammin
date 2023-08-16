@@ -94,12 +94,12 @@
                         %>
                         <div class="alert alert-success alert-dismissable">
                             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                            <%=StatusQuery.values()[Integer.parseInt(request.getParameter("statusinsert"))]%>
+                            <%=StatusQuery.values()[Integer.parseInt(request.getParameter("statusinsert"))].getSize() %>
                         </div>
                         <%} else {%>
                         <div class="alert alert-danger alert-dismissable">
                             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                            <%=StatusQuery.values()[Integer.parseInt(request.getParameter("statusinsert"))]%>
+                            <%=StatusQuery.values()[Integer.parseInt(request.getParameter("statusinsert"))].getSize() %>
                         </div>
                         <%}
                             }%>
@@ -179,13 +179,13 @@
                                                         if (arts.size() > numberOfRecord * (tablePage - 1)) {
                                                         File f = null;
                                                             for (int i = (numberOfRecord * (tablePage - 1)), j = 1; j <= numberOfRecord && i < arts.size(); i++, j++) {
-                                                            f = new File("/images/arts/" + arts.get(i).getPhotoPath());
+                                                            f = new File(request.getServletContext().getRealPath("/images/arts/") + arts.get(i).getPhotoPath());
                                                 %>
                                                 <tr class="gradeA odd">
                                                     <td class="sorting_1"><%=arts.get(i).getId()%></td>
                                                     <td><%=arts.get(i).getName()%></td>
                                                     <td><%=arts.get(i).getDescription()%></td>
-                                                    <td class="center "><a href="<%=f.exists()&&!f.isDirectory()?"/images/arts/" + arts.get(i).getPhotoPath():""%>"  height="50" width="50"><i class="fa fa-file"></i></a></td>
+                                                    <td class="center "><a href="<%=f.exists() && !f.isDirectory() ? "/images/arts/" + arts.get(i).getPhotoPath() : ""%>"  height="50" width="50"><i class="fa fa-file"></i></a></td>
                                                     <td><a href="/admin/removeart?artid=<%=arts.get(i).getId()%>"><i class="fa fa-trash-o"></i></a></td>
                                                 </tr>
                                                 <%}
@@ -234,7 +234,7 @@
                                         %>
                                         <div class="alert <%=Integer.parseInt(request.getParameter("statusrmv")) == StatusQuery.SUCCESS.ordinal() ? "alert-success" : "alert-danger"%> alert-dismissable">
                                             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                                            <%=StatusQuery.values()[Integer.parseInt(request.getParameter("statusrmv"))]%>.
+                                            <%=StatusQuery.values()[Integer.parseInt(request.getParameter("statusrmv"))].getSize() %>.
                                         </div>
                                         <%}%>
                                     </div>

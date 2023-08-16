@@ -36,6 +36,8 @@ public class ParticipateAuction extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
         UserTable user = ((UserTable) request.getSession().getAttribute("user"));
         int auctionId = request.getParameter("auctionid") != null ? Integer.parseInt(request.getParameter("auctionid")) : -1;
         String price =request.getParameter("price") != null ? request.getParameter("price") : "";

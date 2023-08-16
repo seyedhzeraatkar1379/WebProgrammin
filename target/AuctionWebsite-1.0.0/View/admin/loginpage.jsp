@@ -54,9 +54,13 @@
                                     <input type="submit" class="btn btn-lg btn-success btn-block" value="Login">
                                 </fieldset>
                             </form>
+                            <br/>
                             <%if (request.getParameter("status") != null)
                                 if (request.getParameter("status").compareTo(Integer.toString(StatusQuery.USERNAME_PASSWORD_INCORRECT.ordinal())) == 0) {%>
-                            <h3>username/Password Incorrect</h3>
+                                <div class="alert alert-danger" alert-dismissable" style="text-align: right; direction: rtl;">
+                                    نام کاربری و رمز عبور صحیح نیست.
+                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                </div>
                             <%}%>
                         </div>
                     </div>
