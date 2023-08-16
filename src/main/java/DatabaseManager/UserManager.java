@@ -14,6 +14,7 @@ import javax.transaction.Transaction;
 public class UserManager {
 
     private static final String PUN = "Auction_website";
+
     //must be changed
     private static boolean checkUserExist(String email) {
         EntityManagerFactory entityManagerFactory = null;
@@ -110,6 +111,37 @@ public class UserManager {
         return registerUserlv2(user);
     }
 
+    public static boolean updatePassword(int userId, String newPassword) {
+        EntityManagerFactory entityManagerFactory = null;
+        EntityManager entityManager = null;
+        EntityTransaction transaction = null;
+        try {
+            entityManagerFactory = Persistence.createEntityManagerFactory(PUN);
+            entityManager = entityManagerFactory.createEntityManager();
+            transaction = entityManager.getTransaction();
+            transaction.begin();
+            UserTable updUsr = (UserTable) entityManager.find(UserTable.class, userId);
+            updUsr.setPassword(newPassword);
+            transaction.commit();
+            return true;
+        } catch (Exception e) {
+            if (transaction != null) {
+                if (transaction.isActive()) {
+                    transaction.rollback();
+                }
+            }
+            e.printStackTrace();
+            return false;
+        } finally {
+            if (entityManager != null) {
+                entityManager.close();
+            }
+            if (entityManagerFactory != null) {
+                entityManagerFactory.close();
+            }
+        }
+    }
+
     public static boolean changeUserStatus(int userId) {
         EntityManagerFactory entityManagerFactory = null;
         EntityManager entityManager = null;
@@ -179,7 +211,7 @@ public class UserManager {
             entityManagerFactory = Persistence.createEntityManagerFactory(PUN);
             entityManager = entityManagerFactory.createEntityManager();
             Query query = entityManager.createQuery("select count(usr) from UserTable usr");
-            long numberOfRecord = (long)query.getSingleResult(); 
+            long numberOfRecord = (long) query.getSingleResult();
             return numberOfRecord;
         } catch (Exception e) {
             e.printStackTrace();

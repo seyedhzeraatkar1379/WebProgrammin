@@ -2,6 +2,8 @@ package Enum;
 
 public enum StatusQuery {
     SUCCESS,
+    SUCCESSINSERT,
+    SUCCESSUPDATE,
     FAILD,
     FAILD_DEPENDENCY,
     PARAMETER_NOT_VALID,
@@ -19,6 +21,10 @@ public enum StatusQuery {
         switch (this) {
             case SUCCESS:
                 return "عملیات موفقیت آمیز";
+            case SUCCESSINSERT:
+                return "عملیات افزودن موفقیت آمیز";
+            case SUCCESSUPDATE:
+                return "عملیات اپدیت موفقیت آمیز";
             case FAILD:
                 return "خطا!";
             case FAILD_DEPENDENCY:

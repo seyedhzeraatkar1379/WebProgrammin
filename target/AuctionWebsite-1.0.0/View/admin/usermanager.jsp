@@ -36,11 +36,11 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <!-- Core CSS - Include with every page -->
-        <link href="/View/admin/assets/plugins/bootstrap/bootstrap.css" rel="stylesheet" type="text/css" />
-        <link href="/View/admin/assets/font-awesome/css/font-awesome.css" rel="stylesheet"type="text/css" />
-        <link href="/View/admin/assets/plugins/pace/pace-theme-big-counter.css" rel="stylesheet" type="text/css"/>
-        <link href="/View/admin/assets/css/style.css" rel="stylesheet" type="text/css"/>
-        <link href="/View/admin/assets/css/main-style.css" rel="stylesheet" type="text/css"/>
+        <link href="/View/assets/plugins/bootstrap/bootstrap.css" rel="stylesheet" type="text/css" />
+        <link href="/View/assets/font-awesome/css/font-awesome.css" rel="stylesheet"type="text/css" />
+        <link href="/View/assets/plugins/pace/pace-theme-big-counter.css" rel="stylesheet" type="text/css"/>
+        <link href="/View/assets/css/style.css" rel="stylesheet" type="text/css"/>
+        <link href="/View/assets/css/main-style.css" rel="stylesheet" type="text/css"/>
 
     </head>
     <body onload="SelectDefaultValue()">
@@ -255,11 +255,11 @@
                 location.replace(thisloc.protocol + "//" + thisloc.host + thisloc.pathname + "?PG=" + PG + "&NR=" + NR + "&search=" + document.getElementById("searchinput").value);
             }
         </script>
-        <script src="/View/admin/assets/plugins/jquery-1.10.2.js"></script>
-        <script src="/View/admin/assets/plugins/bootstrap/bootstrap.min.js"></script>
-        <script src="/View/admin/assets/plugins/metisMenu/jquery.metisMenu.js"></script>
-        <script src="/View/admin/assets/plugins/pace/pace.js"></script>
-        <script src="/View/admin/assets/scripts/siminta.js"></script>
+        <script src="/View/assets/plugins/jquery-1.10.2.js"></script>
+        <script src="/View/assets/plugins/bootstrap/bootstrap.min.js"></script>
+        <script src="/View/assets/plugins/metisMenu/jquery.metisMenu.js"></script>
+        <script src="/View/assets/plugins/pace/pace.js"></script>
+        <script src="/View/assets/scripts/siminta.js"></script>
 
     </body>
 </html>

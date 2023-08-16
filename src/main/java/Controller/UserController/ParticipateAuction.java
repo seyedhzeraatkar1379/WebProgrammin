@@ -7,6 +7,7 @@ package Controller.UserController;
 import DatabaseManager.AuctionParticipantManager;
 import Enum.ActiveOrDeactive;
 import Enum.ParticipateStatus;
+import Enum.StatusQuery;
 import Model.AuctionParticipantTable;
 import Model.UserTable;
 import java.io.IOException;
@@ -49,21 +50,21 @@ public class ParticipateAuction extends HttpServlet {
             ParticipateStatus status = AuctionParticipantManager.insertOrUpdateAuctionParticipant(partic, auctionId, user.getId());
             if(status == ParticipateStatus.SUCCESS_INSERT)
             {
-                response.sendRedirect("/user/auctiondescp?aucid="+auctionId+"&status=SuccessInsert");
+                response.sendRedirect("/user/auctiondescp?aucid="+auctionId+"&status="+status.ordinal());
                 return;
             }
             if(status == ParticipateStatus.SUCCESS_UPDATE)
             {
-                response.sendRedirect("/user/auctiondescp?aucid="+auctionId+"&status=SuccessUpdate");
+                response.sendRedirect("/user/auctiondescp?aucid="+auctionId+"&status="+status.ordinal());
                 return;
             }
             else
             {
-                response.sendRedirect("/user/auctiondescp?aucid="+auctionId+"&status="+status.toString());
+                response.sendRedirect("/user/auctiondescp?aucid="+auctionId+"&status="+status.ordinal());
                 return;
             }
         }
-        response.sendRedirect("/user/auctiondescp?aucid="+auctionId+"&status=faild");
+        response.sendRedirect("/user/auctiondescp?aucid="+auctionId+"&status="+ParticipateStatus.ERROR.ordinal());
     }
 
 }

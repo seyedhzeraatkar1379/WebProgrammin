@@ -4,6 +4,7 @@
     Author     : hossein
 --%>
 
+<%@page import="Enum.StatusQuery"%>
 <%@page import="Model.UserTable"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
@@ -73,6 +74,29 @@
 
                     <input type="submit" value="ثبت اطلاعات">
                 </form>
+            </div>
+            <div class="form">
+                <h2>تغییر رمز</h2>
+                <form action="/user/updatepass" method="post">
+                    <img src="/View/images/image.jpg" alt="عکس ورود" class="form-image">
+                    <label for="email">ایمیل:</label>
+                    <input style="text-align: left; direction: ltr;" type="text" value="<%=user.getEmail()%>" disabled>
+                    <label for="currpasswrod">رمز ورود:</label>
+                    <input style="text-align: left; direction: ltr;" type="text" id ="currpasswrod" name ="currpasswrod" placeholder="***" required>
+                    <label for="newpasswrod">رمز جدید</label>
+                    <input style="text-align: left; direction: ltr;" type="text" id="newpasswrod" name ="newpasswrod" placeholder="***" required>
+                    <label for="newpasswrodret">تکرار رمز:</label>
+                    <input style="text-align: left; direction: ltr;" type="text" id="newpasswrodret" name ="newpasswrodret" placeholder="***" required>
+                    <input type="submit" value="ثبت اطلاعات">
+                </form>
+                    <br/>
+                <%
+                    if (request.getParameter("statuschangepass") != null) {
+                %>
+                <div class="alert alert-danger" alert-dismissable" style="text-align: right; direction: rtl;">
+                    <%=(StatusQuery.values()[Integer.parseInt(request.getParameter("statuschangepass"))].getSize())%>
+                </div>
+                <%}%>
             </div>
         </div>
         <!-- فوتر با سه بخش -->

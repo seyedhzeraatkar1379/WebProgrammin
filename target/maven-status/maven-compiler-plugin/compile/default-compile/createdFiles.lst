@@ -14,6 +14,7 @@ Model\AuctionTable.class
 Controller\UserController\Register.class
 Controller\Admin\AdminRemoveParticipant.class
 Controller\UserController\Filter\Login.class
+Enum\StatusQuery$1.class
 Model\ContactusTable.class
 DatabaseManager\AuctionManager.class
 DatabaseManager\UserManager.class

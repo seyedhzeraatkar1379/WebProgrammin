@@ -21,13 +21,13 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>پنل ادمین</title>
         <!-- Core CSS - Include with every page -->
-        <link href="/View/admin/assets/plugins/bootstrap/bootstrap.css" rel="stylesheet" />
-        <link href="/View/admin/assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
-        <link href="/View/admin/assets/plugins/pace/pace-theme-big-counter.css" rel="stylesheet" />
-        <link href="/View/admin/assets/css/style.css" rel="stylesheet" />
-        <link href="/View/admin/assets/css/main-style.css" rel="stylesheet" />
+        <link href="/View/assets/plugins/bootstrap/bootstrap.css" rel="stylesheet" />
+        <link href="/View/assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
+        <link href="/View/assets/plugins/pace/pace-theme-big-counter.css" rel="stylesheet" />
+        <link href="/View/assets/css/style.css" rel="stylesheet" />
+        <link href="/View/assets/css/main-style.css" rel="stylesheet" />
         <!-- Page-Level CSS -->
-        <link href="/View/admin/assets/plugins/morris/morris-0.4.3.min.css" rel="stylesheet" />
+        <link href="/View/assets/plugins/morris/morris-0.4.3.min.css" rel="stylesheet" />
     </head>
     <body>
         <%
@@ -173,15 +173,15 @@
             document.getElementById("current_date").innerHTML = currDate.getFullYear() + "/" + currDate.getMonth() + "/" + currDate.getDate();
         </script>
         <!-- Core Scripts - Include with every page -->
-        <script src="/View/admin/assets/plugins/jquery-1.10.2.js"></script>
-        <script src="/View/admin/assets/plugins/bootstrap/bootstrap.min.js"></script>
-        <script src="/View/admin/assets/plugins/metisMenu/jquery.metisMenu.js"></script>
-        <script src="/View/admin/assets/plugins/pace/pace.js"></script>
-        <script src="/View/admin/assets/scripts/siminta.js"></script>
+        <script src="/View/assets/plugins/jquery-1.10.2.js"></script>
+        <script src="/View/assets/plugins/bootstrap/bootstrap.min.js"></script>
+        <script src="/View/assets/plugins/metisMenu/jquery.metisMenu.js"></script>
+        <script src="/View/assets/plugins/pace/pace.js"></script>
+        <script src="/View/assets/scripts/siminta.js"></script>
         <!-- Page-Level Plugin Scripts-->
-        <script src="/View/admin/assets/plugins/morris/raphael-2.1.0.min.js"></script>
-        <script src="/View/admin/assets/plugins/morris/morris.js"></script>
-        <script src="/View/admin/assets/scripts/dashboard-demo.js"></script>
+        <script src="/View/assets/plugins/morris/raphael-2.1.0.min.js"></script>
+        <script src="/View/assets/plugins/morris/morris.js"></script>
+        <script src="/View/assets/scripts/dashboard-demo.js"></script>
 
     </body>
 

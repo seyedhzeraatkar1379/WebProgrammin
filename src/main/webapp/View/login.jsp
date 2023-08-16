@@ -4,6 +4,7 @@
     Author     : hossein
 --%>
 
+<%@page import="Enum.StatusQuery"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
@@ -14,7 +15,7 @@
         <title>فرم ورود و عضویت</title>
         <link rel="stylesheet" href="/View/css/styles.css">
         <%@include file="constpage/headercssjs.jspf" %>
-
+        
 
         <style>
 
@@ -59,6 +60,14 @@
                     <br/>
                     <input type="submit" value="ورود">
                 </form>
+                <br/>
+                <%
+                    if (request.getParameter("statuslogin") != null) {
+                %>
+                <div class="alert alert-danger" alert-dismissable" style="text-align: right; direction: rtl;">
+                                <%=(StatusQuery.values()[Integer.parseInt(request.getParameter("statuslogin"))].getSize())%>
+                </div>
+                <%}%>
             </div>
             <div class="form">
                 <img src="/View/images/image.jpg" alt="عکس عضویت" class="form-image">
@@ -75,6 +84,14 @@
                     <br/>
                     <input type="submit" value="ثبت نام">
                 </form>
+                <br/>
+                <%
+                    if (request.getParameter("registerstatus") != null) {
+                %>
+                <div class="alert alert-danger" alert-dismissable" style="text-align: right; direction: rtl;">
+                                <%=(StatusQuery.values()[Integer.parseInt(request.getParameter("registerstatus"))].getSize())%>
+                </div>
+                <%}%>
             </div>
         </div>
         <%@include file="constpage/footer.jspf" %>

@@ -4,6 +4,7 @@
     Author     : hossein
 --%>
 
+<%@page import="Enum.ParticipateStatus"%>
 <%@page import="Enum.ActiveOrDeactive"%>
 <%@page import="java.util.Date"%>
 <%@page import="java.util.List"%>
@@ -45,7 +46,7 @@
         SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         Date today = new Date();
 
-        %>
+    %>
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -130,12 +131,23 @@
                     </form>
                     <%}
                         }%>
+                        <br/>
+                    <%
+                        if (request.getParameter("status") != null) {
+                        ParticipateStatus status = (ParticipateStatus.values()[Integer.parseInt(request.getParameter("status"))]);
+                    %>
+                    <div class="alert <%=status==ParticipateStatus.SUCCESS_INSERT || status == ParticipateStatus.SUCCESS_UPDATE ?"alert-success" :"alert-danger"%>" alert-dismissable" style="text-align: right; direction: rtl;">
+                        <%=(ParticipateStatus.values()[Integer.parseInt(request.getParameter("status"))].getStatus())%>
+                    </div>
+                    <%}%>
                 </div>
+
                 <!-- قسمت سمت راست با تصویر محصول -->
                 <div class="col-md-6">
                     <img class="img-fluid" alt="تصویر محصول" src="<%=auction.getArtId().getPhotoPath() != null ? "/images/arts/" + auction.getArtId().getPhotoPath() : "/View/images/default_art_image.jpg"%>" onerror="this.src='/View/images/default_art_image.jpg'"/>
                 </div>
             </div>
+
         </div>
         <%@include file="constpage/footer.jspf" %>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
