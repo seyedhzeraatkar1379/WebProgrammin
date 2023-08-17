@@ -76,7 +76,7 @@
                 <div class="row" dir="rtl">
                     <!-- Page Header -->
                     <div class="col-lg-12">
-                        <h1 class="page-header">مدیریت مزایده ها</h1>
+                        <h1 class="page-header" style="opacity: 50%;">مدیریت مزایده ها</h1>
                     </div>
                     <!--End Page Header -->
                 </div>

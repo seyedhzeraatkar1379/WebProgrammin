@@ -52,7 +52,7 @@
                 <div class="row" dir="rtl">
                     <!-- Page Header -->
                     <div class="col-lg-12">
-                        <h1 class="page-header">شرکت کنندگان مزایده: <%=auction.getId() %></h1>
+                        <h1 class="page-header" style="opacity: 50%;">شرکت کنندگان مزایده: <%=auction.getId() %></h1>
                     </div>
                     <!--End Page Header -->
                 </div>

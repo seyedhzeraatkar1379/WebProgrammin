@@ -15,7 +15,7 @@
         <title>فرم ورود و عضویت</title>
         <link rel="stylesheet" href="/View/css/styles.css">
         <%@include file="constpage/headercssjs.jspf" %>
-        
+
 
         <style>
 
@@ -65,7 +65,7 @@
                     if (request.getParameter("statuslogin") != null) {
                 %>
                 <div class="alert alert-danger" alert-dismissable" style="text-align: right; direction: rtl;">
-                                <%=(StatusQuery.values()[Integer.parseInt(request.getParameter("statuslogin"))].getSize())%>
+                    <%=(StatusQuery.values()[Integer.parseInt(request.getParameter("statuslogin"))].getSize())%>
                 </div>
                 <%}%>
             </div>
@@ -79,8 +79,13 @@
                     <input type="password" id="new_password" name="password" required>
                     <label for="new_confirmpassword">تکرار رمز عبور:</label>
                     <input type="password" id="new_confirmpassword" name="confirmpassword" required>
-                    <label for="commitment">تایید قوانین</label>
-                    <input type="checkbox" id="commitment" name="commitment" value="1"/>
+
+                    <div style="display:flex; flex-direction: row; justify-content: right; align-items: right">
+                        <label style="text-align: right;clear: both;float:left;margin-right:15px;" for="commitment">پذیرش قوانین</label>
+                        <input type="checkbox" id="commitment" name="commitment" value="1"/>
+                    </div>
+                    <a class="link-info" href="/file/commitment.pdf">قوانین سایت</a>
+
                     <br/>
                     <input type="submit" value="ثبت نام">
                 </form>
@@ -89,7 +94,7 @@
                     if (request.getParameter("registerstatus") != null) {
                 %>
                 <div class="alert alert-danger" alert-dismissable" style="text-align: right; direction: rtl;">
-                                <%=(StatusQuery.values()[Integer.parseInt(request.getParameter("registerstatus"))].getSize())%>
+                    <%=(StatusQuery.values()[Integer.parseInt(request.getParameter("registerstatus"))].getSize())%>
                 </div>
                 <%}%>
             </div>

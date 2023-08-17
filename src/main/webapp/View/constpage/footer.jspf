@@ -1,32 +1,40 @@
 <%-- any content can be specified here e.g.: --%>
+<%@page import="DatabaseManager.ContactUsManager"%>
+<%@page import="Model.ContactusTable"%>
 <%@ page pageEncoding="UTF-8" %>
 <!-- فوتر -->
-        <!-- فوتر با سه بخش -->
-        <footer class="bg-dark text-light text-center py-3 mt-5">
-            <div class="container">
-                <!-- بخش توضیحات -->
-                <div class="row">
-                    <div class="col-md-4">
-                        <h4>توضیحات</h4>
-                        <p>اینجا توضیحات کلی درباره سایت و فعالیت‌های ما قرار می‌گیرد.</p>
-                    </div>
-                    <!-- بخش پیوندها -->
-                    <div class="col-md-4">
-                        <h4>پیوندها</h4>
-                        <ul class="list-unstyled">
-                            <li><a href="#">صفحه اصلی</a></li>
-                            <li><a href="#">محصولات</a></li>
-                            <li><a href="#">تماس با ما</a></li>
-                        </ul>
-                    </div>
-                    <!-- بخش اطلاعات تماس -->
-                    <div class="col-md-4">
-                        <h4>اطلاعات تماس</h4>
-                        <p>آدرس: تهران، خیابان اصلی، کد پستی 12345</p>
-                        <p>تلفن: 021-12345678</p>
-                    </div>
-                </div>
+<%
+    ContactusTable contmodel = ContactUsManager.getContactUs();
+    boolean first = true;
+    if (contmodel != null)
+        first = false;
+%>
+<!-- فوتر با سه بخش -->
+<footer class="bg-dark text-light text-center py-3 mt-5">
+    <div class="container">
+        <!-- بخش توضیحات -->
+        <div class="row">
+            <div class="col-md-4">
+                <h4>توضیحات</h4>
+                <p></p>
             </div>
+            <!-- بخش پیوندها -->
+            <div class="col-md-4">
+                <h4>پیوندها</h4>
+                <ul class="list-unstyled">
+                    <li><a href="/">صفحه اصلی</a></li>
+                    <li><a href="/auctions?type=doing">مزایده ها</a></li>
+                </ul>
+            </div>
+            <!-- بخش اطلاعات تماس -->
+            <div class="col-md-4">
+                <h4>اطلاعات تماس</h4>
+                <p>ایمیل:<%=first==false?contmodel.getEmail():""%></p>
+                <p>آدرس:<%=first==false?contmodel.getAddress():""%></p>
+                <p>تلفن: <%=first==false?contmodel.getTellPhone():""%></p>
+            </div>
+        </div>
+    </div>
 
-            <p>تمامی حقوق محفوظ است - نام سایت ۲۰۲۳</p>
-        </footer>
+    <p>تمامی حقوق محفوظ است </p>
+</footer>

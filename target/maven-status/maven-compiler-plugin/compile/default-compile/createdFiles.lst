@@ -1,5 +1,7 @@
+Controller\Admin\AdminChangeCommitmentFile.class
 Model\AdminTable.class
 Controller\UserController\ParticipateAuction.class
+Controller\UserController\UpdatePassword.class
 DatabaseManager\AuctionParticipantManager.class
 Model\ArtinfoTable_.class
 Model\AuctionTable_.class
@@ -13,6 +15,7 @@ Controller\Admin\AdminChangePassword.class
 Model\AuctionTable.class
 Controller\UserController\Register.class
 Controller\Admin\AdminRemoveParticipant.class
+Controller\Admin\AdminUpdateSiteInfo.class
 Controller\UserController\Filter\Login.class
 Enum\StatusQuery$1.class
 Model\ContactusTable.class
@@ -37,4 +40,5 @@ Controller\Admin\AdminRemoveAuction.class
 Controller\Admin\AdminInsertArt.class
 Enum\ParticipateStatus.class
 Model\AuctionParticipantTable_.class
+Enum\ParticipateStatus$1.class
 Enum\StatusQuery.class

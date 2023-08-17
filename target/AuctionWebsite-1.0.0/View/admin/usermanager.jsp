@@ -55,7 +55,7 @@
                     <br/><br/><br/><br/>
                     <div class="col-md-12">
                         <div class="col-lg-12">
-                            <h1 class="page-header">مدیریت کاربران</h1>
+                            <h1 class="page-header" style="opacity: 50%;">مدیریت کاربران</h1>
                         </div>
                         <div class="table-responsive">
                             <div id="dataTables-example_wrapper" class="dataTables_wrapper form-inline" role="grid">

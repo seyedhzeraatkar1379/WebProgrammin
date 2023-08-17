@@ -93,7 +93,7 @@
                     <p><%=auction.getArtId().getDescription()%></p>
                     <!-- بخش قیمت محصول -->
                     <h4>قیمت پایه مزایده </h4>
-                    <p>قیمت محصول: <%=auction.getLimitPrice()%> تومان</p>
+                    <p>قیمت محصول: <%=auction.getLimitPrice()%> </p>
                     <h4>تاریخ برگزاری</h4>
                     <p><%=dateformat.format(auction.getStartDate())%></p>
                     <p><%=dateformat.format(auction.getEndDate())%></p>

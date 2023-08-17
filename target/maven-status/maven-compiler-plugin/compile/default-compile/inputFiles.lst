@@ -3,6 +3,7 @@ H:\term8\web_prog\back_end\Auction-V1.1.0\WebProgrammin.git\src\main\java\Contro
 H:\term8\web_prog\back_end\Auction-V1.1.0\WebProgrammin.git\src\main\java\DatabaseManager\ContactUsManager.java
 H:\term8\web_prog\back_end\Auction-V1.1.0\WebProgrammin.git\src\main\java\Controller\Admin\AdminChangeUserStatus.java
 H:\term8\web_prog\back_end\Auction-V1.1.0\WebProgrammin.git\src\main\java\Controller\Admin\AdminFilter\AdminFilter.java
+H:\term8\web_prog\back_end\Auction-V1.1.0\WebProgrammin.git\src\main\java\Controller\UserController\UpdatePassword.java
 H:\term8\web_prog\back_end\Auction-V1.1.0\WebProgrammin.git\src\main\java\DatabaseManager\AuctionManager.java
 H:\term8\web_prog\back_end\Auction-V1.1.0\WebProgrammin.git\src\main\java\Controller\Admin\AdminRemoveArt.java
 H:\term8\web_prog\back_end\Auction-V1.1.0\WebProgrammin.git\src\main\java\Model\ContactusTable.java
@@ -14,6 +15,7 @@ H:\term8\web_prog\back_end\Auction-V1.1.0\WebProgrammin.git\src\main\java\Contro
 H:\term8\web_prog\back_end\Auction-V1.1.0\WebProgrammin.git\src\main\java\Controller\Admin\AdminLogout.java
 H:\term8\web_prog\back_end\Auction-V1.1.0\WebProgrammin.git\src\main\java\Model\ArtinfoTable.java
 H:\term8\web_prog\back_end\Auction-V1.1.0\WebProgrammin.git\src\main\java\Controller\UserController\Logout.java
+H:\term8\web_prog\back_end\Auction-V1.1.0\WebProgrammin.git\src\main\java\Controller\Admin\AdminUpdateSiteInfo.java
 H:\term8\web_prog\back_end\Auction-V1.1.0\WebProgrammin.git\src\main\java\Model\AuctionTable.java
 H:\term8\web_prog\back_end\Auction-V1.1.0\WebProgrammin.git\src\main\java\Controller\UserController\Filter\Login.java
 H:\term8\web_prog\back_end\Auction-V1.1.0\WebProgrammin.git\src\main\java\Controller\Admin\AdminChangeAuctionStatus.java
@@ -26,6 +28,7 @@ H:\term8\web_prog\back_end\Auction-V1.1.0\WebProgrammin.git\src\main\java\Model\
 H:\term8\web_prog\back_end\Auction-V1.1.0\WebProgrammin.git\src\main\java\Controller\Admin\AdminRemoveUser.java
 H:\term8\web_prog\back_end\Auction-V1.1.0\WebProgrammin.git\src\main\java\Controller\Admin\AdminRemoveParticipant.java
 H:\term8\web_prog\back_end\Auction-V1.1.0\WebProgrammin.git\src\main\java\DatabaseManager\AdminManager.java
+H:\term8\web_prog\back_end\Auction-V1.1.0\WebProgrammin.git\src\main\java\Controller\Admin\AdminChangeCommitmentFile.java
 H:\term8\web_prog\back_end\Auction-V1.1.0\WebProgrammin.git\src\main\java\Controller\Admin\AdminLogin.java
 H:\term8\web_prog\back_end\Auction-V1.1.0\WebProgrammin.git\src\main\java\Controller\UserController\UpdateUser.java
 H:\term8\web_prog\back_end\Auction-V1.1.0\WebProgrammin.git\src\main\java\DatabaseManager\UserManager.java

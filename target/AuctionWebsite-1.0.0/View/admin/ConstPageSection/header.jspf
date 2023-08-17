@@ -11,8 +11,8 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="#">
-            <h1>Auction</h1>
+        <a class="navbar-brand" href="" style="color:black;">
+            <h2 style="border:2px solid black; padding:3px; border-radius: 10px; opacity: 50%;">مزایده آثار هنری</h2>
         </a>
     </div>
     <ul class="nav navbar-top-links navbar-right">
@@ -41,7 +41,7 @@
                         <img src="/View/admin/assets/img/user.jpg" alt="">
                     </div>
                     <div class="user-info">
-                        <div><%=((AdminTable) request.getSession().getAttribute("admin")).getUsername()%> <strong>(<%=((AdminTable) request.getSession().getAttribute("admin")).getFullName()%>)</strong></div>
+                        <div style="font-size:15px;"><%=((AdminTable) request.getSession().getAttribute("admin")).getUsername()%> <strong>(<%=((AdminTable) request.getSession().getAttribute("admin")).getFullName()%>)</strong></div>
                         <div class="user-text-online">
                             <span class="user-circle-online btn btn-success btn-circle "></span>&nbsp;Online
                         </div>
@@ -59,7 +59,7 @@
                 </div>
             </li>
             <li class="">
-                <a href="/admin/home">پنل کاربری<i class="fa fa-dashboard fa-fw"></i></a>
+                <a href="/admin/home">پنل کاربری<i class="fa fa-circle fa-fw"></i></a>
             </li>
             <li>
                 <a href="/admin/artmanager">مدیریت آثار<i class="fa fa-circle fa-fw"></i></a>

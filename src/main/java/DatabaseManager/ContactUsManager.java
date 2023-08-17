@@ -17,6 +17,7 @@ public class ContactUsManager {
         try {
             entityManagerFactory = Persistence.createEntityManagerFactory("Auction_website");
             entityManager = entityManagerFactory.createEntityManager();
+            transaction = entityManager.getTransaction();
             ContactusTable conus = (ContactusTable) entityManager.find(ContactusTable.class, Integer.valueOf(1));
             transaction.begin();
             if (conus != null) {
@@ -26,6 +27,7 @@ public class ContactUsManager {
                 conus.setTellPhone(contactusTable.getTellPhone());
                 transaction.commit();
             } else {
+                contactusTable.setId(1);
                 entityManager.persist(contactusTable);
                 transaction.commit();
             }

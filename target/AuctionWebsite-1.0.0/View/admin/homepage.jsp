@@ -4,6 +4,8 @@
     Author     : seyedhossein
 --%>
 
+<%@page import="DatabaseManager.ContactUsManager"%>
+<%@page import="Model.ContactusTable"%>
 <%@page import="DatabaseManager.AuctionParticipantManager"%>
 <%@page import="DatabaseManager.UserManager"%>
 <%@page import="DatabaseManager.AuctionManager"%>
@@ -14,7 +16,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-    
+
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -43,7 +45,7 @@
                 <div class="row" dir="rtl">
                     <!-- Page Header -->
                     <div class="col-lg-12">
-                        <h1 class="page-header">صفحه اصلی</h1>
+                        <h1 class="page-header" style="opacity: 50%;">صفحه اصلی</h1>
                     </div>
                     <!--End Page Header -->
                 </div>
@@ -138,7 +140,7 @@
                     </div>
                     <div class="col-lg-4">
                         <div class="panel panel-primary text-center no-boder">
-                            <div class="panel-body yellow">
+                            <div class="panel-body green">
                                 <i class="fa fa-user fa-3x"></i>
                                 <h3><%=(int) UserManager.getNumberOfAllUser()%></h3>
                             </div>
@@ -148,9 +150,9 @@
                             </div>
                         </div>
                         <div class="panel panel-primary text-center no-boder">
-                            <div class="panel-body red">
+                            <div class="panel-body blue">
                                 <i class="fa fa-users fa-3x"></i>
-                                <h3><%=(int)AuctionParticipantManager.getNumberOfParticipant()%> </h3>
+                                <h3><%=(int) AuctionParticipantManager.getNumberOfParticipant()%> </h3>
                             </div>
                             <div class="panel-footer">
                                 <span class="panel-eyecandy-title">شرکت کنندگان
@@ -161,9 +163,52 @@
 
                 </div>
 
-
-
-
+                <hr/>
+                <%
+                    ContactusTable contmodel = ContactUsManager.getContactUs();
+                    boolean first = true;
+                    if(contmodel != null)
+                        first = false;
+                %>
+                <div class="row" dir="rtl" style="text-align: right;">
+                    <div class="col-xs-12 col-sm-6 col-md-8">
+                        <div class="col-lg-12">
+                            <h3 class="page-header" style="opacity: 50%;">تماس با ما</h3>
+                        </div>
+                        <hr/>
+                        <form action="/admin/updatesiteinfo" method="post" >
+                            <div class="form-group col-lg-4">
+                                <label>ایمیل</label>
+                                <input class="form-control" type="text" placeholder="ایمیل" name="email" value="<%=first==false?contmodel.getEmail():""%>">
+                            </div>
+                            <div class="form-group col-lg-4">
+                                <label>تلفن</label>
+                                <input class="form-control" type="pasword" placeholder="تلفن"  name="telphone" value="<%=first==false?contmodel.getTellPhone():""%>">
+                            </div>
+                            <div class="form-group col-lg-4">
+                                <label>آدرس</label>
+                                <input class="form-control" type="pasword" placeholder="آدرس"  name="address" value="<%=first==false?contmodel.getAddress():""%>">
+                            </div>
+                            <div class="form-group col-lg-offset-10">
+                                <label></label>
+                                <button type="submit" class="btn btn-info form-control">تایید</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-4">
+                        <div class="col-lg-12">
+                            <h3 class="page-header" style="opacity: 50%;">قوانین</h3>
+                        </div>
+                        <hr/>
+                        <form action="/admin/changecommitment" method="post" enctype="multipart/form-data">
+                            <div class="form-group col-lg-12">
+                                <label for="commitment">انتخاب فایل</label>
+                                <input id="commitment" type="file" name="commitment" required>
+                            </div>
+                            <input type="submit" class="btn btn-info" value="ثبت">
+                        </form>
+                    </div>
+                </div>
             </div>
 
         </div>
