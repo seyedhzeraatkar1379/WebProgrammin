@@ -38,7 +38,7 @@
             <li>
                 <div class="user-section">
                     <div class="user-section-inner">
-                        <img src="/View/admin/assets/img/user.jpg" alt="">
+                        <img src="/View/assets/img/user.jpg" alt="">
                     </div>
                     <div class="user-info">
                         <div style="font-size:15px;"><%=((AdminTable) request.getSession().getAttribute("admin")).getUsername()%> <strong>(<%=((AdminTable) request.getSession().getAttribute("admin")).getFullName()%>)</strong></div>

@@ -111,7 +111,7 @@
                         <img src="<%=auc.getArtId().getPhotoPath() != null ? "/images/arts/" + auc.getArtId().getPhotoPath() : "/View/images/default_art_image.jpg"%>" onerror="this.src='/View/images/default_art_image.jpg'"/>
                         <div class="card-body">
                             <h5 class="card-title"><%=auc.getArtId().getName()%></h5>
-                            <p class="card-text"><%=auc.getArtId().getDescription()%></p>
+                            <p class="card-text"><%=auc.getArtId().getDescription().substring(0, Math.min(auc.getArtId().getDescription().length(), 15))%></p>
                             <a href="/user/auctiondescp?aucid=<%=auc.getId()%>" class="btn btn-primary">شرکت در مزایده</a>
                         </div>
                     </div>
@@ -145,7 +145,7 @@
                         <img src="<%=auc.getArtId().getPhotoPath() != null ? "/images/arts/" + auc.getArtId().getPhotoPath() : "/View/images/default_art_image.jpg"%>" onerror="this.src='/View/images/default_art_image.jpg'"/>
                         <div class="card-body">
                             <h5 class="card-title"><%=auc.getArtId().getName()%></h5>
-                            <p class="card-text"><%=auc.getArtId().getDescription()%></p>
+                            <p class="card-text"><%=auc.getArtId().getDescription().substring(0, Math.min(auc.getArtId().getDescription().length(), 15))%></p>
                             <a href="/user/auctiondescp?aucid=<%=auc.getId()%>" class="btn btn-primary">مشاهده</a>
                         </div>
                     </div>
@@ -177,7 +177,7 @@
                         <img src="<%=auc.getArtId().getPhotoPath() != null ? "/images/arts/" + auc.getArtId().getPhotoPath() : "/View/images/default_art_image.jpg"%>" onerror="this.src='/View/images/default_art_image.jpg'"/>
                         <div class="card-body">
                             <h5 class="card-title"><%=auc.getArtId().getName()%></h5>
-                            <p class="card-text"><%=auc.getArtId().getDescription()%></p>
+                            <p class="card-text"><%=auc.getArtId().getDescription().substring(0, Math.min(auc.getArtId().getDescription().length(), 15))%></p>
                             <a href="/user/auctiondescp?aucid=<%=auc.getId()%>" class="btn btn-primary">مشاهده</a>
                         </div>
                     </div>

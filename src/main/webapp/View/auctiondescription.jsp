@@ -46,7 +46,7 @@
         SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         Date today = new Date();
 
-    %>
+        %>
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -78,6 +78,20 @@
             li.nav-item * {
                 display: inline-block;
             }
+            .participate_List{
+                border:1px solid #ccc;
+                padding:10px;
+                border-radius: 5px;
+                background-color: #f9f9f9;
+            }
+            .participate_List ul{
+                list-style: none;
+                margin: 0;
+                padding: 0;
+            }
+            .participate_List li{
+                margin-bottom: 5px;
+            }
         </style>
     </head>
     <body>
@@ -87,40 +101,44 @@
             <div class="row">
 
                 <div class="col-md-6">
-                    <h2>جزئیات مزایده</h2>
+                    <h2><%=auction.getArtId().getName()%></h2>
                     <!-- بخش توضیحات -->
-                    <h4>توضیحات</h4>
+                    <hr/>
+                    <h5><strong>جزئیات اثر </strong></h5>
                     <p><%=auction.getArtId().getDescription()%></p>
                     <!-- بخش قیمت محصول -->
-                    <h4>قیمت پایه مزایده </h4>
-                    <p>قیمت محصول: <%=auction.getLimitPrice()%> </p>
-                    <h4>تاریخ برگزاری</h4>
-                    <p><%=dateformat.format(auction.getStartDate())%></p>
-                    <p><%=dateformat.format(auction.getEndDate())%></p>
-                    <%
-                        if (today.after(auction.getStartDate())) {
-                    %>
-                    <!-- بخش لیست نفرات شرکت‌کننده در مزایده -->
-                    <h4>لیست نفرات شرکت‌کننده در مزایده</h4>
-                    <ul>
+                    <h5><strong>قیمت پایه مزایده </strong></h5>
+                    <p>قیمت محصول: <input value="<%=auction.getLimitPrice()%>" disabled/></p>
+                    <h5><strong>تاریخ برگزاری</strong></h5>
+                    <p>شروع : <input value="<%=dateformat.format(auction.getStartDate())%>" disabled/></p>
+                    <p>پایان :&nbsp; <input value="<%=dateformat.format(auction.getEndDate())%>" disabled/></p>
                         <%
-                            List<AuctionParticipantTable> particList = AuctionParticipantManager.getAuctionAllParticipantById(aucid);
-                            if (particList != null) {
-                                if (particList.size() > 4) {
-                                    particList = particList.subList(0, 3);
-                                }
-                                int i = 1;
-                                for (AuctionParticipantTable partc : particList) {
+                            if (today.after(auction.getStartDate())) {
                         %>
-                        <li>نفر <%=i++%> => قیمت <%=partc.getPerposedPrice()%></li>
-                            <%}
-                                }%>  
-                    </ul>
+                    <!-- بخش لیست نفرات شرکت‌کننده در مزایده -->
+                    <h5><strong>لیست نفرات شرکت‌کننده در مزایده</strong></h5>
+                    <div class="participate_List">
+                        <ul>
+                            <%
+                                List<AuctionParticipantTable> particList = AuctionParticipantManager.getAuctionAllParticipantById(aucid);
+                                if (particList != null) {
+                                    if (particList.size() > 4) {
+                                        particList = particList.subList(0, 3);
+                                    }
+                                    int i = 1;
+                                    for (AuctionParticipantTable partc : particList) {
+                            %>
+                            <li>نفر <%=i++%> => قیمت <%=partc.getPerposedPrice()%></li>
+                                <%}
+                                    }%>  
+                        </ul>
+                    </div>
+                    <br/>
                     <%
                         if (today.before(auction.getEndDate())) {
                     %>
                     <!-- فرم ورود عدد پیشنهادی -->
-                    <h4>پیشنهاد خود را وارد کنید</h4>
+                    <h5><strong>قیمت پیشنهادی خود را وارد کنید</strong></h5>
                     <form action="/user/participate" method="get">
                         <div class="form-group">
                             <input type="number" class="form-control" name="price" placeholder="عدد پیشنهادی خود را وارد کنید">
@@ -131,12 +149,12 @@
                     </form>
                     <%}
                         }%>
-                        <br/>
+                    <br/>
                     <%
                         if (request.getParameter("status") != null) {
-                        ParticipateStatus status = (ParticipateStatus.values()[Integer.parseInt(request.getParameter("status"))]);
+                            ParticipateStatus status = (ParticipateStatus.values()[Integer.parseInt(request.getParameter("status"))]);
                     %>
-                    <div class="alert <%=status==ParticipateStatus.SUCCESS_INSERT || status == ParticipateStatus.SUCCESS_UPDATE ?"alert-success" :"alert-danger"%>" alert-dismissable" style="text-align: right; direction: rtl;">
+                    <div class="alert <%=status == ParticipateStatus.SUCCESS_INSERT || status == ParticipateStatus.SUCCESS_UPDATE ? "alert-success" : "alert-danger"%>" alert-dismissable" style="text-align: right; direction: rtl;">
                         <%=(ParticipateStatus.values()[Integer.parseInt(request.getParameter("status"))].getStatus())%>
                     </div>
                     <%}%>

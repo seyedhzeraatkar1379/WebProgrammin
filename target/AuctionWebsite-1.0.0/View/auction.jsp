@@ -83,8 +83,8 @@
                     <div class="card">
                         <img src="<%=auctionList.get(i).getArtId().getPhotoPath()!=null?"/images/arts/"+auctionList.get(i).getArtId().getPhotoPath():"/View/images/default_art_image.jpg"%>" onerror="this.src='/View/images/default_art_image.jpg'"/>
                         <div class="card-body">
-                            <h5 class="card-title"><%=auctionList.get(i).getArtId().getName()%><sub>(id: <%=auctionList.get(i).getArtId().getId()%>)</sub></h5>
-                            <p class="card-text"><%=auctionList.get(i).getArtId().getDescription()%></p>
+                            <h5 class="card-title">نام: <%=auctionList.get(i).getArtId().getName()%><sub>(id: <%=auctionList.get(i).getArtId().getId()%>)</sub></h5>
+                            <p class="card-text">توضیحات: <%=auctionList.get(i).getArtId().getDescription().substring(0, Math.min(auctionList.get(i).getArtId().getDescription().length(), 15))%></p>
                             <%=AuctionT.compareTo("doing") == 0 ? "<a href=\"/user/auctiondescp?aucid=" + auctionList.get(i).getId() + "\" class=\"btn btn-primary\">شرکت در مزایده</a>" : ""%>
                         </div>
                     </div>

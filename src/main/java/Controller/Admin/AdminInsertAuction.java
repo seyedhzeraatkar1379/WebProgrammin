@@ -27,7 +27,7 @@ public class AdminInsertAuction
             String startDate = request.getParameter("startDate").replace('T', ' ');
             String endDate = request.getParameter("endDate").replace('T', ' ');
             String status = request.getParameter("status");
-            String limitPrice = request.getParameter("limitStatus")!=null?request.getParameter("limitStatus"):"0";
+            String limitPrice = request.getParameter("limitStatus")!=null?(request.getParameter("limitStatus") != "" ?request.getParameter("limitStatus") :"0"):"0";
             AuctionTable auction = new AuctionTable();
             try {
                 auction.setStartDate((new SimpleDateFormat("yyyy-MM-dd HH:mm")).parse(startDate));
