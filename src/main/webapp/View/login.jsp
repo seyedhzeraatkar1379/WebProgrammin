@@ -93,7 +93,7 @@
                 <%
                     if (request.getParameter("registerstatus") != null) {
                 %>
-                <div class="alert alert-danger" alert-dismissable" style="text-align: right; direction: rtl;">
+                <div class="alert <%=StatusQuery.values()[Integer.parseInt(request.getParameter("registerstatus"))]==StatusQuery.SUCCESS?"alert-success":"alert-danger"%>" alert-dismissable" style="text-align: right; direction: rtl;">
                     <%=(StatusQuery.values()[Integer.parseInt(request.getParameter("registerstatus"))].getSize())%>
                 </div>
                 <%}%>

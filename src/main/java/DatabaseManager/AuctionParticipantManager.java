@@ -148,7 +148,7 @@ public class AuctionParticipantManager {
             entityManagerFactory = Persistence.createEntityManagerFactory(PUN);
             entityManager = entityManagerFactory.createEntityManager();
 
-            Query query = entityManager.createQuery("select partic from AuctionParticipantTable partic where partic.auctionId.id = ?2 ORDER BY partic.perposedPrice DESC");
+            Query query = entityManager.createQuery("select partic from AuctionParticipantTable partic where partic.auctionId.id = ?2 ORDER BY CAST(partic.perposedPrice AS Float)  DESC");
             query.setParameter("2", auctionid);
 
             List<AuctionParticipantTable> list = query.getResultList();
@@ -173,10 +173,13 @@ public class AuctionParticipantManager {
             entityManagerFactory = Persistence.createEntityManagerFactory(PUN);
             entityManager = entityManagerFactory.createEntityManager();
 
-            Query query = entityManager.createQuery("select count(partic) from AuctionParticipantTable partic GROUP BY partic.userId");
+            Query query = entityManager.createQuery("select  COUNT(distinct PARTIC.userId.id) from AuctionParticipantTable partic");
 
-            long numberOfParticipants = (long) query.getSingleResult();
-            return numberOfParticipants;
+            List<Long> numberOfParticipants = query.getResultList();
+            if(numberOfParticipants.size()>0)
+                return numberOfParticipants.get(0);
+            else
+                return 0;
         } catch (Exception e) {
             e.printStackTrace();
             return 0;
@@ -198,7 +201,7 @@ public class AuctionParticipantManager {
             entityManagerFactory = Persistence.createEntityManagerFactory(PUN);
             entityManager = entityManagerFactory.createEntityManager();
 
-            Query query = entityManager.createQuery("select user from AuctionParticipantTable aucpart inner join AUCPART.auctionId auc inner join AUCPART.userId user where aucpart.auctionId = ?1 and auc.endDate < ?2 ORDER BY AUCPART.perposedPrice DESC");
+            Query query = entityManager.createQuery("select user from AuctionParticipantTable aucpart inner join AUCPART.auctionId auc inner join AUCPART.userId user where aucpart.auctionId = ?1 and auc.endDate < ?2 ORDER BY CAST(AUCPART.perposedPrice AS Float) DESC");
             query.setParameter(1, Integer.valueOf(auctionId));
             query.setParameter(2, currDate);
             List<UserTable> list = query.getResultList();

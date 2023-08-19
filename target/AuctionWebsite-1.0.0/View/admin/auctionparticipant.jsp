@@ -4,6 +4,7 @@
     Author     : seyedhossein
 --%>
 
+<%@page import="java.util.TimeZone"%>
 <%@page import="java.util.Date"%>
 <%@page import="java.util.List"%>
 <%@page import="DatabaseManager.AuctionManager"%>
@@ -24,7 +25,9 @@
         <link href="/View/assets/css/style.css" rel="stylesheet">
         <link href="/View/assets/css/main-style.css" rel="stylesheet">
         <%
+            TimeZone timezone = TimeZone.getTimeZone("Asia/Tehran");
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+            dateFormat.setTimeZone(timezone);
             if (request.getParameter("auctionid") == null) {
                 response.sendRedirect("/admin/auctionmanager");
                 return;

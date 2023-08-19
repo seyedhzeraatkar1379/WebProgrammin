@@ -4,6 +4,9 @@
     Author     : seyedhossein
 --%>
 
+<%@page import="java.util.TimeZone"%>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.util.Date"%>
 <%@page import="DatabaseManager.ContactUsManager"%>
 <%@page import="Model.ContactusTable"%>
 <%@page import="DatabaseManager.AuctionParticipantManager"%>
@@ -34,6 +37,10 @@
     <body>
         <%
             AdminTable adminInfo = ((AdminTable) request.getSession().getAttribute("admin"));
+            TimeZone timezone = TimeZone.getTimeZone("Asia/Tehran");
+            SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+            dateformat.setTimeZone(timezone);
+
         %>
         <!--  wrapper -->
         <div id="wrapper">
@@ -54,7 +61,7 @@
                     <!--quick info section -->
                     <div class="col-lg-3">
                         <div class="alert alert-danger text-center">
-                            <i class="fa fa-calendar fa-3x"></i>&nbsp;<b id="current_date"></b>تاریخ امروز
+                            <i class="fa fa-calendar fa-3x"></i>&nbsp;<b id="current_date"><%= dateformat.format(new Date()) %></b>تاریخ امروز
 
                         </div>
                     </div>
@@ -167,7 +174,7 @@
                 <%
                     ContactusTable contmodel = ContactUsManager.getContactUs();
                     boolean first = true;
-                    if(contmodel != null)
+                    if (contmodel != null)
                         first = false;
                 %>
                 <div class="row" dir="rtl" style="text-align: right;">
@@ -179,15 +186,15 @@
                         <form action="/admin/updatesiteinfo" method="post" >
                             <div class="form-group col-lg-4">
                                 <label>ایمیل</label>
-                                <input class="form-control" type="text" placeholder="ایمیل" name="email" value="<%=first==false?contmodel.getEmail():""%>">
+                                <input class="form-control" type="text" placeholder="ایمیل" name="email" value="<%=first == false ? contmodel.getEmail() : ""%>">
                             </div>
                             <div class="form-group col-lg-4">
                                 <label>تلفن</label>
-                                <input class="form-control" type="pasword" placeholder="تلفن"  name="telphone" value="<%=first==false?contmodel.getTellPhone():""%>">
+                                <input class="form-control" type="pasword" placeholder="تلفن"  name="telphone" value="<%=first == false ? contmodel.getTellPhone() : ""%>">
                             </div>
                             <div class="form-group col-lg-4">
                                 <label>آدرس</label>
-                                <input class="form-control" type="pasword" placeholder="آدرس"  name="address" value="<%=first==false?contmodel.getAddress():""%>">
+                                <input class="form-control" type="pasword" placeholder="آدرس"  name="address" value="<%=first == false ? contmodel.getAddress() : ""%>">
                             </div>
                             <div class="form-group col-lg-offset-10">
                                 <label></label>
@@ -212,11 +219,6 @@
             </div>
 
         </div>
-        <!-- end wrapper -->
-        <script>
-            var currDate = new Date();
-            document.getElementById("current_date").innerHTML = currDate.getFullYear() + "/" + currDate.getMonth() + "/" + currDate.getDate();
-        </script>
         <!-- Core Scripts - Include with every page -->
         <script src="/View/assets/plugins/jquery-1.10.2.js"></script>
         <script src="/View/assets/plugins/bootstrap/bootstrap.min.js"></script>
