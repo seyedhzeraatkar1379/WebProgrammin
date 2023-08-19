@@ -154,7 +154,7 @@
                         if (request.getParameter("status") != null) {
                             ParticipateStatus status = (ParticipateStatus.values()[Integer.parseInt(request.getParameter("status"))]);
                     %>
-                    <div class="alert <%=status == ParticipateStatus.SUCCESS_INSERT || status == ParticipateStatus.SUCCESS_UPDATE ? "alert-success" : "alert-danger"%>" alert-dismissable" style="text-align: right; direction: rtl;">
+                    <div class="alert <%=status == ParticipateStatus.SUCCESS_INSERT || status == ParticipateStatus.SUCCESS_UPDATE ? "alert-success" : "alert-danger"%> alert-dismissable" style="text-align: right; direction: rtl;">
                         <%=(ParticipateStatus.values()[Integer.parseInt(request.getParameter("status"))].getStatus())%>
                     </div>
                     <%}%>
